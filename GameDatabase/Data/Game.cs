@@ -24,6 +24,10 @@ namespace GameDatabase.Data
         public string Publisher { get; set; }
 
         [Required]
+        [MaxLength(30)]
+        public string Genre { get; set; }
+
+        [Required]
         public string Description { get; set; }
 
         [Required]

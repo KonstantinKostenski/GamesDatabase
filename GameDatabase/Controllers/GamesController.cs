@@ -28,6 +28,7 @@ namespace GameDatabase.Controllers
                     Name = m.Name,
                     Platform = m.Platform,
                     Publisher = m.Publisher,
+                    Genre = m.Genre,
                     Id = m.Id
                 }).ToListAsync();
 
@@ -42,6 +43,7 @@ namespace GameDatabase.Controllers
                     Name = m.Name,
                     Platform = m.Platform,
                     Publisher = m.Publisher,
+                    Genre = m.Genre,
                     Id = m.Id
                 }).ToListAsync();
 
@@ -58,6 +60,7 @@ namespace GameDatabase.Controllers
 
             var game = await _context.Games
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (game == null)
             {
                 return NotFound();
@@ -75,7 +78,7 @@ namespace GameDatabase.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CoverArtUrl,Developer,Publisher,Description, Platform")] Game game)
+        public async Task<IActionResult> Create([Bind("Id,Name,CoverArtUrl,Developer,Publisher,Description, Platform, Genre")] Game game)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +110,7 @@ namespace GameDatabase.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CoverArtUrl,Developer,Publisher,Description, Platform")] Game game)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CoverArtUrl,Developer,Publisher,Description, Platform, Genre")] Game game)
         {
             if (id != game.Id)
             {
