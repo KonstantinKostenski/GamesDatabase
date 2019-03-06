@@ -6,15 +6,40 @@
 
 <h1>Games</h1>
 
-<p class="btn btn-default">
-    <a asp-action="Create">Add Game</a>
-</p>
+<br />
 
-<br />  
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
 
-<a asp-action="Index" asp-route-platform="Playstation">Playstation</a>
-<a asp-action="Index" asp-route-platform="Xbox">Xbox</a>
-<a asp-action="Index" asp-route-platform="Nintendo">Nintendo</a>
+                <li>
+                    <a asp-action="Index" asp-route-platform="Playstation">Playstation</a>
+                </li>
+                <li>
+                    <a asp-action="Index" asp-route-platform="Xbox">Xbox</a>
+                </li>
+                <li>
+                    <a asp-action="Index" asp-route-platform="Nintendo">Nintendo</a>
+                </li>
+                <li>
+                    <a asp-action="Index" asp-route-platform="PC">PC</a>
+                </li>
+                <li>
+                    <a asp-action="Create">Add Game</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <br />
 

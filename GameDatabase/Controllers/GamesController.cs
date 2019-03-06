@@ -30,6 +30,7 @@ namespace GameDatabase.Controllers
                     Publisher = m.Publisher,
                     Id = m.Id
                 }).ToListAsync();
+
                 return View(model);
             }
             else
@@ -43,6 +44,7 @@ namespace GameDatabase.Controllers
                     Publisher = m.Publisher,
                     Id = m.Id
                 }).ToListAsync();
+
                 return View(model);
             }
         }
@@ -81,6 +83,7 @@ namespace GameDatabase.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(game);
         }
 
@@ -97,6 +100,7 @@ namespace GameDatabase.Controllers
             {
                 return NotFound();
             }
+
             return View(game);
         }
 
@@ -130,6 +134,7 @@ namespace GameDatabase.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             return View(game);
         }
 

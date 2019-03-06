@@ -1,7 +1,7 @@
 ﻿@model GameDatabase.Data.Game
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = @Model.Name;
 }
 
 <div>
@@ -16,6 +16,7 @@
                 <div align="left" class="jumbotron">
                     Developer: <p>@Model.Developer </p>
                     Publisher: <p>@Model.Publisher  </p>
+                    Platform: <p>@Model.Platform </p>
                     Description: <p>@Model.Description </p>
                 </div>
             </div>
