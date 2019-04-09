@@ -17,11 +17,11 @@ namespace GameDatabase.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string platform)
+        public async Task<IActionResult> Index(string platform, string genre)
         {
-            if (platform != null)
+            if (platform != null || genre != null)
             {
-                var model = await _context.Games.Where(p => p.Platform == platform).Select(m => new GameViewModel
+                var model = await _context.Games.Where(p => p.Platform == platform || p.Genre == genre).Select(m => new GameViewModel
                 {
                     Description = m.Description,
                     Developer = m.Developer,
@@ -58,7 +58,9 @@ namespace GameDatabase.Controllers
                 return NotFound();
             }
 
-            var game = await _context.Games
+            var game = await _context
+                .Games
+                .Include(g => g.Reviews)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (game == null)
@@ -160,6 +162,13 @@ namespace GameDatabase.Controllers
         }
 
         [Authorize]
+        [HttpGet]
+        public IActionResult Review(int? id)
+        {
+            return View();
+        }
+
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -169,6 +178,8 @@ namespace GameDatabase.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        
 
         private bool GameExists(int id)
         {

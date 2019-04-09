@@ -11,5 +11,7 @@ namespace GameDatabase.Data
         }
 
         public DbSet<Game> Games { get; set; }
+
+        public DbSet<Review> Reviews { get; set; }
     }
 }

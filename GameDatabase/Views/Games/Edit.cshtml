@@ -34,22 +34,29 @@
                 <span asp-validation-for="Publisher" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Genre" class="control-label"></label>
-                <input asp-for="Genre" class="form-control" />
-                <span asp-validation-for="Genre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label">Select Platform</label>
+                <label asp-for="Platform" class="control-label">Select Platform</label>
                 <select asp-for="Platform">
                     <option value="Playstation">Playstation</option>
                     <option value="Xbox">Xbox</option>
                     <option value="Nintendo">Nintendo</option>
                     <option value="PC">PC</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Genre" class="control-label">Select Genre</label>
+                <select asp-for="Genre">
+                    <option value="Action">Action</option>
+                    <option value="Action-Adventure">Action-Adventure</option>
+                    <option value="Shooter">Shooter</option>
+                    <option value="RPG">RPG</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="strategy">Strategy</option>
+                    <option value="Casual">Casual</option>
                 </select>
             </div>
             <div class="form-group">

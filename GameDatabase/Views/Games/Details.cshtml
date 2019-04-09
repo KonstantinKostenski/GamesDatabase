@@ -11,8 +11,8 @@
             <div class="col-md-6">
                 <h3>@Model.Name</h3>
                 <img position="center" src="@Model.CoverArtUrl" alt="Cover" width="275" height="400" />
-                <br/>
-                <hr/>  
+                <br />
+                <hr />
                 <div align="left" class="jumbotron">
                     Developer: <p>@Model.Developer </p>
                     Publisher: <p>@Model.Publisher  </p>
@@ -24,7 +24,25 @@
         </div>
     </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            @foreach (var review in Model.Reviews)
+            {
+                <h3>@review.Title</h3>
+                <br />
+                <hr />
+                <div align="left" class="jumbotron">
+                    <p>@review.Text</p>
+                </div>
+            }
+       </div>
+    </div>
 </div>
+
+ <div>
+     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+     <a asp-action="Review" asp-route-id="@Model.Id">Review Game</a> |
+     <a asp-action="Index">Back to List</a>
+ </div>
