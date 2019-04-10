@@ -161,12 +161,6 @@ namespace GameDatabase.Controllers
             return View(game);
         }
 
-        [Authorize]
-        [HttpGet]
-        public IActionResult Review(int? id)
-        {
-            return View();
-        }
 
         [Authorize]
         [HttpPost, ActionName("Delete")]

@@ -43,6 +43,6 @@
 
  <div>
      <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-     <a asp-action="Review" asp-route-id="@Model.Id">Review Game</a> |
+     <a asp-controller="Reviews"  asp-action="Create" asp-route-id="@Model.Id">Review Game</a> |
      <a asp-action="Index">Back to List</a>
  </div>

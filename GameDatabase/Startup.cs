@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using GameDatabase.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using GameDatabase.Services;
 
 namespace GameDatabase
 {
@@ -32,13 +34,17 @@ namespace GameDatabase
             services.AddDbContext<GameDatabaseDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => {
+
+            services.AddTransient<Services.IEmailSender, EmailSender>();
+
+            services.AddIdentity<User, IdentityRole>(options => {
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredUniqueChars = 4;
             })
-                .AddEntityFrameworkStores<GameDatabaseDbContext>();
+                .AddEntityFrameworkStores<GameDatabaseDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

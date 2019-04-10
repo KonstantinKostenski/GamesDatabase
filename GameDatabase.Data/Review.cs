@@ -10,6 +10,7 @@ namespace GameDatabase.Data
         [Key]
         public int Id { get; set; }
 
+        public string AuthorId { get; set; }
         [Required]
         public User Author { get; set; }
 
