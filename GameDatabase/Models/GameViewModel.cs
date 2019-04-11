@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameDatabase.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,10 @@ namespace GameDatabase.Models
     public class GameViewModel
     {
         public string Name { get; set; }
+
+        public string CoverArtUrl { get; set; }
+
+        public string AuthorName { get; set; }
 
         public string Developer { get; set; }
 
@@ -19,6 +24,8 @@ namespace GameDatabase.Models
 
         public string Platform { get; set; }
 
-        public object Id { get; set; }
+        public int Id { get; set; }
+
+        public ICollection<Review> Reviews { get; set; }
     }
 }

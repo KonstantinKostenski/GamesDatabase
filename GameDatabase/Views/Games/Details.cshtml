@@ -1,48 +1,63 @@
-﻿@model GameDatabase.Data.Game
+﻿@model GameDatabase.Models.GameViewModel
 
 @{
     ViewData["Title"] = @Model.Name;
 }
 
-<div>
-    <hr />
+
+<section id="about" class="section-padding">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <h3>@Model.Name</h3>
-                <img position="center" src="@Model.CoverArtUrl" alt="Cover" width="275" height="400" />
-                <br />
-                <hr />
-                <div align="left" class="jumbotron">
-                    Developer: <p>@Model.Developer </p>
-                    Publisher: <p>@Model.Publisher  </p>
-                    Genre: <p>@Model.Genre  </p>
-                    Platform: <p>@Model.Platform </p>
-                    Description: <p>@Model.Description </p>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="img-thumb wow fadeInLeft">
+                    <img id="cover" style="margin-top: 40px; margin-right:0px" class="img-fluid" src="@Model.CoverArtUrl" alt="Cover" width="350" height="475">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="profile-wrapper wow fadeInRight">
+                    <h1>@Model.Name</h1>
+                    <div class="about-profile">
+                        <div align="left" class="jumbotron">
+                            Developer: <p>@Model.Developer </p>
+                            Publisher: <p>@Model.Publisher  </p>
+                            Genre: <p>@Model.Genre  </p>
+                            Platform: <p>@Model.Platform </p>
+                            Description: <p>@Model.Description </p>
+                        </div>
+                    </div>
+                    <a class="btn bg-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                    <a class="btn bg-primary" asp-action="Index">Back to List</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<hr />  
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 jumbotron">
+            <hr />
+            <h1>Reviews</h1>
+            <hr />
             @foreach (var review in Model.Reviews)
             {
                 <h3>@review.Title</h3>
-                <br />
+                <h5>Author: @review.Author.FullName</h5>
                 <hr />
                 <div align="left" class="jumbotron">
                     <p>@review.Text</p>
                 </div>
+                @if (User.Identity.Name == review.Author.UserName)
+                {
+                    <a class="btn bg-primary" asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id">Delete Review</a>
+                    <a class="btn bg-primary" asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id">Edit Review</a>
+                }
+                <hr />
             }
-       </div>
+            <a class="btn bg-primary" asp-controller="Reviews" asp-action="Create" asp-route-id="@Model.Id">Review Game</a> |
+            <hr />
+        </div>
     </div>
 </div>
-
- <div>
-     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-     <a asp-controller="Reviews"  asp-action="Create" asp-route-id="@Model.Id">Review Game</a> |
-     <a asp-action="Index">Back to List</a>
- </div>

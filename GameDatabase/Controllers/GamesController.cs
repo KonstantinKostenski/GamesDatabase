@@ -58,9 +58,23 @@ namespace GameDatabase.Controllers
                 return NotFound();
             }
 
+            var reviews = this._context.Reviews.Include(r => r.Author).Where(r => r.GameId == id).ToArray();
+
             var game = await _context
                 .Games
                 .Include(g => g.Reviews)
+                .Select(g => new GameViewModel
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                    CoverArtUrl = g.CoverArtUrl,
+                    Platform = g.Platform,
+                    Publisher = g.Publisher,
+                    Description = g.Description,
+                    Developer = g.Developer,
+                    Genre = g.Genre,
+                    Reviews = reviews
+                })
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (game == null)

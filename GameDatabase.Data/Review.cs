@@ -5,10 +5,8 @@ using System.Text;
 
 namespace GameDatabase.Data
 {
-    public class Review
+    public class Review : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
 
         public string AuthorId { get; set; }
         [Required]

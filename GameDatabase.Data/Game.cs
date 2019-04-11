@@ -4,15 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GameDatabase.Data
 {
-    public class Game
+    public class Game : BaseEntity
     {
         public Game()
         {
             this.Reviews = new HashSet<Review>();
         }
-
-        [Key]
-        public int Id { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 3)]
