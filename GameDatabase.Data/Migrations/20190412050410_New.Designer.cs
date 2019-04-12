@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameDatabase.Data.Migrations
 {
     [DbContext(typeof(GameDatabaseDbContext))]
-    [Migration("20190411124915_UserFullName")]
-    partial class UserFullName
+    [Migration("20190412050410_New")]
+    partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

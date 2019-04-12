@@ -17,11 +17,16 @@ namespace GameDatabase.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string platform, string genre)
+        public async Task<IActionResult> Index(string platform, string genre, int? pageNumber)
         {
             if (platform != null || genre != null)
             {
-                var model = await _context.Games.Where(p => p.Platform == platform || p.Genre == genre).Select(m => new GameViewModel
+                pageNumber = 1;
+            }
+
+            if (platform != null || genre != null)
+            {
+                var model =  _context.Games.Where(p => p.Platform == platform || p.Genre == genre).Select(m => new GameViewModel
                 {
                     Description = m.Description,
                     Developer = m.Developer,
@@ -30,13 +35,14 @@ namespace GameDatabase.Controllers
                     Publisher = m.Publisher,
                     Genre = m.Genre,
                     Id = m.Id
-                }).ToListAsync();
+                });
 
-                return View(model);
+                int pageSize = 10;
+                return View(await PaginatedList<GameViewModel>.CreateAsync(model, pageNumber ?? 1, pageSize));
             }
             else
             {
-                var model = await _context.Games.Select(m => new GameViewModel
+                var model = _context.Games.Select(m => new GameViewModel
                 {
                     Description = m.Description,
                     Developer = m.Developer,
@@ -45,9 +51,10 @@ namespace GameDatabase.Controllers
                     Publisher = m.Publisher,
                     Genre = m.Genre,
                     Id = m.Id
-                }).ToListAsync();
+                });
 
-                return View(model);
+                int pageSize = 10;
+                return View(await PaginatedList<GameViewModel>.CreateAsync(model, pageNumber ?? 1, pageSize));
             }
         }
 
@@ -94,13 +101,13 @@ namespace GameDatabase.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CoverArtUrl,Developer,Publisher,Description, Platform, Genre")] Game game)
+        public async Task<IActionResult> Create([Bind("Id, Name, CoverArtUrl,Developer,Publisher,Description, Platform, Genre")] Game game)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(game);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(GamesController.Index), new { pageNumber = 1});
             }
 
             return View(game);
