@@ -1,4 +1,4 @@
-﻿@model GameDatabase.Data.Game
+﻿@model GameDatabase.Models.EditGameModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -22,16 +22,6 @@
                 <label asp-for="CoverArtUrl" class="control-label"></label>
                 <input asp-for="CoverArtUrl" class="form-control" />
                 <span asp-validation-for="CoverArtUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Developer" class="control-label"></label>
-                <input asp-for="Developer" class="form-control" />
-                <span asp-validation-for="Developer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Publisher" class="control-label"></label>
-                <input asp-for="Publisher" class="form-control" />
-                <span asp-validation-for="Publisher" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>

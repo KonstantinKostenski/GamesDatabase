@@ -26,13 +26,19 @@ namespace GameDatabase.Controllers
 
             if (platform != null || genre != null)
             {
-                var model =  _context.Games.Where(p => p.Platform == platform || p.Genre == genre).Select(m => new GameViewModel
+                var model =  _context.Games
+                    .Include(g => g.Developer)
+                    .Include(g => g.Publisher)
+                    .Where(p => p.Platform == platform || p.Genre == genre)
+                    .Select(m => new GameViewModel
                 {
                     Description = m.Description,
-                    Developer = m.Developer,
+                    DeveloperId = m.DeveloperId,
+                    Developer = m.Developer.Name,
                     Name = m.Name,
                     Platform = m.Platform,
-                    Publisher = m.Publisher,
+                    PublisherId = m.PublisherId,
+                    Publisher = m.Publisher.Name,
                     Genre = m.Genre,
                     Id = m.Id
                 });
@@ -42,13 +48,18 @@ namespace GameDatabase.Controllers
             }
             else
             {
-                var model = _context.Games.Select(m => new GameViewModel
+                var model = _context.Games
+                    .Include(g => g.Developer)
+                    .Include(g => g.Publisher)
+                    .Select(m => new GameViewModel
                 {
                     Description = m.Description,
-                    Developer = m.Developer,
+                    DeveloperId = m.DeveloperId,
+                    Developer = m.Developer.Name,
                     Name = m.Name,
                     Platform = m.Platform,
-                    Publisher = m.Publisher,
+                    PublisherId = m.PublisherId,
+                    Publisher = m.Publisher.Name,
                     Genre = m.Genre,
                     Id = m.Id
                 });
@@ -69,6 +80,8 @@ namespace GameDatabase.Controllers
 
             var game = await _context
                 .Games
+                .Include(g => g.Publisher)
+                .Include(g => g.Developer)
                 .Include(g => g.Reviews)
                 .Select(g => new GameViewModel
                 {
@@ -76,9 +89,11 @@ namespace GameDatabase.Controllers
                     Name = g.Name,
                     CoverArtUrl = g.CoverArtUrl,
                     Platform = g.Platform,
-                    Publisher = g.Publisher,
+                    PublisherId = g.PublisherId,
+                    Publisher = g.Publisher.Name,
                     Description = g.Description,
-                    Developer = g.Developer,
+                    DeveloperId = g.DeveloperId,
+                    Developer = g.Developer.Name,
                     Genre = g.Genre,
                     Reviews = reviews
                 })
@@ -101,11 +116,34 @@ namespace GameDatabase.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id, Name, CoverArtUrl,Developer,Publisher,Description, Platform, Genre")] Game game)
+        public async Task<IActionResult> Create([Bind("Id, Name, CoverArtUrl,Developer,Publisher,Description, Platform, Genre")] CreateGameModel game)
         {
+           
+
             if (ModelState.IsValid)
             {
-                _context.Add(game);
+                var publisher = _context
+               .Publishers
+               .FirstOrDefault(p => p.Name == game.Publisher);
+
+                var developer = _context
+                    .Developers
+                    .FirstOrDefault(d => d.Name == game.Developer);
+
+                var newGame = new Game()
+                {
+                    CoverArtUrl = game.CoverArtUrl,
+                    Name = game.Name,
+                    Developer = developer,
+                    Publisher = publisher,
+                    Genre = game.Genre,
+                    Platform = game.Platform,
+                    Description = game.Description
+
+                };
+
+
+                _context.Add(newGame);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(GamesController.Index), new { pageNumber = 1});
             }
@@ -122,6 +160,7 @@ namespace GameDatabase.Controllers
             }
 
             var game = await _context.Games.FindAsync(id);
+
             if (game == null)
             {
                 return NotFound();
@@ -133,7 +172,7 @@ namespace GameDatabase.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CoverArtUrl,Developer,Publisher,Description, Platform, Genre")] Game game)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CoverArtUrl,Developer,Publisher,Description, Platform, Genre")] EditGameModel game)
         {
             if (id != game.Id)
             {
@@ -142,9 +181,20 @@ namespace GameDatabase.Controllers
 
             if (ModelState.IsValid)
             {
+
+                var gameFromDb = _context
+                    .Games
+                    .FirstOrDefault(g => g.Id == game.Id);
+
+                gameFromDb.Name = game.Name;
+                gameFromDb.Platform = game.Platform;
+                gameFromDb.CoverArtUrl = game.CoverArtUrl;
+                gameFromDb.Genre = game.Genre;
+                gameFromDb.Description = game.Description;
+
                 try
                 {
-                    _context.Update(game);
+                    _context.Update(gameFromDb);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -174,6 +224,7 @@ namespace GameDatabase.Controllers
 
             var game = await _context.Games
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (game == null)
             {
                 return NotFound();

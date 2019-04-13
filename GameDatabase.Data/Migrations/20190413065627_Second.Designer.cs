@@ -4,14 +4,16 @@ using GameDatabase.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GameDatabase.Data.Migrations
 {
     [DbContext(typeof(GameDatabaseDbContext))]
-    partial class GameDatabaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190413065627_Second")]
+    partial class Second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +34,6 @@ namespace GameDatabase.Data.Migrations
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasMaxLength(30);
-
-                    b.Property<string>("LogoUrl")
-                        .IsRequired();
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -94,9 +93,6 @@ namespace GameDatabase.Data.Migrations
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasMaxLength(30);
-
-                    b.Property<string>("LogoUrl")
-                        .IsRequired();
 
                     b.Property<string>("Name")
                         .IsRequired()

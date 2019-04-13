@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GameDatabase.Data.Migrations
 {
-    public partial class New : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,22 +50,33 @@ namespace GameDatabase.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Games",
+                name: "Developer",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
-                    CoverArtUrl = table.Column<string>(nullable: false),
-                    Developer = table.Column<string>(maxLength: 50, nullable: false),
-                    Publisher = table.Column<string>(maxLength: 50, nullable: false),
-                    Genre = table.Column<string>(maxLength: 50, nullable: false),
-                    Description = table.Column<string>(maxLength: 250, nullable: false),
-                    Platform = table.Column<string>(nullable: false)
+                    Location = table.Column<string>(maxLength: 30, nullable: false),
+                    Description = table.Column<string>(maxLength: 250, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Games", x => x.Id);
+                    table.PrimaryKey("PK_Developer", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Publisher",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Location = table.Column<string>(maxLength: 30, nullable: false),
+                    Description = table.Column<string>(maxLength: 250, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Publisher", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,6 +186,37 @@ namespace GameDatabase.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Games",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    CoverArtUrl = table.Column<string>(nullable: false),
+                    DeveloperId = table.Column<int>(nullable: false),
+                    PublisherId = table.Column<int>(nullable: false),
+                    Genre = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(maxLength: 250, nullable: false),
+                    Platform = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Games", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Games_Developer_DeveloperId",
+                        column: x => x.DeveloperId,
+                        principalTable: "Developer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Games_Publisher_PublisherId",
+                        column: x => x.PublisherId,
+                        principalTable: "Publisher",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reviews",
                 columns: table => new
                 {
@@ -242,6 +284,16 @@ namespace GameDatabase.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Games_DeveloperId",
+                table: "Games",
+                column: "DeveloperId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Games_PublisherId",
+                table: "Games",
+                column: "PublisherId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reviews_AuthorId",
                 table: "Reviews",
                 column: "AuthorId");
@@ -280,6 +332,12 @@ namespace GameDatabase.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Games");
+
+            migrationBuilder.DropTable(
+                name: "Developer");
+
+            migrationBuilder.DropTable(
+                name: "Publisher");
         }
     }
 }

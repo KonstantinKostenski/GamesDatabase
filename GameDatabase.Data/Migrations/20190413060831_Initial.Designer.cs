@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameDatabase.Data.Migrations
 {
     [DbContext(typeof(GameDatabaseDbContext))]
-    [Migration("20190412050410_New")]
-    partial class New
+    [Migration("20190413060831_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,29 @@ namespace GameDatabase.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("GameDatabase.Data.Developer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(250);
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Developer");
+                });
 
             modelBuilder.Entity("GameDatabase.Data.Game", b =>
                 {
@@ -34,13 +57,10 @@ namespace GameDatabase.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
-                    b.Property<string>("Developer")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<int>("DeveloperId");
 
                     b.Property<string>("Genre")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                        .IsRequired();
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -49,13 +69,38 @@ namespace GameDatabase.Data.Migrations
                     b.Property<string>("Platform")
                         .IsRequired();
 
-                    b.Property<string>("Publisher")
+                    b.Property<int>("PublisherId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeveloperId");
+
+                    b.HasIndex("PublisherId");
+
+                    b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("GameDatabase.Data.Publisher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(250);
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Games");
+                    b.ToTable("Publisher");
                 });
 
             modelBuilder.Entity("GameDatabase.Data.Review", b =>
@@ -263,6 +308,19 @@ namespace GameDatabase.Data.Migrations
                     b.ToTable("User");
 
                     b.HasDiscriminator().HasValue("User");
+                });
+
+            modelBuilder.Entity("GameDatabase.Data.Game", b =>
+                {
+                    b.HasOne("GameDatabase.Data.Developer", "Developer")
+                        .WithMany("GamesDeveloped")
+                        .HasForeignKey("DeveloperId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GameDatabase.Data.Publisher", "Publisher")
+                        .WithMany("GamesPublished")
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GameDatabase.Data.Review", b =>

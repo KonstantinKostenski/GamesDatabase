@@ -18,13 +18,13 @@ namespace GameDatabase.Data
         [Required]
         public string CoverArtUrl { get; set; }
 
+        public int DeveloperId { get; set; }
         [Required]
-        [StringLength(50, MinimumLength = 3)]
-        public string Developer { get; set; }
+        public Developer Developer { get; set; }
 
+        public int PublisherId { get; set; }
         [Required]
-        [StringLength(50, MinimumLength = 3)]
-        public string Publisher { get; set; }
+        public Publisher Publisher { get; set; }
 
         [Required]
         public string Genre { get; set; }
