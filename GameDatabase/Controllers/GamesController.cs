@@ -123,12 +123,38 @@ namespace GameDatabase.Controllers
             if (ModelState.IsValid)
             {
                 var publisher = _context
-               .Publishers
-               .FirstOrDefault(p => p.Name == game.Publisher);
+                    .Publishers
+                    .FirstOrDefault(p => p.Name == game.Publisher);
+
+                if (publisher == null)
+                {
+                    publisher = new Publisher()
+                    {
+                        Name = game.Publisher,
+                        Description = "No desription yet.",
+                        Location = "No location yet.",
+                        LogoUrl = "No logo yet."
+                    };
+
+                    _context.Add(publisher);
+                }
 
                 var developer = _context
                     .Developers
                     .FirstOrDefault(d => d.Name == game.Developer);
+
+                if (developer == null)
+                {
+                    developer = new Developer()
+                    {
+                        Name = game.Publisher,
+                        Description = "No desription yet.",
+                        Location = "No location yet.",
+                        LogoUrl = "No logo yet."
+                    };
+
+                    _context.Add(developer);
+                }
 
                 var newGame = new Game()
                 {

@@ -19,9 +19,12 @@ namespace GameDatabase.Controllers
         }
 
         // GET: Publishers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
-            return View(await _context.Publishers.ToListAsync());
+            var model = _context.Publishers;
+
+            int pageSize = 10;
+            return View(await PaginatedList<Developer>.CreateAsync(model, pageNumber ?? 1, pageSize));
         }
 
         // GET: Publishers/Details/5
