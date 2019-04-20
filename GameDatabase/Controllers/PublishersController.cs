@@ -24,7 +24,7 @@ namespace GameDatabase.Controllers
             var model = _context.Publishers;
 
             int pageSize = 10;
-            return View(await PaginatedList<Developer>.CreateAsync(model, pageNumber ?? 1, pageSize));
+            return View(await PaginatedList<Publisher>.CreateAsync(model, pageNumber ?? 1, pageSize));
         }
 
         // GET: Publishers/Details/5

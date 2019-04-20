@@ -13,6 +13,7 @@ namespace GameDatabase.Data
         }
 
         [Required]
+        [Display(Name = "Logo")]
         public string LogoUrl { get; set; }
 
         [Required]
