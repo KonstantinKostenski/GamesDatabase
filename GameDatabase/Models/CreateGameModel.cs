@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,10 @@ namespace GameDatabase.Models
         public string Publisher { get; set; }
 
         public string Genre { get; set; }
+
+        public int GenreId { get; set; }
+
+        public IEnumerable<SelectListItem> Genres {get ;set;}
 
         public string Description { get; set; }
 

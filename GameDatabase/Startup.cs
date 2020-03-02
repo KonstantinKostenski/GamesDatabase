@@ -8,6 +8,9 @@ using GameDatabase.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GameDatabase.Services;
+using GamesDatabaseBusinessLogic;
+using GamesDatabaseBusinessLogic.Interfaces;
+using GameDatabase.Interfaces;
 
 namespace GameDatabase
 {
@@ -34,7 +37,7 @@ namespace GameDatabase
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<Services.IEmailSender, EmailSender>();
+            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddIdentity<User, IdentityRole>(options => {
                 options.Password.RequireLowercase = false;
@@ -46,6 +49,12 @@ namespace GameDatabase
                 .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddScoped<IBusinessLogicGames, BusinessLogicGames>();
+            services.AddScoped<IGamesService, GamesService>();
+            services.AddScoped<CommonService>();
+            services.AddScoped<CommonBusinessLogic>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

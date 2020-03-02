@@ -1,103 +1,58 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using GameDatabase.Data;
 using Microsoft.AspNetCore.Authorization;
 using GameDatabase.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using GameDatabase.Interfaces;
+using GameDatabase.Services;
 
 namespace GameDatabase.Controllers
 {
     public class GamesController : Controller
     {
-        private readonly GameDatabaseDbContext _context;
+        private IGamesService _gamesService;
+        private CommonService _commonService;
 
-        public GamesController(GameDatabaseDbContext context)
+        public GamesController(IGamesService gamesService, CommonService commonService)
         {
-            _context = context;
+            this._gamesService = gamesService;
+            this._commonService = commonService;
         }
 
-        public async Task<IActionResult> Index(string platform, string genre, int? pageNumber)
+        public IActionResult Index(string platform, string genreId, int? pageNumber)
         {
-            if (platform != null || genre != null)
+            var genres = this._commonService.GetAllGenres();
+            List<SelectListItem> ddlItems = new List<SelectListItem>();
+            foreach (var genreItem in genres)
             {
-                pageNumber = 1;
+                SelectListItem item = new SelectListItem(genreItem.Name, genreItem.Key.ToString());
+                ddlItems.Add(item);
             }
 
-            if (platform != null || genre != null)
-            {
-                var model =  _context.Games
-                    .Include(g => g.Developer)
-                    .Include(g => g.Publisher)
-                    .Where(p => p.Platform == platform || p.Genre == genre)
-                    .Select(m => new GameViewModel
-                {
-                    Description = m.Description,
-                    DeveloperId = m.DeveloperId,
-                    Developer = m.Developer.Name,
-                    Name = m.Name,
-                    Platform = m.Platform,
-                    PublisherId = m.PublisherId,
-                    Publisher = m.Publisher.Name,
-                    Genre = m.Genre,
-                    Id = m.Id
-                });
+            int pageSize = 10;
 
-                int pageSize = 10;
-                return View(await PaginatedList<GameViewModel>.CreateAsync(model, pageNumber ?? 1, pageSize));
+            IEnumerable<GameViewModel> model;
+
+            if (genreId == null)
+            {
+                model = this._gamesService.GetAllGames(pageNumber, pageSize);
             }
             else
             {
-                var model = _context.Games
-                    .Include(g => g.Developer)
-                    .Include(g => g.Publisher)
-                    .Select(m => new GameViewModel
-                {
-                    Description = m.Description,
-                    DeveloperId = m.DeveloperId,
-                    Developer = m.Developer.Name,
-                    Name = m.Name,
-                    Platform = m.Platform,
-                    PublisherId = m.PublisherId,
-                    Publisher = m.Publisher.Name,
-                    Genre = m.Genre,
-                    Id = m.Id
-                });
-
-                int pageSize = 10;
-                return View(await PaginatedList<GameViewModel>.CreateAsync(model, pageNumber ?? 1, pageSize));
+                model = this._gamesService.GetAllGamesByGenre(pageNumber, pageSize, int.Parse(genreId));
             }
+            return View(PaginatedList<GameViewModel>.Create(model, pageNumber ?? 1, pageSize, ddlItems));
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
 
-            var reviews = this._context.Reviews.Include(r => r.Author).Where(r => r.GameId == id).ToArray();
-
-            var game = await _context
-                .Games
-                .Include(g => g.Publisher)
-                .Include(g => g.Developer)
-                .Include(g => g.Reviews)
-                .Select(g => new GameViewModel
-                {
-                    Id = g.Id,
-                    Name = g.Name,
-                    CoverArtUrl = g.CoverArtUrl,
-                    Platform = g.Platform,
-                    PublisherId = g.PublisherId,
-                    Publisher = g.Publisher.Name,
-                    Description = g.Description,
-                    DeveloperId = g.DeveloperId,
-                    Developer = g.Developer.Name,
-                    Genre = g.Genre,
-                    Reviews = reviews
-                })
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var game = await _gamesService.GetGameById(id);
 
             if (game == null)
             {
@@ -118,59 +73,57 @@ namespace GameDatabase.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id, Name, CoverArtUrl,Developer,Publisher,Description, Platform, Genre")] CreateGameModel game)
         {
-           
-
             if (ModelState.IsValid)
             {
-                var publisher = _context
-                    .Publishers
-                    .FirstOrDefault(p => p.Name == game.Publisher);
+                //var publisher = _context
+                //    .Publishers
+                //    .FirstOrDefault(p => p.Name == game.Publisher);
 
-                if (publisher == null)
-                {
-                    publisher = new Publisher()
-                    {
-                        Name = game.Publisher,
-                        Description = "No desription yet.",
-                        Location = "No location yet.",
-                        LogoUrl = "No logo yet."
-                    };
+                //if (publisher == null)
+                //{
+                //    publisher = new Publisher()
+                //    {
+                //        Name = game.Publisher,
+                //        Description = "No desription yet.",
+                //        Location = "No location yet.",
+                //        LogoUrl = "No logo yet."
+                //    };
 
-                    _context.Add(publisher);
-                }
+                //    _context.Add(publisher);
+                //}
 
-                var developer = _context
-                    .Developers
-                    .FirstOrDefault(d => d.Name == game.Developer);
+                //var developer = _context
+                //    .Developers
+                //    .FirstOrDefault(d => d.Name == game.Developer);
 
-                if (developer == null)
-                {
-                    developer = new Developer()
-                    {
-                        Name = game.Publisher,
-                        Description = "No desription yet.",
-                        Location = "No location yet.",
-                        LogoUrl = "No logo yet."
-                    };
+                //if (developer == null)
+                //{
+                //    developer = new Developer()
+                //    {
+                //        Name = game.Publisher,
+                //        Description = "No desription yet.",
+                //        Location = "No location yet.",
+                //        LogoUrl = "No logo yet."
+                //    };
 
-                    _context.Add(developer);
-                }
+                //    _context.Add(developer);
+                //}
 
-                var newGame = new Game()
-                {
-                    CoverArtUrl = game.CoverArtUrl,
-                    Name = game.Name,
-                    Developer = developer,
-                    Publisher = publisher,
-                    Genre = game.Genre,
-                    Platform = game.Platform,
-                    Description = game.Description
+                //var newGame = new Game()
+                //{
+                //    CoverArtUrl = game.CoverArtUrl,
+                //    Name = game.Name,
+                //    Developer = developer,
+                //    Publisher = publisher,
+                //    Genre = game.Genre,
+                //    Platform = game.Platform,
+                //    Description = game.Description
 
-                };
+                //};
 
 
-                _context.Add(newGame);
-                await _context.SaveChangesAsync();
+                //_context.Add(newGame);
+                //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(GamesController.Index), new { pageNumber = 1});
             }
 
@@ -178,14 +131,14 @@ namespace GameDatabase.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
 
-            var game = await _context.Games.FindAsync(id);
+            var game = _gamesService.GetGameById(id);
 
             if (game == null)
             {
@@ -198,7 +151,7 @@ namespace GameDatabase.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CoverArtUrl,Developer,Publisher,Description, Platform, Genre")] EditGameModel game)
+        public IActionResult Edit(int id, [Bind("Id,Name,CoverArtUrl,Developer,Publisher,Description, Platform, GenreId")] EditGameModel game)
         {
             if (id != game.Id)
             {
@@ -207,49 +160,22 @@ namespace GameDatabase.Controllers
 
             if (ModelState.IsValid)
             {
+                _gamesService.UpdateGameById(id, game);
 
-                var gameFromDb = _context
-                    .Games
-                    .FirstOrDefault(g => g.Id == game.Id);
-
-                gameFromDb.Name = game.Name;
-                gameFromDb.Platform = game.Platform;
-                gameFromDb.CoverArtUrl = game.CoverArtUrl;
-                gameFromDb.Genre = game.Genre;
-                gameFromDb.Description = game.Description;
-
-                try
-                {
-                    _context.Update(gameFromDb);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!GameExists(game.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             }
 
             return View(game);
         }
 
         [Authorize]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
 
-            var game = await _context.Games
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var game = await _gamesService.GetGameById(id);
 
             if (game == null)
             {
@@ -259,23 +185,19 @@ namespace GameDatabase.Controllers
             return View(game);
         }
 
-
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var game = await _context.Games.FindAsync(id);
-            _context.Games.Remove(game);
-            await _context.SaveChangesAsync();
+            _gamesService.DeleteGameById(id);
             return RedirectToAction(nameof(Index));
         }
 
-        
-
         private bool GameExists(int id)
         {
-            return _context.Games.Any(e => e.Id == id);
+            //return _context.Games.Any(e => e.Id == id);
+            return false;
         }
     }
 }

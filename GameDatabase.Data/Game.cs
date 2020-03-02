@@ -26,6 +26,7 @@ namespace GameDatabase.Data
         [Required]
         public Publisher Publisher { get; set; }
 
+        public decimal GenreId { get; set; }
         [Required]
         public string Genre { get; set; }
 

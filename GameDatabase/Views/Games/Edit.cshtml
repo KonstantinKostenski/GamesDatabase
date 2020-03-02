@@ -38,15 +38,12 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Genre" class="control-label">Select Genre</label>
-                <select asp-for="Genre">
-                    <option value="Action">Action</option>
-                    <option value="Action-Adventure">Action-Adventure</option>
-                    <option value="Shooter">Shooter</option>
-                    <option value="RPG">RPG</option>
-                    <option value="Adventure">Adventure</option>
-                    <option value="strategy">Strategy</option>
-                    <option value="Casual">Casual</option>
+                <label asp-for="GenreId" class="control-label">Select Genre</label>
+                <select asp-for="GenreId" id="genreId" name="genreId">
+                    @foreach (var item in Model.Genres)
+                    {
+                        <option value="@item.Value">@item.Text</option>//if the value is same as text
+                    }
                 </select>
             </div>
             <div class="form-group">

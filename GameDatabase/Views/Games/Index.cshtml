@@ -8,73 +8,17 @@
 <a asp-action="Create">Add Game</a>
 <hr />
 
-<nav class="navbar navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-
-                <li>
-                    <a asp-action="Index" asp-route-platform="Playstation">Playstation</a>
-                </li>
-                <li>
-                    <a asp-action="Index" asp-route-platform="Xbox">Xbox</a>
-                </li>
-                <li>
-                    <a asp-action="Index" asp-route-platform="Nintendo">Nintendo</a>
-                </li>
-                <li>
-                    <a asp-action="Index" asp-route-platform="PC">PC</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<nav class="navbar navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-
-                <li>
-                    <a asp-action="Index" asp-route-genre="Action">Action</a>
-                </li>
-                <li>
-                    <a asp-action="Index" asp-route-genre="Action-Adventure">Action-Adventure</a>
-                </li>
-                <li>
-                    <a asp-action="Index" asp-route-genre="RPG">RPG</a>
-                </li>
-                <li>
-                    <a asp-action="Index" asp-route-genre="Shooter">Shooter</a>
-                </li>
-                <li>
-                    <a asp-action="Index" asp-route-genre="Adventure">Adventure</a>
-                </li>
-                <li>
-                    <a asp-action="Index" asp-route-genre="Strategy">Strategy</a>
-                </li>
-                <li>
-                    <a asp-action="Index" asp-route-genre="Casual">Casual</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+<nav>
+    @using (Html.BeginForm("Index", "Games", FormMethod.Post))
+    {
+        <select id="genreId" name="genreId">
+            @foreach (var item in Model.genres)
+            {
+                <option value="@item.Value">@item.Text</option>//if the value is same as text
+            }
+        </select>
+        <input type="submit" value="Filter" />
+    }
 </nav>
 
 <br />
