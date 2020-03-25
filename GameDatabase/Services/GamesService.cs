@@ -12,10 +12,13 @@ namespace GameDatabase.Services
     public class GamesService : IGamesService
     {
         private IBusinessLogicGames _businessLogicGames;
+        private CommonService _commonService;
 
-        public GamesService(IBusinessLogicGames businessLogicGames)
+
+        public GamesService(IBusinessLogicGames businessLogicGames, CommonService commonService)
         {
             _businessLogicGames = businessLogicGames;
+            _commonService = commonService;
         }
 
         public IEnumerable<GameViewModel> GetAllGames(int? pageNumber, int pageSize)
@@ -66,12 +69,14 @@ namespace GameDatabase.Services
         {
             var game = await _businessLogicGames.GetGameAndReviewsById(id);
             List<ReviewViewModel> reviewViewModels = new List<ReviewViewModel>();
+
             foreach (var review in game.Reviews)
             {
                 reviewViewModels.Add(new ReviewViewModel() {Id = review.Id, Author = review.Author, Text = review.Text,
                     GameId = review.GameId, AuthorId = review.AuthorId, Title = review.Title });
             }
-            var model = new GameViewModel() { Genre = game.Genre, CoverArtUrl = game.CoverArtUrl, Description = game.Description,
+
+            var model = new GameViewModel() { Genre = game.Genre, GenreId = game.GenreId, CoverArtUrl = game.CoverArtUrl, Description = game.Description,
                 Id = game.Id, Platform = game.Platform, Name = game.Name,
                 Developer = game.Developer.Name, Publisher = game.Publisher.Name, Reviews = reviewViewModels };
 
@@ -85,7 +90,7 @@ namespace GameDatabase.Services
 
         public void UpdateGameById(int id, EditGameModel model)
         {
-             Game game = new Game() { Name = model.Name, CoverArtUrl = model.CoverArtUrl, Description = model.Description, Platform = model.Platform, GenreId = model.GenreId};
+            Game game = new Game() { Name = model.Name, CoverArtUrl = model.CoverArtUrl, Description = model.Description, Platform = model.Platform, GenreId = model.GenreId, Genre = _commonService.GenreName(model.GenreId) };
             _businessLogicGames.UpdateGame(id, game);
         }
 

@@ -35,3 +35,11 @@ body {
         display: none;
     }
 }
+
+.inputWidth{
+    width:50%;
+}
+
+.game-page-title{
+    text-align:center;
+}

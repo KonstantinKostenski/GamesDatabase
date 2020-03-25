@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using GameDatabase.Interfaces;
 using GameDatabase.Services;
 
+using AutoMapper;
 namespace GameDatabase.Controllers
 {
     public class GamesController : Controller
@@ -138,7 +139,25 @@ namespace GameDatabase.Controllers
                 return NotFound();
             }
 
-            var game = _gamesService.GetGameById(id);
+            var configuration = new MapperConfiguration(cfg => {
+                cfg.CreateMap<GameViewModel, EditGameModel>();
+            });
+
+            Mapper mapper = new Mapper(configuration);
+
+            var game = mapper.Map<GameViewModel, EditGameModel>(_gamesService.GetGameById(id).Result);
+
+            var genres = _commonService.GetAllGenres();
+
+            List<SelectListItem> listItems = new List<SelectListItem>();
+
+            foreach (var genre in genres)
+            {
+                var listItem = new SelectListItem(genre.Name, genre.Key.ToString());
+                listItems.Add(listItem);
+            }
+
+            game.Genres = listItems;
 
             if (game == null)
             {
@@ -151,7 +170,7 @@ namespace GameDatabase.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Name,CoverArtUrl,Developer,Publisher,Description, Platform, GenreId")] EditGameModel game)
+        public IActionResult Edit(int id, EditGameModel game)
         {
             if (id != game.Id)
             {

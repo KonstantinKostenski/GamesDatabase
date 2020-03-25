@@ -25,6 +25,8 @@ namespace GameDatabase.Models
 
         public string Genre { get; set; }
 
+        public decimal GenreId { get; set; }
+
         public string Description { get; set; }
 
         public string Platform { get; set; }

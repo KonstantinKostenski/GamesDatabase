@@ -52,8 +52,12 @@ namespace GameDatabase
 
             services.AddScoped<IBusinessLogicGames, BusinessLogicGames>();
             services.AddScoped<IGamesService, GamesService>();
+            services.AddScoped<ReviewsService>();
+            services.AddScoped<BusinessLogicReviews>();
+            services.AddScoped<ReviewRepository>();
             services.AddScoped<CommonService>();
             services.AddScoped<CommonBusinessLogic>();
+            services.AddScoped<GameRepository>();
 
         }
 

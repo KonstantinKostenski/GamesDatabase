@@ -7,15 +7,18 @@
 
 <section id="about" class="section-padding">
     <div class="container">
+        <div class="game-page-title">
+            <h1>@Model.Name</h1>
+        </div>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="img-thumb wow fadeInLeft">
-                    <img id="cover" style="margin-top: 40px; margin-right:0px" class="img-fluid" src="@Model.CoverArtUrl" alt="Cover" width="350" height="475">
+                    <img id="cover" style="margin-top:0px; margin-left:40%" class="img-fluid" src="@Model.CoverArtUrl" alt="Cover" width="350" height="475">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="profile-wrapper wow fadeInRight">
-                    <h1>@Model.Name</h1>
+                    
                     <div class="about-profile">
                         <div align="left" class="jumbotron">
                             Developer: <p>@Model.Developer </p>
@@ -39,7 +42,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6 jumbotron">
+        <div>
             <hr />
             <h1>Reviews</h1>
             <hr />

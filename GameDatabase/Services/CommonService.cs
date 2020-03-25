@@ -17,5 +17,10 @@ namespace GameDatabase.Services
         {
             return this._businessLogicCommon.GetAllGenres().Result;
         }
+
+        public string GenreName(decimal key)
+        {
+            return this._businessLogicCommon.GetGenreName(key);
+        }
     }
 }

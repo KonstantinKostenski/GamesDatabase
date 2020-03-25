@@ -18,14 +18,14 @@ namespace GameDatabase.Controllers
             //_context = context;
         //}
 
-        //// GET: Publishers
-        //public async Task<IActionResult> Index(int? pageNumber)
-        //{
-            //var model = _context.Publishers;
+        // GET: Publishers
+        public async Task<IActionResult> Index(int? pageNumber)
+        {
+          //var model = _context.Publishers;
 
-            //int pageSize = 10;
-            //return View(await PaginatedList<Publisher>.CreateAsync(model, pageNumber ?? 1, pageSize));
-        //}
+          int pageSize = 10;
+          return View(await PaginatedList<Publisher>.CreateAsync(model, pageNumber ?? 1, pageSize));
+        }
 
         //// GET: Publishers/Details/5
         //public async Task<IActionResult> Details(int? id)
