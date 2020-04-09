@@ -29,5 +29,11 @@ namespace GameDatabase.Data
              .Take(pageSize)
              .ToListAsync();
         }
+
+        public void UseStoredProcedure(int id = 3)
+        {
+            var game = _dbContext.Games
+                      .FromSql($"GetGameById {id}").ToList()[0];
+        }
     }
 }

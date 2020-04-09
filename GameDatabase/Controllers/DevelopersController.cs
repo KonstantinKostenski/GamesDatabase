@@ -1,31 +1,31 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Mvc.Rendering;
-//using Microsoft.EntityFrameworkCore;
-//using GameDatabase.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using GameDatabase.Data;
+using GameDatabase.Interfaces;
 
-//namespace GameDatabase.Controllers
-//{
-//    public class DevelopersController : Controller
-//    {
-//        private readonly GameDatabaseDbContext _context;
+namespace GameDatabase.Controllers
+{
+    public class DevelopersController : Controller
+    {
+        private readonly IDeveloperService _developerService;
 
-//        public DevelopersController(GameDatabaseDbContext context)
-//        {
-//            _context = context;
-//        }
+        public DevelopersController(IDeveloperService developerService)
+        {
+            _developerService = developerService;
+        }
 
-//        // GET: Developers
-//        public async Task<IActionResult> Index(int? pageNumber)
-//        {
-//            var model =  _context.Developers;
-
-//            int pageSize = 10;
-//            return View(await PaginatedList<Developer>.CreateAsync(model, pageNumber ?? 1, pageSize));
-//        }
+        // GET: Developers
+        public async Task<IActionResult> Index(int? pageNumber)
+        {
+            var pageSize = 10;
+            var model =  await _developerService.GetAllDevelopers(pageNumber, pageSize);
+            return View(PaginatedList<Developer>.Create(model, pageNumber ?? 1, pageSize));
+        }
 
 //        // GET: Developers/Details/5
 //        public async Task<IActionResult> Details(int? id)
@@ -151,5 +151,5 @@
 //        {
 //            return _context.Developers.Any(e => e.Id == id);
 //        }
-//    }
-//}
+    }
+}

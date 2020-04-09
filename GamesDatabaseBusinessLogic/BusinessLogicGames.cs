@@ -19,6 +19,7 @@ namespace GamesDatabaseBusinessLogic
 
         public async Task<List<Game>> GetAllGames(int? pageNumber, int pageSize)
         {
+            _gameRepository.UseStoredProcedure();
             return await _gameRepository.GetAllGames(pageNumber, pageSize);
         }
 

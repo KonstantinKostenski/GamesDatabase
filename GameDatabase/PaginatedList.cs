@@ -14,7 +14,7 @@ namespace GameDatabase
         public int TotalPages { get; private set; }
         public List<SelectListItem> genres { get; private set; }
 
-        public PaginatedList(IEnumerable<T> items, int count, int pageIndex, int pageSize, List<SelectListItem> genres)
+        public PaginatedList(IEnumerable<T> items, int count, int pageIndex, int pageSize, List<SelectListItem> genres = null)
         {
             PageIndex = pageIndex;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
