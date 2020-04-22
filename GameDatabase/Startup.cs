@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using GameDatabase.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using GameDatabase.Data;
 using GameDatabase.Services;
 using GamesDatabaseBusinessLogic;
 using GamesDatabaseBusinessLogic.Interfaces;
@@ -49,7 +49,6 @@ namespace GameDatabase
                 .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             services.AddScoped<IBusinessLogicGames, BusinessLogicGames>();
             services.AddScoped<IGamesService, GamesService>();
             services.AddScoped<ReviewsService>();
@@ -57,6 +56,9 @@ namespace GameDatabase
             services.AddScoped<ReviewRepository>();
             services.AddScoped<CommonService>();
             services.AddScoped<IPublisherService, PublisherService>();
+            services.AddScoped<IDeveloperService, DeveloperService>();
+            services.AddScoped<IBusinessLogicDevelopers, BusinessLogicDevelopers>();
+            services.AddScoped<DeveloperRepository>();
             services.AddScoped<PublisherRepository>();
             services.AddScoped<BusinessLogicPublishers>();
             services.AddScoped<CommonBusinessLogic>();

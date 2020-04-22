@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GameDatabase.Data
 {
@@ -12,11 +13,19 @@ namespace GameDatabase.Data
         {
         }
 
-        public async System.Threading.Tasks.Task<IEnumerable<Developer>> GetAllDeveloeprs(int? pageNumber, int pageSize)
+        public async Task<IEnumerable<Developer>> GetAllDeveloeprs(int? pageNumber, int pageSize)
         {
             return await _dbContext.Developers
-             .Skip((pageNumber.Value == 1 ? 0 : pageNumber.Value * pageSize))
+             .Skip(((pageNumber ?? 1) == 1 ? 0 : pageNumber.Value * pageSize))
              .Take(pageSize)
+             .ToListAsync();
+        }
+
+        public async Task<List<int>> GetGameByDeveloperId(int id)
+        {
+            return await _dbContext.Games
+             .Where(game => game.DeveloperId == id)
+             .Select(game => game.Id)
              .ToListAsync();
         }
     }

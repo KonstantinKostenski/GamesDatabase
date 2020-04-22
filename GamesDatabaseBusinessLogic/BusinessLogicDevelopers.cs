@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GamesDatabaseBusinessLogic
 {
-    class BusinessLogicDevelopers: IBusinessLogicDevelopers
+    public class BusinessLogicDevelopers: IBusinessLogicDevelopers
     {
         private readonly DeveloperRepository _repository;
 
@@ -19,6 +19,12 @@ namespace GamesDatabaseBusinessLogic
         public async Task AddDeveloper(Developer developer)
         {
             await _repository.AddAsync(developer);
+        }
+
+        public bool CheckIfItCanBeDeleted(int id)
+        {
+            var result = _repository.GetGameByDeveloperId(id).Result.Count;
+            return result <= 0;
         }
 
         public async Task DeleteDeveloper(int id)

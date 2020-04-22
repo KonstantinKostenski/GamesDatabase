@@ -12,10 +12,12 @@ namespace GameDatabase.Interfaces
 
         Task<Developer> GetDeveloperById(int id);
 
-        void DeleteDeveloperById(int id);
+        Task DeleteDeveloperById(int id);
 
         Task AddDeveloper(Developer model);
 
-        void UpdateDeveloperById(int id, Developer model);
+        Task UpdateDeveloperByIdAsync(int id, Developer model);
+
+        bool CheckiIfItCanBeDeleted(int id);
     }
 }

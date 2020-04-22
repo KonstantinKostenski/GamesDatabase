@@ -22,9 +22,14 @@ namespace GameDatabase.Services
             await _businessLogicDevelopers.AddDeveloper(model);
         }
 
-        public void DeleteDeveloperById(int id)
+        public bool CheckiIfItCanBeDeleted(int id)
         {
-            _businessLogicDevelopers.DeleteDeveloper(id);
+            return _businessLogicDevelopers.CheckIfItCanBeDeleted(id);
+        }
+
+        public async Task DeleteDeveloperById(int id)
+        {
+            await _businessLogicDevelopers.DeleteDeveloper(id);
         }
 
         public async Task<IEnumerable<Developer>> GetAllDevelopers(int? pageNumber, int pageSize)
@@ -37,9 +42,9 @@ namespace GameDatabase.Services
             return _businessLogicDevelopers.GetDeveloperByIdAsync(id);
         }
 
-        public void UpdateDeveloperById(int id, Developer model)
+        public async Task UpdateDeveloperByIdAsync(int id, Developer model)
         {
-            _businessLogicDevelopers.UpdateDeveloper(id, model);
+            await _businessLogicDevelopers.UpdateDeveloper(id, model);
         }
     }
 }

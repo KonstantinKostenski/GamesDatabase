@@ -8,10 +8,11 @@ namespace GamesDatabaseBusinessLogic.Interfaces
 {
     public interface IBusinessLogicDevelopers
     {
-        Task<IReadOnlyList<Developer>> GetAllDevelopers(int? pageNumber, int pageSize);
+        Task<IEnumerable<Developer>> GetAllDevelopers(int? pageNumber, int pageSize);
         Task<Developer> GetDeveloperByIdAsync(int id);
         Task DeleteDeveloper(int id);
         Task AddDeveloper(Developer developer);
         Task UpdateDeveloper(int id, Developer game);
+        bool CheckIfItCanBeDeleted(int id);
     }
 }
