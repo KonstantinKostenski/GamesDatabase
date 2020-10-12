@@ -1,18 +1,17 @@
 ﻿using GameDatabase.Data;
 using GameDatabase.Interfaces;
-using GamesDatabaseBusinessLogic;
+using GamesDatabaseBusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GameDatabase.Services
 {
     public class PublisherService : IPublisherService
     {
-        private BusinessLogicPublishers _businessLogicPublishers;
+        private IBusinessLogicPublisher _businessLogicPublishers;
 
-        public PublisherService(BusinessLogicPublishers businessLogicPublishers)
+        public PublisherService(IBusinessLogicPublisher businessLogicPublishers)
         {
             this._businessLogicPublishers = businessLogicPublishers;
         }

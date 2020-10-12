@@ -1,26 +1,27 @@
 ﻿using GameDatabase.Data;
-using GamesDatabaseBusinessLogic;
+using GameDatabase.Interfaces;
+using GamesDatabaseBusinessLogic.Interfaces;
 using System.Collections.Generic;
 
 namespace GameDatabase.Services
 {
-    public class CommonService
+    public class CommonService: ICommonService
     {
-        private CommonBusinessLogic _businessLogicCommon;
+        private ICommon _businessLogicCommon;
 
-        public CommonService(CommonBusinessLogic businessLogicCommon)
+        public CommonService(ICommon businessLogicCommon)
         {
-            this._businessLogicCommon = businessLogicCommon;
+            _businessLogicCommon = businessLogicCommon;
         }
 
         public IEnumerable<Genre> GetAllGenres()
         {
-            return this._businessLogicCommon.GetAllGenres().Result;
+            return _businessLogicCommon.GetAllGenres().Result;
         }
 
         public string GenreName(decimal key)
         {
-            return this._businessLogicCommon.GetGenreName(key);
+            return _businessLogicCommon.GetGenreName(key);
         }
     }
 }

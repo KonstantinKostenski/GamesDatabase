@@ -5,7 +5,6 @@ using GameDatabase.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using GameDatabase.Interfaces;
-using GameDatabase.Services;
 
 using AutoMapper;
 namespace GameDatabase.Controllers
@@ -13,9 +12,9 @@ namespace GameDatabase.Controllers
     public class GamesController : Controller
     {
         private IGamesService _gamesService;
-        private CommonService _commonService;
+        private ICommonService _commonService;
 
-        public GamesController(IGamesService gamesService, CommonService commonService)
+        public GamesController(IGamesService gamesService, ICommonService commonService)
         {
             this._gamesService = gamesService;
             this._commonService = commonService;

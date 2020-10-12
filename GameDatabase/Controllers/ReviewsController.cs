@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using GameDatabase.Data;
-using Microsoft.AspNetCore.Identity;
 using GameDatabase.Models;
 using Microsoft.AspNetCore.Authorization;
-using GameDatabase.Services;
+using GameDatabase.Interfaces;
 
 namespace GameDatabase.Controllers
 {
     public class ReviewsController : Controller
     {
-        //        private readonly GameDatabaseDbContext _context;
-        private readonly ReviewsService _reviewsService;
+        //private readonly GameDatabaseDbContext _context;
+        private readonly IReviewsService _reviewsService;
 
-        public ReviewsController(ReviewsService reviewService)
+        public ReviewsController(IReviewsService reviewService)
         {
             this._reviewsService = reviewService;
             //            _context = context;

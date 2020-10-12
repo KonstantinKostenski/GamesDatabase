@@ -11,8 +11,8 @@ namespace GamesDatabaseBusinessLogic.Interfaces
         Task<List<Game>> GetAllGames(int? pageNumber, int pageSize);
         Task<Game> GetGameById(int id);
         Task<Game> GetGameAndReviewsById(int id);
-        void DeleteGame(int id);
-        void AddGame(int id);
-        void UpdateGame(int id, Game game);
+        Task DeleteGame(int id);
+        Task AddGame(int id);
+        Task UpdateGame(int id, Game game);
     }
 }

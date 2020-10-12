@@ -49,20 +49,20 @@ namespace GameDatabase
                 .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddScoped<IBusinessLogicGames, BusinessLogicGames>();
+            services.AddScoped<GameRepository>();
             services.AddScoped<IGamesService, GamesService>();
-            services.AddScoped<ReviewsService>();
-            services.AddScoped<BusinessLogicReviews>();
+            services.AddScoped<IBusinessLogicGames, BusinessLogicGames>();
             services.AddScoped<ReviewRepository>();
-            services.AddScoped<CommonService>();
-            services.AddScoped<IPublisherService, PublisherService>();
+            services.AddScoped<ReviewsService>();
+            services.AddScoped<IBusinessLogicReviews, BusinessLogicReviews>();
+            services.AddScoped<DeveloperRepository>();
             services.AddScoped<IDeveloperService, DeveloperService>();
             services.AddScoped<IBusinessLogicDevelopers, BusinessLogicDevelopers>();
-            services.AddScoped<DeveloperRepository>();
             services.AddScoped<PublisherRepository>();
-            services.AddScoped<BusinessLogicPublishers>();
+            services.AddScoped<IPublisherService, PublisherService>();        
+            services.AddScoped<IBusinessLogicPublisher, BusinessLogicPublishers>();
+            services.AddScoped<CommonService>();
             services.AddScoped<CommonBusinessLogic>();
-            services.AddScoped<GameRepository>();
 
         }
 

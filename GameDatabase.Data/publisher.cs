@@ -9,7 +9,7 @@ namespace GameDatabase.Data
     {
         public Publisher()
         {
-            this.GamesPublished = new HashSet<Game>();
+            GamesPublished = new HashSet<Game>();
         }
 
         [Required]
