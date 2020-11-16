@@ -20,7 +20,7 @@ namespace GameDatabase.Controllers
             this._commonService = commonService;
         }
 
-        public IActionResult Index(string platform, string genreId, int? pageNumber)
+        public async Task<IActionResult> Index(string platform, string genreId, int? pageNumber)
         {
             var genres = this._commonService.GetAllGenres();
             List<SelectListItem> ddlItems = new List<SelectListItem>();
@@ -36,12 +36,13 @@ namespace GameDatabase.Controllers
 
             if (genreId == null)
             {
-                model = this._gamesService.GetAllGames(pageNumber, pageSize);
+                model = await _gamesService.GetAllGames(pageNumber, pageSize);
             }
             else
             {
-                model = this._gamesService.GetAllGamesByGenre(pageNumber, pageSize, int.Parse(genreId));
+                model = await _gamesService.GetAllGamesByGenre(pageNumber, pageSize, int.Parse(genreId));
             }
+
             return View(PaginatedList<GameViewModel>.Create(model, pageNumber ?? 1, pageSize, ddlItems));
         }
 
@@ -206,9 +207,9 @@ namespace GameDatabase.Controllers
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            _gamesService.DeleteGameById(id);
+            await _gamesService.DeleteGameById(id);
             return RedirectToAction(nameof(Index));
         }
 
