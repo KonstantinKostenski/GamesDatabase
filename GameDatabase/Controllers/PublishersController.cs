@@ -97,8 +97,7 @@ namespace GameDatabase.Controllers
             {
                 try
                 {
-                    //_context.Update(publisher);
-                    //await _context.SaveChangesAsync();
+                    await _publisherService.UpdatePublisherById(publisher.Id, publisher);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -118,34 +117,32 @@ namespace GameDatabase.Controllers
             return View(publisher);
         }
 
-        //// GET: Publishers/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //if (id == null)
-        //{
-        //return NotFound();
-        //}
+        // GET: Publishers/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //var publisher = await _context.Publishers
-        //.FirstOrDefaultAsync(m => m.Id == id);
-        //if (publisher == null)
-        //{
-        //return NotFound();
-        //}
+            var publisher = await _publisherService.GetPublisherById(id.Value);
 
-        //return View(publisher);
-        //}
+            if (publisher == null)
+            {
+                return NotFound();
+            }
 
-        //// POST: Publishers/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //var publisher = await _context.Publishers.FindAsync(id);
-        //_context.Publishers.Remove(publisher);
-        //await _context.SaveChangesAsync();
-        //return RedirectToAction(nameof(Index));
-        //}
+            return View(publisher);
+        }
+
+        // POST: Publishers/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _publisherService.DeletePublisherByIdAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
 
         private bool PublisherExists(int id)
         {

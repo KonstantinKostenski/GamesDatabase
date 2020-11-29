@@ -22,18 +22,18 @@ namespace GameDatabase.Services
             await this._businessLogicPublishers.AddPublsherAsync(model);
         }
 
-        public void DeletePublisherById(int id)
+        public async Task DeletePublisherByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            await _businessLogicPublishers.DeletePublisherById(id);
         }
 
         public async Task<IEnumerable<Publisher>> GetAllPublishers(int? pageNumber, int pageSize) => await _businessLogicPublishers.GetPublisherListAsync(pageNumber, pageSize);
 
         public Task<Publisher> GetPublisherById(int id) => _businessLogicPublishers.GetPublisherByIdAsync(id);
 
-        public void UpdatePublisherById(int id, Publisher model)
+        public async Task UpdatePublisherById(int id, Publisher model)
         {
-            throw new NotImplementedException();
+            await _businessLogicPublishers.UpdatePublisherAsync(id, model);
         }
 
     }

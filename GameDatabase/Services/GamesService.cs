@@ -86,6 +86,7 @@ namespace GameDatabase.Services
         public void AddGame(CreateGameModel createGameModel)
         {
             var game = new Game() { Name = createGameModel.Name, Description = createGameModel.Description, CoverArtUrl = createGameModel.CoverArtUrl, Genre = createGameModel.Genre};
+            _businessLogicGames.AddGame(game);
         }
 
         public void UpdateGameById(int id, EditGameModel model)

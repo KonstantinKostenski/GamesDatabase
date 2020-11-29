@@ -12,10 +12,10 @@ namespace GameDatabase.Interfaces
 
         Task<Publisher> GetPublisherById(int id);
 
-        void DeletePublisherById(int id);
+        Task DeletePublisherByIdAsync(int id);
 
         Task AddPublisherAsync(Publisher model);
 
-        void UpdatePublisherById(int id, Publisher model);
+        Task UpdatePublisherById(int id, Publisher model);
     }
 }

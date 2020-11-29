@@ -30,6 +30,22 @@ namespace GamesDatabaseBusinessLogic
             await this._publisherRepository.AddAsync(publisher);
         }
 
+        public async Task UpdatePublisherAsync(int id, Publisher publisher)
+        {
+            var publisherFromDb = await GetPublisherByIdAsync(id);
+            publisherFromDb.Description = publisher.Description;
+            publisherFromDb.Location = publisher.Location;
+            publisherFromDb.LogoUrl = publisher.LogoUrl;
+            publisherFromDb.Name = publisher.Name;
+            await this._publisherRepository.UpdateAsync(publisherFromDb);
+        }
+
+        public async Task DeletePublisherById(int id)
+        {
+            var publisherFromDb = await _publisherRepository.GetByIdAsync(id);
+            await _publisherRepository.DeleteAsync(publisherFromDb);
+        }
+
     }
 
 

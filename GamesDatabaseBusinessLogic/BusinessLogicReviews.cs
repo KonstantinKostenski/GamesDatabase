@@ -8,6 +8,7 @@ namespace GamesDatabaseBusinessLogic
     public class BusinessLogicReviews
     {
         private ReviewRepository _reviewRepository;
+
         public BusinessLogicReviews(ReviewRepository reviewRepository)
         {
             this._reviewRepository = reviewRepository;
@@ -15,8 +16,7 @@ namespace GamesDatabaseBusinessLogic
 
         public async void AddReview(Review review)
         {
-            var currentReview = review; 
-            await _reviewRepository.AddAsync(currentReview);
+            await _reviewRepository.AddAsync(review);
         }
 
     }

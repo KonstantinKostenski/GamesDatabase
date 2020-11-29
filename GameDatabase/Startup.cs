@@ -11,6 +11,7 @@ using GameDatabase.Services;
 using GamesDatabaseBusinessLogic;
 using GamesDatabaseBusinessLogic.Interfaces;
 using GameDatabase.Interfaces;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 namespace GameDatabase
 {
@@ -79,6 +80,7 @@ namespace GameDatabase
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
+                app.UseSpaStaticFiles();
             }
 
             app.UseCookiePolicy();
@@ -92,6 +94,19 @@ namespace GameDatabase
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "AngularInterface";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }

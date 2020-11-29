@@ -12,7 +12,7 @@ namespace GamesDatabaseBusinessLogic.Interfaces
         Task<Game> GetGameById(int id);
         Task<Game> GetGameAndReviewsById(int id);
         void DeleteGame(int id);
-        void AddGame(int id);
+        void AddGame(Game game);
         void UpdateGame(int id, Game game);
     }
 }

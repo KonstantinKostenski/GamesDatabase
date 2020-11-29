@@ -1,9 +1,6 @@
 ﻿using GameDatabase.Data;
 using GamesDatabaseBusinessLogic.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GamesDatabaseBusinessLogic
@@ -39,9 +36,8 @@ namespace GamesDatabaseBusinessLogic
             await _gameRepository.DeleteAsync(game);
         }
 
-        public async void AddGame(int id)
+        public async void AddGame(Game game)
         {
-            var game = await _gameRepository.GetByIdAsync(id);
             await _gameRepository.AddAsync(game);
         }
 
