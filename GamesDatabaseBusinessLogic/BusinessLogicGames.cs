@@ -30,7 +30,7 @@ namespace GamesDatabaseBusinessLogic
             return await _gameRepository.GetGameAndReviewsById(id);
         }
 
-        public async void DeleteGame(int id)
+        public async Task DeleteGame(int id)
         {
             var game = await _gameRepository.GetByIdAsync(id);
             await _gameRepository.DeleteAsync(game);
@@ -41,7 +41,7 @@ namespace GamesDatabaseBusinessLogic
             await _gameRepository.AddAsync(game);
         }
 
-        public async void UpdateGame(int id, Game data)
+        public async Task UpdateGame(int id, Game data)
         {
             var game = await _gameRepository.GetByIdAsync(id);
             game.CoverArtUrl = data.CoverArtUrl;

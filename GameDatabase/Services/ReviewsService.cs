@@ -1,26 +1,26 @@
 ﻿using AutoMapper;
 using GameDatabase.Data;
+using GameDatabase.Interfaces;
 using GameDatabase.Models;
-using GamesDatabaseBusinessLogic;
-using Microsoft.AspNetCore.Http;
+using GamesDatabaseBusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GameDatabase.Services
 {
-    public class ReviewsService
+    public class ReviewsService: IReviewsService
     {
-        private BusinessLogicReviews _businessLogicReviews;
+        private IBusinessLogicReviews _businessLogicReviews;
         private readonly UserManager<User> _userManager;
 
-        public ReviewsService(BusinessLogicReviews businessLogicReviews, UserManager<User> userManager)
+        public ReviewsService(IBusinessLogicReviews businessLogicReviews, UserManager<User> userManager)
         {
-            this._businessLogicReviews = businessLogicReviews;
-            this._userManager = userManager;
+            _businessLogicReviews = businessLogicReviews;
+            _userManager = userManager;
         }
 
-        private Task<User> GetCurrentUserAsync(ClaimsPrincipal claims) => _userManager.GetUserAsync(claims);
+        public Task<User> GetCurrentUserAsync(ClaimsPrincipal claims) => _userManager.GetUserAsync(claims);
 
         public async Task AddReviewAsync(ReviewCreateModel reviewCreateViewModel, int gameId, ClaimsPrincipal claimsPrincipal)
         {
@@ -34,7 +34,7 @@ namespace GameDatabase.Services
             var review = mapper.Map<ReviewCreateModel, Review>(reviewCreateViewModel);
             review.GameId = gameId;
             review.AuthorId = userId;
-            this._businessLogicReviews.AddReview(review);
+            await _businessLogicReviews.AddReview(review);
         }
 
     }

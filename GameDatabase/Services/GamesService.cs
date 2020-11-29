@@ -21,9 +21,11 @@ namespace GameDatabase.Services
             _commonService = commonService;
         }
 
-        public IEnumerable<GameViewModel> GetAllGames(int? pageNumber, int pageSize)
+        public async Task<IEnumerable<GameViewModel>> GetAllGames(int? pageNumber, int pageSize)
         {
-            return _businessLogicGames.GetAllGames(pageNumber ?? 1, pageSize).Result.Select(game => new GameViewModel
+            var result = await _businessLogicGames.GetAllGames(pageNumber ?? 1, pageSize);
+
+            return result.Select(game => new GameViewModel
             {
                 Developer = game.Developer.Name,
                 Publisher = game.Publisher.Name,
@@ -43,9 +45,10 @@ namespace GameDatabase.Services
             }).ToList();
         }
 
-        public IEnumerable<GameViewModel> GetAllGamesByGenre(int? pageNumber, int pageSize, int genreId)
+        public async Task<IEnumerable<GameViewModel>> GetAllGamesByGenre(int? pageNumber, int pageSize, int genreId)
         {
-            return _businessLogicGames.GetAllGames(pageNumber ?? 1, pageSize).Result.Where(game => game.GenreId == genreId).Select(game => new GameViewModel
+            var result = await _businessLogicGames.GetAllGames(pageNumber ?? 1, pageSize);
+            return result.Where(game => game.GenreId == genreId).Select(game => new GameViewModel
             {
                 Developer = game.Developer.Name,
                 Publisher = game.Publisher.Name,
@@ -89,20 +92,20 @@ namespace GameDatabase.Services
             _businessLogicGames.AddGame(game);
         }
 
-        public void UpdateGameById(int id, EditGameModel model)
+        public  async Task UpdateGameById(int id, EditGameModel model)
         {
             Game game = new Game() { Name = model.Name, CoverArtUrl = model.CoverArtUrl, Description = model.Description, Platform = model.Platform, GenreId = model.GenreId, Genre = _commonService.GenreName(model.GenreId) };
-            _businessLogicGames.UpdateGame(id, game);
+            await _businessLogicGames.UpdateGame(id, game);
         }
 
-        public void DeleteGame(int id)
+        public async Task DeleteGame(int id)
         {
-            _businessLogicGames.DeleteGame(id);
+            await _businessLogicGames.DeleteGame(id);
         }
 
-        public void DeleteGameById(int id)
+        public async Task DeleteGameById(int id)
         {
-            _businessLogicGames.DeleteGame(id);
+            await _businessLogicGames.DeleteGame(id);
         }
     }
 }

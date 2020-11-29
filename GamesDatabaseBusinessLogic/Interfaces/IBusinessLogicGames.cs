@@ -1,7 +1,5 @@
 ﻿using GameDatabase.Data;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GamesDatabaseBusinessLogic.Interfaces
@@ -11,8 +9,8 @@ namespace GamesDatabaseBusinessLogic.Interfaces
         Task<List<Game>> GetAllGames(int? pageNumber, int pageSize);
         Task<Game> GetGameById(int id);
         Task<Game> GetGameAndReviewsById(int id);
-        void DeleteGame(int id);
+        Task DeleteGame(int id);
         void AddGame(Game game);
-        void UpdateGame(int id, Game game);
+        Task UpdateGame(int id, Game game);
     }
 }

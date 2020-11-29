@@ -1,20 +1,19 @@
 ﻿using GameDatabase.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using GamesDatabaseBusinessLogic.Interfaces;
+using System.Threading.Tasks;
 
 namespace GamesDatabaseBusinessLogic
 {
-    public class BusinessLogicReviews
+    public class BusinessLogicReviews: IBusinessLogicReviews
     {
         private ReviewRepository _reviewRepository;
 
         public BusinessLogicReviews(ReviewRepository reviewRepository)
         {
-            this._reviewRepository = reviewRepository;
+            _reviewRepository = reviewRepository;
         }
 
-        public async void AddReview(Review review)
+        public async Task AddReview(Review review)
         {
             await _reviewRepository.AddAsync(review);
         }

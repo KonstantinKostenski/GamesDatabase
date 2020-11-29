@@ -8,14 +8,14 @@ namespace GameDatabase.Interfaces
 {
     public interface IGamesService
     {
-        IEnumerable<GameViewModel> GetAllGames(int? pageNumber, int pageSize);
+        Task<IEnumerable<GameViewModel>> GetAllGames(int? pageNumber, int pageSize);
 
-        IEnumerable<GameViewModel> GetAllGamesByGenre(int? pageNumber, int pageSize, int genreId);
+        Task<IEnumerable<GameViewModel>> GetAllGamesByGenre(int? pageNumber, int pageSize, int genreId);
 
         Task<GameViewModel> GetGameById(int id);
 
-        void DeleteGameById(int id);
+        Task DeleteGameById(int id);
 
-        void UpdateGameById(int id, EditGameModel model);
+        Task UpdateGameById(int id, EditGameModel model);
     }
 }
