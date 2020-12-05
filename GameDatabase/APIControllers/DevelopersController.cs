@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GameDatabase.Data;
+using GamesDatabaseBusinessLogic.Models;
 
 namespace GameDatabase.APIControllers
 {

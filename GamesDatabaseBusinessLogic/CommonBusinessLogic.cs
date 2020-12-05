@@ -1,6 +1,5 @@
-﻿using GameDatabase.Data;
-using GamesDatabaseBusinessLogic.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using GamesDatabaseBusinessLogic.Interfaces;
+using GamesDatabaseBusinessLogic.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,21 +7,21 @@ namespace GamesDatabaseBusinessLogic
 {
     public class CommonBusinessLogic: ICommon
     {
-        private readonly GameDatabaseDbContext _context;
+        private readonly ICommonRepository _context;
 
-        public CommonBusinessLogic(GameDatabaseDbContext context)
+        public CommonBusinessLogic(ICommonRepository context)
         {
             this._context = context;
         }
 
-        public async Task<IEnumerable<Genre>> GetAllGenres()
+        public Task<IEnumerable<Genre>> GetAllGenres()
         {
-            return await _context.Genres.ToListAsync();
+            throw new System.NotImplementedException();
         }
 
         public string GetGenreName(decimal key)
         {
-            return _context.Genres.FindAsync(key).Result.Name;
+            throw new System.NotImplementedException();
         }
     }
 }

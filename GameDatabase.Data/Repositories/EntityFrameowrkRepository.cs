@@ -1,5 +1,5 @@
-﻿using GameDatabase.Data;
-using GameDatabase.Data.Interfaces;
+﻿using GameDatabase.Data.Interfaces;
+using GamesDatabaseBusinessLogic.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace GamesDatabaseBusinessLogic.Interfaces
 {
-    public interface ICommon
+    public interface ICommonRepository
     {
         Task<IEnumerable<Genre>> GetAllGenres();
         string GetGenreName(decimal key);

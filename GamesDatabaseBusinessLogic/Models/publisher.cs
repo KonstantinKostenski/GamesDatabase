@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace GameDatabase.Data
+namespace GamesDatabaseBusinessLogic.Models
 {
-    public class Developer : BaseEntity
+    public class Publisher : BaseEntity
     {
-        public Developer()
+        public Publisher()
         {
-            this.GamesDeveloped = new HashSet<Game>();
+            GamesPublished = new HashSet<Game>();
         }
 
         [Required]
@@ -28,6 +26,6 @@ namespace GameDatabase.Data
         [StringLength(250, MinimumLength = 10)]
         public string Description { get; set; }
 
-        public ICollection<Game> GamesDeveloped { get; set; }
+        public ICollection<Game> GamesPublished { get; set; }
     }
 }

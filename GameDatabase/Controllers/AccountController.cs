@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using GameDatabase.Models.AccountViewModels;
 using Forum.Services;
 using GameDatabase.Controllers;
-using GameDatabase.Data;
+using GamesDatabaseBusinessLogic.Models;
 using GameDatabase.Services;
 
 namespace Forum.Controllers

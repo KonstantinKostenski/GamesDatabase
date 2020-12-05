@@ -3,6 +3,7 @@ using GameDatabase.Data;
 using GameDatabase.Interfaces;
 using GameDatabase.Models;
 using GamesDatabaseBusinessLogic.Interfaces;
+using GamesDatabaseBusinessLogic.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;

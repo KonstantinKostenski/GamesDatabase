@@ -1,4 +1,4 @@
-﻿using GameDatabase.Data;
+﻿using GamesDatabaseBusinessLogic.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,5 +9,7 @@ namespace GamesDatabaseBusinessLogic.Interfaces
         Task<List<Publisher>> GetPublisherListAsync(int? pageNumber, int pageSize);
         Task<Publisher> GetPublisherByIdAsync(int id);
         Task AddPublsherAsync(Publisher publisher);
+        Task DeletePublisherById(int id);
+        Task UpdatePublisherAsync(int id, Publisher model);
     }
 }

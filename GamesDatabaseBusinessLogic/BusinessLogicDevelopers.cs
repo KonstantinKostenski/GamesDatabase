@@ -1,17 +1,16 @@
-﻿using GameDatabase.Data;
+﻿using GameDatabase.Data.Interfaces;
 using GamesDatabaseBusinessLogic.Interfaces;
-using System;
+using GamesDatabaseBusinessLogic.Models;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GamesDatabaseBusinessLogic
 {
     public class BusinessLogicDevelopers: IBusinessLogicDevelopers
     {
-        private readonly DeveloperRepository _repository;
+        private readonly IDeveloperRepository _repository;
 
-        public BusinessLogicDevelopers(DeveloperRepository repository)
+        public BusinessLogicDevelopers(IDeveloperRepository repository)
         {
             _repository = repository;
         }

@@ -1,7 +1,6 @@
-﻿using GameDatabase.Data;
-using GameDatabase.Interfaces;
+﻿using GameDatabase.Interfaces;
 using GamesDatabaseBusinessLogic.Interfaces;
-using System;
+using GamesDatabaseBusinessLogic.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

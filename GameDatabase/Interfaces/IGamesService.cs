@@ -1,4 +1,5 @@
 ﻿using GameDatabase.Models;
+using GamesDatabaseBusinessLogic.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,7 @@ namespace GameDatabase.Interfaces
         Task DeleteGameById(int id);
 
         Task UpdateGameById(int id, EditGameModel model);
+
+        Task<IEnumerable<GameViewModel>> SearchGames(ISearchObject searchObject);
     }
 }

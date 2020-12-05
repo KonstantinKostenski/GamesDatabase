@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using GameDatabase.Interfaces;
 
 using AutoMapper;
+using GamesDatabaseBusinessLogic.Models;
+
 namespace GameDatabase.Controllers
 {
     public class GamesController : Controller
@@ -20,10 +22,34 @@ namespace GameDatabase.Controllers
             this._commonService = commonService;
         }
 
-        public async Task<IActionResult> Index(string platform, string genreId, int? pageNumber)
+        [HttpGet]
+        public async Task<IActionResult> Index(string platform, int? pageNumber)
         {
-            var genres = this._commonService.GetAllGenres();
+            var genres = await this._commonService.GetAllGenres();
             List<SelectListItem> ddlItems = new List<SelectListItem>();
+
+            foreach (var genreItem in genres)
+            {
+                SelectListItem item = new SelectListItem(genreItem.Name, genreItem.Key.ToString());
+                ddlItems.Add(item);
+            }
+
+            SearchObjectGames searchObject = new SearchObjectGames();
+            int pageSize = 10;
+
+            IEnumerable<GameViewModel> model;
+
+            model = await _gamesService.GetAllGames(pageNumber, pageSize);
+
+            return View(PaginatedList<GameViewModel>.Create(model, pageNumber ?? 1, pageSize, ddlItems, searchObject));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SearchGames(GameViewModel gameViewModel)
+        {
+            var genres = await this._commonService.GetAllGenres();
+            List<SelectListItem> ddlItems = new List<SelectListItem>();
+
             foreach (var genreItem in genres)
             {
                 SelectListItem item = new SelectListItem(genreItem.Name, genreItem.Key.ToString());
@@ -31,19 +57,14 @@ namespace GameDatabase.Controllers
             }
 
             int pageSize = 10;
+            int pageNumber = 1;
 
             IEnumerable<GameViewModel> model;
+            
 
-            if (genreId == null)
-            {
-                model = await _gamesService.GetAllGames(pageNumber, pageSize);
-            }
-            else
-            {
-                model = await _gamesService.GetAllGamesByGenre(pageNumber, pageSize, int.Parse(genreId));
-            }
+            model = await _gamesService.SearchGames(gameViewModel.SearchObject);
 
-            return View(PaginatedList<GameViewModel>.Create(model, pageNumber ?? 1, pageSize, ddlItems));
+            return View(PaginatedList<GameViewModel>.Create(model, pageNumber, pageSize, ddlItems, searchObject));
         }
 
         public async Task<IActionResult> Details(int id)
@@ -125,21 +146,22 @@ namespace GameDatabase.Controllers
 
                 //_context.Add(newGame);
                 //await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(GamesController.Index), new { pageNumber = 1});
+                return RedirectToAction(nameof(GamesController.Index), new { pageNumber = 1 });
             }
 
             return View(game);
         }
 
         [Authorize]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == 0)
             {
                 return NotFound();
             }
 
-            var configuration = new MapperConfiguration(cfg => {
+            var configuration = new MapperConfiguration(cfg =>
+            {
                 cfg.CreateMap<GameViewModel, EditGameModel>();
             });
 
@@ -147,7 +169,7 @@ namespace GameDatabase.Controllers
 
             var game = mapper.Map<GameViewModel, EditGameModel>(_gamesService.GetGameById(id).Result);
 
-            var genres = _commonService.GetAllGenres();
+            var genres = await _commonService.GetAllGenres();
 
             List<SelectListItem> listItems = new List<SelectListItem>();
 

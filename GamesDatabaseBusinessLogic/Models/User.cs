@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace GameDatabase.Data
+namespace GamesDatabaseBusinessLogic.Models
 {
     public class User : IdentityUser
     {

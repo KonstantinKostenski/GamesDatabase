@@ -1,7 +1,4 @@
-﻿using GameDatabase.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using GamesDatabaseBusinessLogic.Models;
 using System.Threading.Tasks;
 
 namespace GamesDatabaseBusinessLogic.Interfaces

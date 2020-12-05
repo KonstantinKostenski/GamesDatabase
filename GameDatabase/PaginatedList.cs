@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using GamesDatabaseBusinessLogic.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,16 @@ namespace GameDatabase
     {
         public int PageIndex { get; private set; }
         public int TotalPages { get; private set; }
-        public List<SelectListItem> genres { get; private set; }
+        public SearchObjectGames SearchObject { get; set; }
+        public IEnumerable<SelectListItem> SelectListItems { get; set; }
 
-        public PaginatedList(IEnumerable<T> items, int count, int pageIndex, int pageSize, List<SelectListItem> genres = null)
+
+        public PaginatedList(IEnumerable<T> items, int count, int pageIndex, int pageSize, IEnumerable<SelectListItem> selectListItems, SearchObjectGames searchObject)
         {
             PageIndex = pageIndex;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
-            this.genres = genres;
+            SearchObject = searchObject;
+            SelectListItems = selectListItems;
             this.AddRange(items);
         }
 
@@ -35,11 +39,11 @@ namespace GameDatabase
             }
         }
 
-        public static PaginatedList<T> Create(IEnumerable<T> source, int pageIndex, int pageSize, List<SelectListItem> genres = null)
+        public static PaginatedList<T> Create(IEnumerable<T> source, int pageIndex, int pageSize, IEnumerable<SelectListItem> listItems, SearchObjectGames searchObject)
         {
             var count = source.Count();
             var items = source;
-            return new PaginatedList<T>(items, count, pageIndex, pageSize, genres);
+            return new PaginatedList<T>(items, count, pageIndex, pageSize,listItems, searchObject);
         }
     }
 }

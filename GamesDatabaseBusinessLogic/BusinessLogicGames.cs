@@ -1,5 +1,7 @@
 ﻿using GameDatabase.Data;
+using GameDatabase.Data.Interfaces;
 using GamesDatabaseBusinessLogic.Interfaces;
+using GamesDatabaseBusinessLogic.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,16 +9,16 @@ namespace GamesDatabaseBusinessLogic
 {
     public class BusinessLogicGames : IBusinessLogicGames
     {
-        private readonly GameRepository _gameRepository;
+        private readonly IGameRepository _gameRepository;
 
-        public BusinessLogicGames(GameRepository gameRepository)
+        public BusinessLogicGames(IGameRepository gameRepository)
         {
             _gameRepository = gameRepository;
         }
 
-        public async Task<List<Game>> GetAllGames(int? pageNumber, int pageSize)
+        public async Task<IEnumerable<Game>> GetAllGames(int? pageNumber, int pageSize)
         {
-            _gameRepository.UseStoredProcedure();
+            //_gameRepository.UseStoredProcedure();
             return await _gameRepository.GetAllGames(pageNumber, pageSize);
         }
 
@@ -50,6 +52,11 @@ namespace GamesDatabaseBusinessLogic
             game.Genre = data.Genre;
             game.Name = data.Name;
             await _gameRepository.UpdateAsync(game);
+        }
+
+        public async Task<IEnumerable<Game>> SearchGames(SearchObjectGames searchObject)
+        {
+            return await this._gameRepository.SearchGames(searchObject);
         }
     }
 }

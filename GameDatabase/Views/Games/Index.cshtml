@@ -9,14 +9,19 @@
 <hr />
 
 <nav>
-    @using (Html.BeginForm("Index", "Games", FormMethod.Post))
+    @using (Html.BeginForm("SearchGames", "Games", FormMethod.Post))
     {
         <select id="genreId" name="genreId">
-            @foreach (var item in Model.genres)
+            @foreach (var item in Model.SearchObject.Genres)
             {
                 <option value="@item.Value">@item.Text</option>//if the value is same as text
             }
         </select>
+        
+        <input type="text" value="@Model.SearchObject.Name" />
+        <input type="text" value="@Model.SearchObject.Developer" />
+        <input type="text" value="@Model.SearchObject.Publisher" />
+
         <input type="submit" value="Filter" />
     }
 </nav>

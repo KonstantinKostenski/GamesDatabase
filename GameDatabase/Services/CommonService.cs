@@ -1,7 +1,9 @@
 ﻿using GameDatabase.Data;
 using GameDatabase.Interfaces;
 using GamesDatabaseBusinessLogic.Interfaces;
+using GamesDatabaseBusinessLogic.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GameDatabase.Services
 {
@@ -14,9 +16,9 @@ namespace GameDatabase.Services
             _businessLogicCommon = businessLogicCommon;
         }
 
-        public IEnumerable<Genre> GetAllGenres()
+        public async Task<IEnumerable<Genre>> GetAllGenres()
         {
-            return _businessLogicCommon.GetAllGenres().Result;
+            return await _businessLogicCommon.GetAllGenres();
         }
 
         public string GenreName(decimal key)

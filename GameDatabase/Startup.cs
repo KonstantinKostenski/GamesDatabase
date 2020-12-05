@@ -8,10 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GameDatabase.Data;
 using GameDatabase.Services;
-using GamesDatabaseBusinessLogic;
-using GamesDatabaseBusinessLogic.Interfaces;
-using GameDatabase.Interfaces;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using GamesDatabaseBusinessLogic.Models;
+using GameDatabase.Interfaces;
+using GamesDatabaseInversionOfControl;
 
 namespace GameDatabase
 {
@@ -50,21 +50,13 @@ namespace GameDatabase
                 .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddScoped<GameRepository>();
             services.AddScoped<IGamesService, GamesService>();
-            services.AddScoped<IBusinessLogicGames, BusinessLogicGames>();
-            services.AddScoped<ReviewRepository>();
-            services.AddScoped<ReviewsService>();
-            services.AddScoped<IBusinessLogicReviews, BusinessLogicReviews>();
-            services.AddScoped<DeveloperRepository>();
             services.AddScoped<IDeveloperService, DeveloperService>();
-            services.AddScoped<IBusinessLogicDevelopers, BusinessLogicDevelopers>();
-            services.AddScoped<PublisherRepository>();
-            services.AddScoped<IPublisherService, PublisherService>();        
-            services.AddScoped<IBusinessLogicPublisher, BusinessLogicPublishers>();
-            services.AddScoped<CommonService>();
-            services.AddScoped<CommonBusinessLogic>();
+            services.AddScoped<IPublisherService, PublisherService>();
+            services.AddScoped<ICommonService, CommonService>();
+            services.AddScoped<ReviewsService>();
 
+            DependencyContainer.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

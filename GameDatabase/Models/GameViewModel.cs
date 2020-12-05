@@ -1,9 +1,6 @@
 ﻿using GameDatabase.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GameDatabase.Models
 {
@@ -32,6 +29,10 @@ namespace GameDatabase.Models
         public string Platform { get; set; }
 
         public int Id { get; set; }
+
+        public SearchObjectGames SearchObject { get; set; } = new SearchObjectGames();
+
+        public List<SelectListItem> Genres { get; set; }
 
         public IEnumerable<ReviewViewModel> Reviews { get; set; }
 

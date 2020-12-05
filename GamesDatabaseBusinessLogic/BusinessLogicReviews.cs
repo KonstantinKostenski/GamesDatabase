@@ -1,14 +1,15 @@
 ﻿using GameDatabase.Data;
 using GamesDatabaseBusinessLogic.Interfaces;
+using GamesDatabaseBusinessLogic.Models;
 using System.Threading.Tasks;
 
 namespace GamesDatabaseBusinessLogic
 {
     public class BusinessLogicReviews: IBusinessLogicReviews
     {
-        private ReviewRepository _reviewRepository;
+        private IReviewRepository _reviewRepository;
 
-        public BusinessLogicReviews(ReviewRepository reviewRepository)
+        public BusinessLogicReviews(IReviewRepository reviewRepository)
         {
             _reviewRepository = reviewRepository;
         }

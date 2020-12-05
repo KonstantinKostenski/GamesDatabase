@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GameDatabase.Data;
 using GameDatabase.Interfaces;
+using GamesDatabaseBusinessLogic.Models;
 
 namespace GameDatabase.Controllers
 {

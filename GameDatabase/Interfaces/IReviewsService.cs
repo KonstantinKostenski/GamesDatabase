@@ -1,5 +1,6 @@
 ﻿using GameDatabase.Data;
 using GameDatabase.Models;
+using GamesDatabaseBusinessLogic.Models;
 using System.Security.Claims;
 using System.Threading.Tasks;
 

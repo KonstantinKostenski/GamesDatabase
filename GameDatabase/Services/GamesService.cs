@@ -2,6 +2,7 @@
 using GameDatabase.Interfaces;
 using GameDatabase.Models;
 using GamesDatabaseBusinessLogic.Interfaces;
+using GamesDatabaseBusinessLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace GameDatabase.Services
     public class GamesService : IGamesService
     {
         private IBusinessLogicGames _businessLogicGames;
-        private CommonService _commonService;
+        private ICommonService _commonService;
 
 
-        public GamesService(IBusinessLogicGames businessLogicGames, CommonService commonService)
+        public GamesService(IBusinessLogicGames businessLogicGames, ICommonService commonService)
         {
             _businessLogicGames = businessLogicGames;
             _commonService = commonService;
@@ -106,6 +107,11 @@ namespace GameDatabase.Services
         public async Task DeleteGameById(int id)
         {
             await _businessLogicGames.DeleteGame(id);
+        }
+
+        public Task<IEnumerable<GameViewModel>> SearchGames(ISearchObject searchObject)
+        {
+            await this._businessLogicGames.SearchGames(searchObject);
         }
     }
 }

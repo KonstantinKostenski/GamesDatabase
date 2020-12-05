@@ -1,5 +1,6 @@
 ﻿using GameDatabase.Data;
 using GamesDatabaseBusinessLogic.Interfaces;
+using GamesDatabaseBusinessLogic.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,9 +8,9 @@ namespace GamesDatabaseBusinessLogic
 {
     public class BusinessLogicPublishers : IBusinessLogicPublisher
     {
-        private PublisherRepository _publisherRepository;
+        private IPublisherRepository _publisherRepository;
 
-        public BusinessLogicPublishers(PublisherRepository publisherRepository)
+        public BusinessLogicPublishers(IPublisherRepository publisherRepository)
         {
             _publisherRepository = publisherRepository;
         }

@@ -1,6 +1,7 @@
 ﻿using GameDatabase.Data;
 using GameDatabase.Interfaces;
 using GamesDatabaseBusinessLogic.Interfaces;
+using GamesDatabaseBusinessLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
