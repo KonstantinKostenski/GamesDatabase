@@ -3,6 +3,7 @@ using GameDatabase.Interfaces;
 using GameDatabase.Models;
 using GamesDatabaseBusinessLogic.Interfaces;
 using GamesDatabaseBusinessLogic.Models;
+using GamesDatabaseBusinessLogic.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,13 +59,6 @@ namespace GameDatabase.Services
                 CoverArtUrl = game.CoverArtUrl,
                 Description = game.Description,
                 Platform = game.Platform,
-                Reviews = game.Reviews.Select(review => new ReviewViewModel
-                {
-                    Author = review.Author,
-                    Id = review.Id,
-                    Text = review.Text,
-                    Title = review.Title
-                }),
                 Id = game.Id
             }).ToList();
         }
@@ -109,9 +103,20 @@ namespace GameDatabase.Services
             await _businessLogicGames.DeleteGame(id);
         }
 
-        public Task<IEnumerable<GameViewModel>> SearchGames(ISearchObject searchObject)
+        public async Task<IEnumerable<GameViewModel>> SearchGames(SearchObjectGames searchObject)
         {
-            await this._businessLogicGames.SearchGames(searchObject);
+            var result = await this._businessLogicGames.SearchGames(searchObject);
+            return result.Select(game => new GameViewModel
+            {
+                Developer = game.Developer.Name,
+                Publisher = game.Publisher.Name,
+                Genre = game.Genre,
+                Name = game.Name,
+                CoverArtUrl = game.CoverArtUrl,
+                Description = game.Description,
+                Platform = game.Platform,
+                Id = game.Id
+            }).ToList();
         }
     }
 }

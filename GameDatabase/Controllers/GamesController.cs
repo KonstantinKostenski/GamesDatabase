@@ -27,44 +27,27 @@ namespace GameDatabase.Controllers
         {
             var genres = await this._commonService.GetAllGenres();
             List<SelectListItem> ddlItems = new List<SelectListItem>();
-
             foreach (var genreItem in genres)
             {
                 SelectListItem item = new SelectListItem(genreItem.Name, genreItem.Key.ToString());
                 ddlItems.Add(item);
             }
-
             SearchObjectGames searchObject = new SearchObjectGames();
+            searchObject.Genres = ddlItems;
             int pageSize = 10;
-
             IEnumerable<GameViewModel> model;
-
             model = await _gamesService.GetAllGames(pageNumber, pageSize);
-
-            return View(PaginatedList<GameViewModel>.Create(model, pageNumber ?? 1, pageSize, ddlItems, searchObject));
+            return View(PaginatedList<GameViewModel, SearchObjectGames>.Create(model, pageNumber ?? 1, pageSize, searchObject));
         }
 
         [HttpPost]
-        public async Task<IActionResult> SearchGames(GameViewModel gameViewModel)
+        public async Task<IActionResult> SearchGames(SearchObjectGames searchObject)
         {
-            var genres = await this._commonService.GetAllGenres();
-            List<SelectListItem> ddlItems = new List<SelectListItem>();
-
-            foreach (var genreItem in genres)
-            {
-                SelectListItem item = new SelectListItem(genreItem.Name, genreItem.Key.ToString());
-                ddlItems.Add(item);
-            }
-
             int pageSize = 10;
             int pageNumber = 1;
-
             IEnumerable<GameViewModel> model;
-            
-
-            model = await _gamesService.SearchGames(gameViewModel.SearchObject);
-
-            return View(PaginatedList<GameViewModel>.Create(model, pageNumber, pageSize, ddlItems, searchObject));
+            model = await _gamesService.SearchGames(searchObject);
+            return View(PaginatedList<GameViewModel, SearchObjectGames>.Create(model, pageNumber, pageSize, searchObject));
         }
 
         public async Task<IActionResult> Details(int id)

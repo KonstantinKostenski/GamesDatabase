@@ -21,7 +21,7 @@ namespace GameDatabase.Controllers
         {
             var pageSize = 10;
             var model =  await _developerService.GetAllDevelopers(pageNumber, pageSize);
-            return View(PaginatedList<Developer>.Create(model, pageNumber ?? 1, pageSize));
+            return View(PaginatedList<Developer, SearchObjectDevelopers>.Create(model, pageNumber ?? 1, pageSize, null));
         }
 
         // GET: Developers/Details/5

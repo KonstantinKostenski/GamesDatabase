@@ -21,7 +21,7 @@ namespace GameDatabase.Controllers
         {
             var model = await _publisherService.GetAllPublishers(pageNumber ?? 1, 10);
             int pageSize = 10;
-            return View(PaginatedList<Publisher>.Create(model, pageNumber ?? 1, pageSize));
+            return View(PaginatedList<Publisher, SearchObjectDevelopers>.Create(model, pageNumber ?? 1, pageSize, null));
         }
 
         //// GET: Publishers/Details/5

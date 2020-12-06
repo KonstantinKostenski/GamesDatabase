@@ -1,4 +1,4 @@
-﻿@model PaginatedList<GameDatabase.Models.GameViewModel>
+﻿@model PaginatedList<GameDatabase.Models.GameViewModel, GamesDatabaseBusinessLogic.Models.SearchObjectGames>
 
 @{
     ViewData["Title"] = "Games";
@@ -17,11 +17,10 @@
                 <option value="@item.Value">@item.Text</option>//if the value is same as text
             }
         </select>
-        
+
         <input type="text" value="@Model.SearchObject.Name" />
         <input type="text" value="@Model.SearchObject.Developer" />
         <input type="text" value="@Model.SearchObject.Publisher" />
-
         <input type="submit" value="Filter" />
     }
 </nav>

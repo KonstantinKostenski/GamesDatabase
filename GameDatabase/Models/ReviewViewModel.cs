@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GamesDatabaseBusinessLogic.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameDatabase.Data
 {
