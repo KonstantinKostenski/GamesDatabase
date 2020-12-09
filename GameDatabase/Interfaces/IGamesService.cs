@@ -20,6 +20,8 @@ namespace GameDatabase.Interfaces
 
         Task UpdateGameById(int id, EditGameModel model);
 
+        Task AddGame(CreateGameModel gameModel);
+
         Task<IEnumerable<GameViewModel>> SearchGames(SearchObjectGames searchObject);
     }
 }

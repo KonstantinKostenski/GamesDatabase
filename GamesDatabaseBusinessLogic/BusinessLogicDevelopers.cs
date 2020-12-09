@@ -20,10 +20,10 @@ namespace GamesDatabaseBusinessLogic
             await _repository.AddAsync(developer);
         }
 
-        public bool CheckIfItCanBeDeleted(int id)
+        public async Task<bool> CheckIfItCanBeDeletedAsync(int id)
         {
-            var result = _repository.GetGameByDeveloperId(id).Result.Count;
-            return result <= 0;
+            var result = await _repository.GetGameByDeveloperId(id);
+            return result.Count <= 0;
         }
 
         public async Task DeleteDeveloper(int id)

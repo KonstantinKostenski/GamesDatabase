@@ -139,7 +139,9 @@ namespace GameDatabase.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmedAsync(int id)
         {
-            if (_developerService.CheckiIfItCanBeDeleted(id))
+            var canBeDeleted = await _developerService.CheckiIfItCanBeDeletedAsync(id);
+
+            if (canBeDeleted)
             {
                 await _developerService.DeleteDeveloperById(id);
             }

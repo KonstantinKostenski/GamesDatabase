@@ -80,55 +80,7 @@ namespace GameDatabase.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var publisher = _context
-                //    .Publishers
-                //    .FirstOrDefault(p => p.Name == game.Publisher);
-
-                //if (publisher == null)
-                //{
-                //    publisher = new Publisher()
-                //    {
-                //        Name = game.Publisher,
-                //        Description = "No desription yet.",
-                //        Location = "No location yet.",
-                //        LogoUrl = "No logo yet."
-                //    };
-
-                //    _context.Add(publisher);
-                //}
-
-                //var developer = _context
-                //    .Developers
-                //    .FirstOrDefault(d => d.Name == game.Developer);
-
-                //if (developer == null)
-                //{
-                //    developer = new Developer()
-                //    {
-                //        Name = game.Publisher,
-                //        Description = "No desription yet.",
-                //        Location = "No location yet.",
-                //        LogoUrl = "No logo yet."
-                //    };
-
-                //    _context.Add(developer);
-                //}
-
-                //var newGame = new Game()
-                //{
-                //    CoverArtUrl = game.CoverArtUrl,
-                //    Name = game.Name,
-                //    Developer = developer,
-                //    Publisher = publisher,
-                //    Genre = game.Genre,
-                //    Platform = game.Platform,
-                //    Description = game.Description
-
-                //};
-
-
-                //_context.Add(newGame);
-                //await _context.SaveChangesAsync();
+                await _gamesService.AddGame(game);
                 return RedirectToAction(nameof(GamesController.Index), new { pageNumber = 1 });
             }
 

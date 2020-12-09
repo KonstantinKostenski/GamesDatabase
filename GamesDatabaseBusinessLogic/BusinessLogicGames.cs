@@ -38,7 +38,7 @@ namespace GamesDatabaseBusinessLogic
             await _gameRepository.DeleteAsync(game);
         }
 
-        public async void AddGame(Game game)
+        public async Task AddGame(Game game)
         {
             await _gameRepository.AddAsync(game);
         }

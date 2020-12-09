@@ -16,6 +16,6 @@ namespace GameDatabase.Interfaces
 
         Task UpdateDeveloperByIdAsync(int id, Developer model);
 
-        bool CheckiIfItCanBeDeleted(int id);
+        Task<bool> CheckiIfItCanBeDeletedAsync(int id);
     }
 }

@@ -81,13 +81,13 @@ namespace GameDatabase.Services
             return model;
         }
 
-        public void AddGame(CreateGameModel createGameModel)
+        public async Task AddGame(CreateGameModel createGameModel)
         {
             var game = new Game() { Name = createGameModel.Name, Description = createGameModel.Description, CoverArtUrl = createGameModel.CoverArtUrl, Genre = createGameModel.Genre};
-            _businessLogicGames.AddGame(game);
+            await _businessLogicGames.AddGame(game);
         }
 
-        public  async Task UpdateGameById(int id, EditGameModel model)
+        public async Task UpdateGameById(int id, EditGameModel model)
         {
             Game game = new Game() { Name = model.Name, CoverArtUrl = model.CoverArtUrl, Description = model.Description, Platform = model.Platform, GenreId = model.GenreId, Genre = _commonService.GenreName(model.GenreId) };
             await _businessLogicGames.UpdateGame(id, game);
@@ -118,5 +118,6 @@ namespace GameDatabase.Services
                 Id = game.Id
             }).ToList();
         }
+
     }
 }

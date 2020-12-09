@@ -23,9 +23,9 @@ namespace GameDatabase.Services
             await _businessLogicDevelopers.AddDeveloper(model);
         }
 
-        public bool CheckiIfItCanBeDeleted(int id)
+        public async Task<bool> CheckiIfItCanBeDeletedAsync(int id)
         {
-            return _businessLogicDevelopers.CheckIfItCanBeDeleted(id);
+            return await _businessLogicDevelopers.CheckIfItCanBeDeletedAsync(id);
         }
 
         public async Task DeleteDeveloperById(int id)

@@ -11,6 +11,6 @@ namespace GamesDatabaseBusinessLogic.Interfaces
         Task DeleteDeveloper(int id);
         Task AddDeveloper(Developer developer);
         Task UpdateDeveloper(int id, Developer game);
-        bool CheckIfItCanBeDeleted(int id);
+        Task<bool> CheckIfItCanBeDeletedAsync(int id);
     }
 }
