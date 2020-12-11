@@ -2,6 +2,9 @@
   <p>
     Publishers
   </p>
+  <table mat-table [dataSource]="myDataArray">
+    ...
+  </table>
   <nav aria-label="Page navigation example">
     <ul class="pagination">
       <li class="page-item"><a class="page-link" (click)="loadPreviousPage()">Previous</a></li>
