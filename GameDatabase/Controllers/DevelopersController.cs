@@ -101,7 +101,9 @@ namespace GameDatabase.Controllers
                 }
                 catch (DbUpdateConcurrencyException ex)
                 {
-                    if (!DeveloperExists(developer.Id))
+                    var result = await DeveloperExistsAsync(developer.Id);
+
+                    if (!result)
                     {
                         return NotFound();
                     }
@@ -149,9 +151,10 @@ namespace GameDatabase.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DeveloperExists(int id)
+        private async Task<bool> DeveloperExistsAsync(int id)
         {
-            return _developerService.GetDeveloperById(id).Result != null;
+            var result = await _developerService.GetDeveloperById(id);
+            return result != null;
         }
     }
 }
