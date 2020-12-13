@@ -45,9 +45,17 @@ namespace GameDatabase.Controllers
         {
             int pageSize = 10;
             int pageNumber = 1;
+            var genres = await this._commonService.GetAllGenres();
+            List<SelectListItem> ddlItems = new List<SelectListItem>();
+            foreach (var genreItem in genres)
+            {
+                SelectListItem item = new SelectListItem(genreItem.Name, genreItem.Key.ToString());
+                ddlItems.Add(item);
+            }
+            searchObject.Genres = ddlItems;
             IEnumerable<GameViewModel> model;
             model = await _gamesService.SearchGames(searchObject);
-            return View(PaginatedList<GameViewModel, SearchObjectGames>.Create(model, pageNumber, pageSize, searchObject));
+            return View("~/Views/Games/Index.cshtml", PaginatedList<GameViewModel, SearchObjectGames>.Create(model, pageNumber, pageSize, searchObject));
         }
 
         public async Task<IActionResult> Details(int id)

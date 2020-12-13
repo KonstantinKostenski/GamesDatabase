@@ -18,7 +18,7 @@ namespace GameDatabase.Services
 
         public async Task<IEnumerable<Genre>> GetAllGenres()
         {
-            return await _businessLogicCommon.GetAllGenres();
+            return await _businessLogicCommon.GetAllGenresAsync();
         }
 
         public string GenreName(decimal key)

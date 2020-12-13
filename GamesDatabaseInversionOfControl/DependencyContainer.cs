@@ -9,7 +9,7 @@ namespace GamesDatabaseInversionOfControl
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped<GameRepository, GameRepository>();
+            services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IBusinessLogicGames, BusinessLogicGames>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
             services.AddScoped<IBusinessLogicReviews, BusinessLogicReviews>();
@@ -17,6 +17,7 @@ namespace GamesDatabaseInversionOfControl
             services.AddScoped<IBusinessLogicDevelopers, BusinessLogicDevelopers>();
             services.AddScoped<IPublisherRepository, PublisherRepository>();
             services.AddScoped<IBusinessLogicPublisher, BusinessLogicPublishers>();
+            services.AddScoped<ICommonRepository, CommonRepository>();
             services.AddScoped<ICommon, CommonBusinessLogic>();
         }
     }

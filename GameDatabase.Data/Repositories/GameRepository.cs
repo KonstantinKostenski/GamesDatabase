@@ -35,7 +35,9 @@ namespace GameDatabase.Data
         public async Task<IEnumerable<Game>> SearchGames(SearchObjectGames searchObject)
         {
             return await _dbContext.Games
-             .Where(g =>  g.Name == searchObject.Name && g.Developer.Name == searchObject.Developer && g.Publisher.Name == searchObject.Publisher)
+             .Where(g => g.Name.Contains(searchObject.Name)
+             && g.Developer.Name.Contains(searchObject.Developer)
+             && g.Publisher.Name.Contains(searchObject.Publisher))
              .Include(g => g.Developer)
              .Include(g => g.Publisher)
              .Take(10)
