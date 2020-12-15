@@ -136,6 +136,8 @@ namespace GameDatabase.Controllers
             return View(developer);
         }
 
+        
+
         // POST: Developers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -155,6 +157,12 @@ namespace GameDatabase.Controllers
         {
             var result = await _developerService.GetDeveloperById(id);
             return result != null;
+        }
+
+        // GET: Developers/Delete/5
+        public async Task<IActionResult> Search(SearchObjectDevelopers searchObject)
+        {
+            return null;
         }
     }
 }

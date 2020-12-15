@@ -3,7 +3,18 @@
     Developers
   </p>
   <table mat-table [dataSource]="myDataArray">
-    ...
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let developer"> {{developer.Name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Location">
+      <th mat-header-cell *matHeaderCellDef> Location </th>
+      <td mat-cell *matCellDef="let developer"> {{developer.Location}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let Description"> {{developer.Description}} </td>
+    </ng-container>
   </table>
   <nav aria-label="Page navigation example">
     <ul class="pagination">

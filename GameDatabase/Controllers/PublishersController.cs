@@ -149,5 +149,12 @@ namespace GameDatabase.Controllers
         {
             return _publisherService.GetPublisherById(id).Result != null;
         }
+
+
+        // GET: Publishers/Delete/5
+        public async Task<IActionResult> Search(SearchObjectGames searchObject)
+        {
+            return null;
+        }
     }
 }
