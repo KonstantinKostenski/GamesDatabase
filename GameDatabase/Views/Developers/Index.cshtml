@@ -9,6 +9,23 @@
 <p>
     <a asp-action="Create">Add Developer</a>
 </p>
+<br />
+<nav>
+    @using (Html.BeginForm("Search", "Developers", FormMethod.Post))
+    {
+        <label>Genre: </label>
+        <select id="genreId" name="genreId">
+            @foreach (var item in Model.SearchObject.Genres)
+            {
+                <option value="@item.Value">@item.Text</option>//if the value is same as text
+            }
+        </select>
+        <label>Name: </label>
+        <input type="text" name="Developer" value="@Model.SearchObject.Name" />
+    }
+</nav>
+<br />
+
 <table class="table">
     <thead>
         <tr>
