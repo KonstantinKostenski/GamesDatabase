@@ -27,7 +27,12 @@ namespace GameDatabase.Services
 
         public async Task<IEnumerable<Publisher>> GetAllPublishers(int? pageNumber, int pageSize) => await _businessLogicPublishers.GetPublisherListAsync(pageNumber, pageSize);
 
-        public Task<Publisher> GetPublisherById(int id) => _businessLogicPublishers.GetPublisherByIdAsync(id);
+        public async Task<Publisher> GetPublisherByIdAsync(int id) => await _businessLogicPublishers.GetPublisherByIdAsync(id);
+
+        public async Task<Publisher> GetPublisherByNameAsync(string name)
+        {
+            return await _businessLogicPublishers.GetPublisherByNameAsync(name);
+        }
 
         public async Task UpdatePublisherById(int id, Publisher model)
         {

@@ -21,6 +21,12 @@ namespace GameDatabase.Data
              .ToListAsync();
         }
 
+        public async Task<Developer> GetDeveloperByName(string name)
+        {
+            return await _dbContext.Developers
+             .FirstOrDefaultAsync(developer => developer.Name == name);
+        }
+
         public async Task<List<int>> GetGameByDeveloperId(int id)
         {
             return await _dbContext.Games

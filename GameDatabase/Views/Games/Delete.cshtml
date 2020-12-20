@@ -1,4 +1,4 @@
-﻿@model GamesDatabaseBusinessLogic.Models.Game
+﻿@model GameDatabase.Models.GameViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -16,12 +16,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CoverArtUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CoverArtUrl)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Developer)

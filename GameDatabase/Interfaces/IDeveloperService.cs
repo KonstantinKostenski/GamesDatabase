@@ -8,7 +8,9 @@ namespace GameDatabase.Interfaces
     {
         Task<IEnumerable<Developer>> GetAllDevelopers(int? pageNumber, int pageSize);
 
-        Task<Developer> GetDeveloperById(int id);
+        Task<Developer> GetDeveloperByIdAsync(int id);
+
+        Task<Developer> GetDeveloperByNameAsync(string name);
 
         Task DeleteDeveloperById(int id);
 

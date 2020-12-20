@@ -29,7 +29,7 @@ namespace GamesDatabaseBusinessLogic
         public async Task DeleteDeveloper(int id)
         {
             var entity = await _repository.GetByIdAsync(id);
-            await _repository.DeleteAsync(entity);
+            _repository.Delete(entity);
         }
 
         public async Task<IEnumerable<Developer>> GetAllDevelopers(int? pageNumber, int pageSize)
@@ -42,6 +42,11 @@ namespace GamesDatabaseBusinessLogic
             return await _repository.GetByIdAsync(id);
         }
 
+        public async Task<Developer> GetDeveloperByNameAsync(string name)
+        {
+            return await _repository.GetDeveloperByName(name);
+        }
+
         public async Task UpdateDeveloper(int id, Developer developer)
         {
             var developerFromDb = await this._repository.GetByIdAsync(id);
@@ -50,7 +55,12 @@ namespace GamesDatabaseBusinessLogic
             developerFromDb.Location = developer.Location;
             developerFromDb.LogoUrl = developer.LogoUrl;
             developerFromDb.Name = developer.Name;
-            await this._repository.UpdateAsync(developerFromDb);
+            this._repository.Update(developerFromDb);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _repository.SaveChangesAsync();
         }
     }
 }

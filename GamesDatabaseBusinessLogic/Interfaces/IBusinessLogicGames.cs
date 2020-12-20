@@ -13,5 +13,6 @@ namespace GamesDatabaseBusinessLogic.Interfaces
         Task AddGame(Game game);
         Task UpdateGame(int id, Game game);
         Task<IEnumerable<Game>> SearchGames(SearchObjectGames searchObject);
+        Task SaveChangesAsync();
     }
 }

@@ -32,7 +32,7 @@ namespace GameDatabase.Controllers
                 return NotFound();
             }
 
-            var publisher = await _publisherService.GetPublisherById(id.Value);
+            var publisher = await _publisherService.GetPublisherByIdAsync(id.Value);
 
             if (publisher == null)
             {
@@ -72,7 +72,7 @@ namespace GameDatabase.Controllers
                 return NotFound();
             }
 
-            var publisher = await _publisherService.GetPublisherById(id.Value);
+            var publisher = await _publisherService.GetPublisherByIdAsync(id.Value);
 
             if (publisher == null)
             {
@@ -126,7 +126,7 @@ namespace GameDatabase.Controllers
                 return NotFound();
             }
 
-            var publisher = await _publisherService.GetPublisherById(id.Value);
+            var publisher = await _publisherService.GetPublisherByIdAsync(id.Value);
 
             if (publisher == null)
             {
@@ -147,7 +147,7 @@ namespace GameDatabase.Controllers
 
         private bool PublisherExists(int id)
         {
-            return _publisherService.GetPublisherById(id).Result != null;
+            return _publisherService.GetPublisherByIdAsync(id).Result != null;
         }
     }
 }

@@ -8,7 +8,9 @@ namespace GameDatabase.Interfaces
     {
         Task<IEnumerable<Publisher>> GetAllPublishers(int? pageNumber, int pageSize);
 
-        Task<Publisher> GetPublisherById(int id);
+        Task<Publisher> GetPublisherByIdAsync(int id);
+
+        Task<Publisher> GetPublisherByNameAsync(string name);
 
         Task DeletePublisherByIdAsync(int id);
 

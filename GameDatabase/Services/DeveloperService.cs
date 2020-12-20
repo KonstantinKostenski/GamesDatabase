@@ -38,9 +38,14 @@ namespace GameDatabase.Services
             return await _businessLogicDevelopers.GetAllDevelopers(pageNumber, pageSize);
         }
 
-        public Task<Developer> GetDeveloperById(int id)
+        public async Task<Developer> GetDeveloperByIdAsync(int id)
         {
-            return _businessLogicDevelopers.GetDeveloperByIdAsync(id);
+            return await _businessLogicDevelopers.GetDeveloperByIdAsync(id);
+        }
+
+        public async Task<Developer> GetDeveloperByNameAsync(string name)
+        {
+            return await _businessLogicDevelopers.GetDeveloperByNameAsync(name);
         }
 
         public async Task UpdateDeveloperByIdAsync(int id, Developer model)

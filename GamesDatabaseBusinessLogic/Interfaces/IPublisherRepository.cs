@@ -8,5 +8,6 @@ namespace GamesDatabaseBusinessLogic.Interfaces
     public interface IPublisherRepository: IAsyncRepository<Publisher>
     {
         Task<List<Publisher>> GetAllPublishers(int? pageNumber, int pageSize);
+        Task<Publisher> GetByNameAsync(string name);
     }
 }

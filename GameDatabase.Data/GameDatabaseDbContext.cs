@@ -23,6 +23,11 @@ namespace GameDatabase.Data
                 .WithMany(p => p.GamesPublished)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Game>()
+                .HasMany(g => g.Reviews)
+                .WithOne(r => r.Game)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
         }
 

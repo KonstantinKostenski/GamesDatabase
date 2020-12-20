@@ -8,8 +8,10 @@ namespace GamesDatabaseBusinessLogic.Interfaces
     {
         Task<List<Publisher>> GetPublisherListAsync(int? pageNumber, int pageSize);
         Task<Publisher> GetPublisherByIdAsync(int id);
+        Task<Publisher> GetPublisherByNameAsync(string name);
         Task AddPublsherAsync(Publisher publisher);
         Task DeletePublisherById(int id);
         Task UpdatePublisherAsync(int id, Publisher model);
+        Task SaveChangesAsync();
     }
 }

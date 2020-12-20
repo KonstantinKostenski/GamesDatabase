@@ -14,13 +14,22 @@ namespace GameDatabase.Services
     public class GamesService : IGamesService
     {
         private IBusinessLogicGames _businessLogicGames;
+        private IBusinessLogicDevelopers _businessLogicDevelopers;
+        private IBusinessLogicPublisher _businessLogicPublisher;
+
+
         private ICommonService _commonService;
+        private IDeveloperService _developerService;
+        private IPublisherService _publisherService;
 
-
-        public GamesService(IBusinessLogicGames businessLogicGames, ICommonService commonService)
+        public GamesService(IBusinessLogicGames businessLogicGames, IBusinessLogicDevelopers businessLogicDevelopers, IBusinessLogicPublisher businessLogicPublisher, ICommonService commonService, IDeveloperService developerService, IPublisherService publisherService)
         {
             _businessLogicGames = businessLogicGames;
+            _businessLogicDevelopers = businessLogicDevelopers;
+            _businessLogicPublisher = businessLogicPublisher;
             _commonService = commonService;
+            _developerService = developerService;
+            _publisherService = publisherService;
         }
 
         public async Task<IEnumerable<GameViewModel>> GetAllGames(int? pageNumber, int pageSize)
@@ -70,37 +79,81 @@ namespace GameDatabase.Services
 
             foreach (var review in game.Reviews)
             {
-                reviewViewModels.Add(new ReviewViewModel() {Id = review.Id, Author = review.Author, Text = review.Text,
-                    GameId = review.GameId, AuthorId = review.AuthorId, Title = review.Title });
+                reviewViewModels.Add(new ReviewViewModel()
+                {
+                    Id = review.Id,
+                    Author = review.Author,
+                    Text = review.Text,
+                    GameId = review.GameId,
+                    AuthorId = review.AuthorId,
+                    Title = review.Title
+                });
             }
 
-            var model = new GameViewModel() { Genre = game.Genre, GenreId = game.GenreId, CoverArtUrl = game.CoverArtUrl, Description = game.Description,
-                Id = game.Id, Platform = game.Platform, Name = game.Name,
-                Developer = game.Developer.Name, Publisher = game.Publisher.Name, Reviews = reviewViewModels };
+            var model = new GameViewModel()
+            {
+                Genre = game.Genre,
+                GenreId = game.GenreId,
+                CoverArtUrl = game.CoverArtUrl,
+                Description = game.Description,
+                Id = game.Id,
+                Platform = game.Platform,
+                Name = game.Name,
+                Developer = game.Developer.Name,
+                DeveloperId = game.Developer.Id,
+                Publisher = game.Publisher.Name,
+                PublisherId = game.Publisher.Id,
+                Reviews = reviewViewModels
+            };
 
             return model;
         }
 
         public async Task AddGame(CreateGameModel createGameModel)
         {
-            var game = new Game() { Name = createGameModel.Name, Description = createGameModel.Description, CoverArtUrl = createGameModel.CoverArtUrl, Genre = createGameModel.Genre};
+            var game = new Game() { Name = createGameModel.Name, Description = createGameModel.Description, CoverArtUrl = createGameModel.CoverArtUrl, Genre = createGameModel.Genre, Platform = createGameModel.Platform };
+            var developer = await _developerService.GetDeveloperByNameAsync(createGameModel.Developer);
+            var publisher = await _publisherService.GetPublisherByNameAsync(createGameModel.Publisher);
+
+            if (developer == null)
+            {
+                developer = new Developer() { Name = createGameModel.Developer, Description = "No description yet.", Location = "No location yet.", LogoUrl = "https://images.app.goo.gl/piYLgvJBbpcKbT9A7" };
+                await _businessLogicDevelopers.AddDeveloper(developer);
+            }
+
+            if (publisher == null)
+            {
+                publisher = new Publisher() { Name = createGameModel.Publisher, Description = "No description yet.", Location = "No location yet.", LogoUrl = "https://images.app.goo.gl/piYLgvJBbpcKbT9A7" };
+                await _businessLogicPublisher.AddPublsherAsync(publisher);
+            }
+
+            await _businessLogicDevelopers.SaveChangesAsync();
+            await _businessLogicPublisher.SaveChangesAsync();
+            developer = await _businessLogicDevelopers.GetDeveloperByNameAsync(createGameModel.Developer);
+            publisher = await _businessLogicPublisher.GetPublisherByNameAsync(createGameModel.Publisher);
+            game.DeveloperId = developer.Id;
+            game.PublisherId = publisher.Id;
             await _businessLogicGames.AddGame(game);
+            await _businessLogicGames.SaveChangesAsync();
         }
 
         public async Task UpdateGameById(int id, EditGameModel model)
         {
             Game game = new Game() { Name = model.Name, CoverArtUrl = model.CoverArtUrl, Description = model.Description, Platform = model.Platform, GenreId = model.GenreId, Genre = _commonService.GenreName(model.GenreId) };
             await _businessLogicGames.UpdateGame(id, game);
+            await _businessLogicGames.SaveChangesAsync();
         }
 
         public async Task DeleteGame(int id)
         {
             await _businessLogicGames.DeleteGame(id);
+            await _businessLogicGames.SaveChangesAsync();
         }
 
         public async Task DeleteGameById(int id)
         {
             await _businessLogicGames.DeleteGame(id);
+            await _businessLogicGames.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<GameViewModel>> SearchGames(SearchObjectGames searchObject)

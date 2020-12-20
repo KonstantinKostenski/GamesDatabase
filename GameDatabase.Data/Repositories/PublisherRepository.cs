@@ -20,5 +20,10 @@ namespace GameDatabase.Data
              .Take(pageSize)
              .ToListAsync();
         }
+
+        public async Task<Publisher> GetByNameAsync(string name)
+        {
+            return await _dbContext.Publishers.Where(publisher => publisher.Name == name).FirstOrDefaultAsync();
+        }
     }
 }

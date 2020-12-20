@@ -21,7 +21,8 @@ namespace GameDatabase.Controllers
         {
             var pageSize = 10;
             var model =  await _developerService.GetAllDevelopers(pageNumber, pageSize);
-            return View(PaginatedList<Developer, SearchObjectDevelopers>.Create(model, pageNumber ?? 1, pageSize, null));
+            SearchObjectDevelopers searchObject = new SearchObjectDevelopers();
+            return View(PaginatedList<Developer, SearchObjectDevelopers>.Create(model, pageNumber ?? 1, pageSize, searchObject));
         }
 
         // GET: Developers/Details/5
@@ -32,7 +33,7 @@ namespace GameDatabase.Controllers
                 return NotFound();
             }
 
-            var developer = await _developerService.GetDeveloperById(id.Value);
+            var developer = await _developerService.GetDeveloperByIdAsync(id.Value);
 
             if (developer == null)
             {
@@ -71,7 +72,7 @@ namespace GameDatabase.Controllers
                 return NotFound();
             }
 
-            var developer = await _developerService.GetDeveloperById(id.Value);
+            var developer = await _developerService.GetDeveloperByIdAsync(id.Value);
 
             if (developer == null)
             {
@@ -126,7 +127,7 @@ namespace GameDatabase.Controllers
                 return NotFound();
             }
 
-            var developer = await _developerService.GetDeveloperById(id.Value);
+            var developer = await _developerService.GetDeveloperByIdAsync(id.Value);
 
             if (developer == null)
             {
@@ -153,7 +154,7 @@ namespace GameDatabase.Controllers
 
         private async Task<bool> DeveloperExistsAsync(int id)
         {
-            var result = await _developerService.GetDeveloperById(id);
+            var result = await _developerService.GetDeveloperByIdAsync(id);
             return result != null;
         }
     }

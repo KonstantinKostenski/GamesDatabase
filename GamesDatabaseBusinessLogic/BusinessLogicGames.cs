@@ -35,7 +35,7 @@ namespace GamesDatabaseBusinessLogic
         public async Task DeleteGame(int id)
         {
             var game = await _gameRepository.GetByIdAsync(id);
-            await _gameRepository.DeleteAsync(game);
+             _gameRepository.Delete(game);
         }
 
         public async Task AddGame(Game game)
@@ -51,12 +51,17 @@ namespace GamesDatabaseBusinessLogic
             game.Name = data.Name;
             game.Genre = data.Genre;
             game.Name = data.Name;
-            await _gameRepository.UpdateAsync(game);
+            _gameRepository.Update(game);
         }
 
         public async Task<IEnumerable<Game>> SearchGames(SearchObjectGames searchObject)
         {
             return await this._gameRepository.SearchGames(searchObject);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _gameRepository.SaveChangesAsync();
         }
     }
 }

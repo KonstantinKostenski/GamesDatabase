@@ -10,5 +10,8 @@ namespace GamesDatabaseBusinessLogic.Interfaces
         Task<IEnumerable<Developer>> GetAllDeveloeprs(int? pageNumber, int pageSize);
 
         Task<List<int>> GetGameByDeveloperId(int id);
+
+        Task<Developer> GetDeveloperByName(string name);
+
     }
 }
