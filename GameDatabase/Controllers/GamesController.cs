@@ -15,11 +15,13 @@ namespace GameDatabase.Controllers
     {
         private IGamesService _gamesService;
         private ICommonService _commonService;
+        private IMapper _mapper;
 
-        public GamesController(IGamesService gamesService, ICommonService commonService)
+        public GamesController(IGamesService gamesService, ICommonService commonService, IMapper mapper)
         {
             this._gamesService = gamesService;
             this._commonService = commonService;
+            this._mapper = mapper;
         }
 
         [HttpGet]
@@ -103,14 +105,9 @@ namespace GameDatabase.Controllers
                 return NotFound();
             }
 
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<GameViewModel, EditGameModel>();
-            });
+            var gameFromDatabase = await _gamesService.GetGameById(id);
 
-            Mapper mapper = new Mapper(configuration);
-
-            var game = mapper.Map<GameViewModel, EditGameModel>(_gamesService.GetGameById(id).Result);
+            var game = _mapper.Map<GameViewModel, EditGameModel>(gameFromDatabase);
 
             var genres = await _commonService.GetAllGenres();
 

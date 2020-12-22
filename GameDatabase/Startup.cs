@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using GamesDatabaseBusinessLogic.Models;
 using GameDatabase.Interfaces;
 using GamesDatabaseInversionOfControl;
+using AutoMapper;
 
 namespace GameDatabase
 {
@@ -48,7 +49,7 @@ namespace GameDatabase
             })
                 .AddEntityFrameworkStores<GameDatabaseDbContext>()
                 .AddDefaultTokenProviders();
-
+            services.AddAutoMapper(typeof(Startup));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IGamesService, GamesService>();
             services.AddScoped<IDeveloperService, DeveloperService>();
