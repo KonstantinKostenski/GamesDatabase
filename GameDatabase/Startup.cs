@@ -55,6 +55,7 @@ namespace GameDatabase
             services.AddScoped<IDeveloperService, DeveloperService>();
             services.AddScoped<IPublisherService, PublisherService>();
             services.AddScoped<ICommonService, CommonService>();
+            services.AddScoped<IReviewsService, ReviewsService>();
             services.AddScoped<ReviewsService>();
 
             DependencyContainer.RegisterServices(services);

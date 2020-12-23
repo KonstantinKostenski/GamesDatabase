@@ -13,30 +13,26 @@ namespace GameDatabase.Services
     public class ReviewsService: IReviewsService
     {
         private IBusinessLogicReviews _businessLogicReviews;
+        private IMapper _IMapper;
         private readonly UserManager<User> _userManager;
 
-        public ReviewsService(IBusinessLogicReviews businessLogicReviews, UserManager<User> userManager)
+        public ReviewsService(IBusinessLogicReviews businessLogicReviews, UserManager<User> userManager, IMapper mapper)
         {
             _businessLogicReviews = businessLogicReviews;
             _userManager = userManager;
+            _IMapper = mapper;
         }
 
         public Task<User> GetCurrentUserAsync(ClaimsPrincipal claims) => _userManager.GetUserAsync(claims);
 
         public async Task AddReviewAsync(ReviewCreateModel reviewCreateViewModel, int gameId, ClaimsPrincipal claimsPrincipal)
         {
-            var configuration = new MapperConfiguration(cfg => {
-                cfg.CreateMap<ReviewCreateModel, Review>();
-            });
-
             var user = await GetCurrentUserAsync(claimsPrincipal);
             var userId = user?.Id;
-            Mapper mapper = new Mapper(configuration);
-            var review = mapper.Map<ReviewCreateModel, Review>(reviewCreateViewModel);
+            var review = _IMapper.Map<ReviewCreateModel, Review>(reviewCreateViewModel);
             review.GameId = gameId;
             review.AuthorId = userId;
             await _businessLogicReviews.AddReview(review);
         }
-
     }
 }

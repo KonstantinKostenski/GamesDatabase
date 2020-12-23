@@ -34,5 +34,12 @@ namespace GameDatabase.Data
              .Select(game => game.Id)
              .ToListAsync();
         }
+
+        public async Task<IEnumerable<Developer>> SearchAsync(SearchObjectDevelopers searchObject)
+        {
+            return await _dbContext.Developers
+             .Where(developer => developer.Name == searchObject.Name)
+             .ToListAsync();
+        }
     }
 }

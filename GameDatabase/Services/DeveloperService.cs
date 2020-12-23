@@ -52,5 +52,10 @@ namespace GameDatabase.Services
         {
             await _businessLogicDevelopers.UpdateDeveloper(id, model);
         }
+
+        public async Task<IEnumerable<Developer>> Search(SearchObjectDevelopers searchObject)
+        {
+            return await _businessLogicDevelopers.SearchAsync(searchObject);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using GameDatabase.Data.Interfaces;
+﻿using GameDatabase;
+using GameDatabase.Data.Interfaces;
 using GamesDatabaseBusinessLogic.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,5 +14,6 @@ namespace GamesDatabaseBusinessLogic.Interfaces
 
         Task<Developer> GetDeveloperByName(string name);
 
+        Task<IEnumerable<Developer>> SearchAsync(SearchObjectDevelopers searchObject);
     }
 }

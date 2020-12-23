@@ -1,4 +1,5 @@
-﻿using GamesDatabaseBusinessLogic.Models;
+﻿using GameDatabase;
+using GamesDatabaseBusinessLogic.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace GamesDatabaseBusinessLogic.Interfaces
         Task AddDeveloper(Developer developer);
         Task UpdateDeveloper(int id, Developer game);
         Task<bool> CheckIfItCanBeDeletedAsync(int id);
+        Task<IEnumerable<Developer>> SearchAsync(SearchObjectDevelopers searchObject);
         Task SaveChangesAsync();
     }
 }

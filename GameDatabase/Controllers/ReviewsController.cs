@@ -47,7 +47,9 @@ namespace GameDatabase.Controllers
         [Authorize]
         public IActionResult Create(int? id)
         {
-            return View();
+            ReviewCreateModel createModel = new ReviewCreateModel();
+            createModel.GameId = id ?? 0;
+            return View(createModel);
         }
 
         // POST: Reviews/Create
@@ -56,11 +58,11 @@ namespace GameDatabase.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAsync([Bind("id")]int id, [Bind("Title,Text")] ReviewCreateModel review)
+        public async Task<IActionResult> CreateAsync([FromRoute] int id, [Bind("Title,Text")] ReviewCreateModel review)
         {
             if (ModelState.IsValid)
             {
-                await _reviewsService.AddReviewAsync(review, id, this.User);
+                await _reviewsService.AddReviewAsync(review, id, User);
                 return RedirectToAction("Details", "Games", new { id });
             }
 

@@ -1,4 +1,5 @@
-﻿using GameDatabase.Data;
+﻿using AutoMapper;
+using GameDatabase.Data;
 using GameDatabase.Interfaces;
 using GameDatabase.Models;
 using GamesDatabaseBusinessLogic.Interfaces;
@@ -21,8 +22,9 @@ namespace GameDatabase.Services
         private ICommonService _commonService;
         private IDeveloperService _developerService;
         private IPublisherService _publisherService;
+        private IMapper _mapper;
 
-        public GamesService(IBusinessLogicGames businessLogicGames, IBusinessLogicDevelopers businessLogicDevelopers, IBusinessLogicPublisher businessLogicPublisher, ICommonService commonService, IDeveloperService developerService, IPublisherService publisherService)
+        public GamesService(IBusinessLogicGames businessLogicGames, IBusinessLogicDevelopers businessLogicDevelopers, IBusinessLogicPublisher businessLogicPublisher, ICommonService commonService, IDeveloperService developerService, IPublisherService publisherService, IMapper mapper)
         {
             _businessLogicGames = businessLogicGames;
             _businessLogicDevelopers = businessLogicDevelopers;
@@ -30,30 +32,31 @@ namespace GameDatabase.Services
             _commonService = commonService;
             _developerService = developerService;
             _publisherService = publisherService;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<GameViewModel>> GetAllGames(int? pageNumber, int pageSize)
         {
             var result = await _businessLogicGames.GetAllGames(pageNumber ?? 1, pageSize);
-
-            return result.Select(game => new GameViewModel
-            {
-                Developer = game.Developer.Name,
-                Publisher = game.Publisher.Name,
-                Genre = game.Genre,
-                Name = game.Name,
-                CoverArtUrl = game.CoverArtUrl,
-                Description = game.Description,
-                Platform = game.Platform,
-                Reviews = game.Reviews.Select(review => new ReviewViewModel
-                {
-                    Author = review.Author,
-                    Id = review.Id,
-                    Text = review.Text,
-                    Title = review.Title
-                }),
-                Id = game.Id
-            }).ToList();
+            return _mapper.Map<IEnumerable<Game>, IEnumerable<GameViewModel>>(result);
+            //return result.Select(game => new GameViewModel
+            //{
+            //    Developer = game.Developer.Name,
+            //    Publisher = game.Publisher.Name,
+            //    Genre = game.Genre,
+            //    Name = game.Name,
+            //    CoverArtUrl = game.CoverArtUrl,
+            //    Description = game.Description,
+            //    Platform = game.Platform,
+            //    Reviews = game.Reviews.Select(review => new ReviewViewModel
+            //    {
+            //        Author = review.Author,
+            //        Id = review.Id,
+            //        Text = review.Text,
+            //        Title = review.Title
+            //    }),
+            //    Id = game.Id
+            //}).ToList();
         }
 
         public async Task<IEnumerable<GameViewModel>> GetAllGamesByGenre(int? pageNumber, int pageSize, int genreId)
@@ -75,37 +78,7 @@ namespace GameDatabase.Services
         public async Task<GameViewModel> GetGameById(int id)
         {
             var game = await _businessLogicGames.GetGameAndReviewsById(id);
-            List<ReviewViewModel> reviewViewModels = new List<ReviewViewModel>();
-
-            foreach (var review in game.Reviews)
-            {
-                reviewViewModels.Add(new ReviewViewModel()
-                {
-                    Id = review.Id,
-                    Author = review.Author,
-                    Text = review.Text,
-                    GameId = review.GameId,
-                    AuthorId = review.AuthorId,
-                    Title = review.Title
-                });
-            }
-
-            var model = new GameViewModel()
-            {
-                Genre = game.Genre,
-                GenreId = game.GenreId,
-                CoverArtUrl = game.CoverArtUrl,
-                Description = game.Description,
-                Id = game.Id,
-                Platform = game.Platform,
-                Name = game.Name,
-                Developer = game.Developer.Name,
-                DeveloperId = game.Developer.Id,
-                Publisher = game.Publisher.Name,
-                PublisherId = game.Publisher.Id,
-                Reviews = reviewViewModels
-            };
-
+            var model = _mapper.Map<Game, GameViewModel>(game);
             return model;
         }
 

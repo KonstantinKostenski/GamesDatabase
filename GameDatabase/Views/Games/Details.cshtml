@@ -1,9 +1,7 @@
 ﻿@model GameDatabase.Models.GameViewModel
-
 @{
     ViewData["Title"] = @Model.Name;
 }
-
 
 <section id="about" class="section-padding">
     <div class="container">
@@ -18,7 +16,6 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="profile-wrapper wow fadeInRight">
-                    
                     <div class="about-profile">
                         <div align="left" class="jumbotron">
                             Developer: <p>@Model.Developer </p>
@@ -37,9 +34,7 @@
         </div>
     </div>
 </section>
-
 <hr />  
-
 <div class="container">
     <div class="row">
         <div>
@@ -49,12 +44,12 @@
             @foreach (var review in Model.Reviews)
             {
                 <h3>@review.Title</h3>
-                <h5>Author: @review.Author.FullName</h5>
+                <h5>Author: @review.AuthorName</h5>
                 <hr />
                 <div align="left" class="jumbotron">
                     <p>@review.Text</p>
                 </div>
-                @if (User.Identity.Name == review.Author.UserName)
+                @if (User.Identity.Name == review.AuthorName)
                 {
                     <a class="btn bg-primary" asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id">Delete Review</a>
                     <a class="btn bg-primary" asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id">Edit Review</a>

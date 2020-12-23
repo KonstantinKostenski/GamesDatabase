@@ -12,6 +12,7 @@ namespace GameDatabase.Data
         public int GameId { get; set; }
 
         public User Author { get; set; }
+        public string AuthorName { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 3)]

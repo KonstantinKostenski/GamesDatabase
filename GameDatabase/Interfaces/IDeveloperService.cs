@@ -19,5 +19,7 @@ namespace GameDatabase.Interfaces
         Task UpdateDeveloperByIdAsync(int id, Developer model);
 
         Task<bool> CheckiIfItCanBeDeletedAsync(int id);
+
+        Task<IEnumerable<Developer>> Search(SearchObjectDevelopers searchObject);
     }
 }

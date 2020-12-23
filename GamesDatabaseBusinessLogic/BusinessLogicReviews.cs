@@ -17,6 +17,7 @@ namespace GamesDatabaseBusinessLogic
         public async Task AddReview(Review review)
         {
             await _reviewRepository.AddAsync(review);
+            await _reviewRepository.SaveChangesAsync();
         }
 
     }

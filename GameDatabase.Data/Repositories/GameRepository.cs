@@ -17,6 +17,7 @@ namespace GameDatabase.Data
         {
             return await _dbContext.Games
                 .Include(g => g.Reviews)
+                .ThenInclude(reviews => reviews.Author)
                 .Include(g => g.Publisher)
                 .Include(g => g.Developer)
                 .FirstOrDefaultAsync(game => game.Id == id);

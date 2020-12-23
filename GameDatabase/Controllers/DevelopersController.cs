@@ -163,7 +163,9 @@ namespace GameDatabase.Controllers
         // GET: Developers/Delete/5
         public async Task<IActionResult> Search(SearchObjectDevelopers searchObject)
         {
-            return null;
+            var pageSize = 10;
+            var model = await _developerService.Search(searchObject);
+            return View("~/Views/Developers/Index.cshtml", PaginatedList<Developer, SearchObjectDevelopers>.Create(model, 1, pageSize, searchObject));
         }
     }
 }
