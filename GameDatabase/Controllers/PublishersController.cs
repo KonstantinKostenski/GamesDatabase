@@ -20,8 +20,9 @@ namespace GameDatabase.Controllers
         public async Task<IActionResult> Index(int? pageNumber)
         {
             var model = await _publisherService.GetAllPublishers(pageNumber ?? 1, 10);
+            SearchObjectDevelopers searchObject = new SearchObjectDevelopers();
             int pageSize = 10;
-            return View(PaginatedList<Publisher, SearchObjectDevelopers>.Create(model, pageNumber ?? 1, pageSize, null));
+            return View(PaginatedList<Publisher, SearchObjectDevelopers>.Create(model, pageNumber ?? 1, pageSize, searchObject));
         }
 
         //// GET: Publishers/Details/5
@@ -152,9 +153,11 @@ namespace GameDatabase.Controllers
 
 
         // GET: Publishers/Delete/5
-        public async Task<IActionResult> Search(SearchObjectGames searchObject)
+        public async Task<IActionResult> Search(SearchObjectDevelopers searchObject)
         {
-            return null;
+            var pageSize = 10;
+            var model = await _publisherService.Search(searchObject);
+            return View("~/Views/Publishers/Index.cshtml", PaginatedList<Publisher, SearchObjectDevelopers>.Create(model, 1, pageSize, searchObject));
         }
     }
 }

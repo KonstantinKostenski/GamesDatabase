@@ -1,4 +1,5 @@
-﻿using GamesDatabaseBusinessLogic.Models;
+﻿using GameDatabase;
+using GamesDatabaseBusinessLogic.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,5 +14,6 @@ namespace GamesDatabaseBusinessLogic.Interfaces
         Task DeletePublisherById(int id);
         Task UpdatePublisherAsync(int id, Publisher model);
         Task SaveChangesAsync();
+        Task<IEnumerable<Publisher>> SearchAsync(SearchObjectDevelopers searchObject);
     }
 }

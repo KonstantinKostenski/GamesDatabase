@@ -25,5 +25,12 @@ namespace GameDatabase.Data
         {
             return await _dbContext.Publishers.Where(publisher => publisher.Name == name).FirstOrDefaultAsync();
         }
+
+        public async Task<IEnumerable<Publisher>> SearchAsync(SearchObjectDevelopers searchObject)
+        {
+            return await _dbContext.Publishers
+             .Where(developer => developer.Name.Contains(searchObject.Name))
+             .ToListAsync();
+        }
     }
 }

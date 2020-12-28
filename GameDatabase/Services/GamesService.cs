@@ -84,35 +84,37 @@ namespace GameDatabase.Services
 
         public async Task AddGame(CreateGameModel createGameModel)
         {
-            var game = new Game() { Name = createGameModel.Name, Description = createGameModel.Description, CoverArtUrl = createGameModel.CoverArtUrl, Genre = createGameModel.Genre, Platform = createGameModel.Platform };
-            var developer = await _developerService.GetDeveloperByNameAsync(createGameModel.Developer);
-            var publisher = await _publisherService.GetPublisherByNameAsync(createGameModel.Publisher);
+            var game = _mapper.Map<CreateGameModel, Game>(createGameModel);
+            var developer = await _developerService.GetDeveloperByNameAsync(createGameModel.DeveloperName);
+            var publisher = await _publisherService.GetPublisherByNameAsync(createGameModel.PublisherName);
 
             if (developer == null)
             {
-                developer = new Developer() { Name = createGameModel.Developer, Description = "No description yet.", Location = "No location yet.", LogoUrl = "https://images.app.goo.gl/piYLgvJBbpcKbT9A7" };
+                developer = new Developer() { Name = createGameModel.DeveloperName, Description = "No description yet.", Location = "No location yet.", LogoUrl = "https://images.app.goo.gl/piYLgvJBbpcKbT9A7" };
                 await _businessLogicDevelopers.AddDeveloper(developer);
             }
 
             if (publisher == null)
             {
-                publisher = new Publisher() { Name = createGameModel.Publisher, Description = "No description yet.", Location = "No location yet.", LogoUrl = "https://images.app.goo.gl/piYLgvJBbpcKbT9A7" };
+                publisher = new Publisher() { Name = createGameModel.PublisherName, Description = "No description yet.", Location = "No location yet.", LogoUrl = "https://images.app.goo.gl/piYLgvJBbpcKbT9A7" };
                 await _businessLogicPublisher.AddPublsherAsync(publisher);
             }
 
             await _businessLogicDevelopers.SaveChangesAsync();
             await _businessLogicPublisher.SaveChangesAsync();
-            developer = await _businessLogicDevelopers.GetDeveloperByNameAsync(createGameModel.Developer);
-            publisher = await _businessLogicPublisher.GetPublisherByNameAsync(createGameModel.Publisher);
+            developer = await _businessLogicDevelopers.GetDeveloperByNameAsync(createGameModel.DeveloperName);
+            publisher = await _businessLogicPublisher.GetPublisherByNameAsync(createGameModel.PublisherName);
             game.DeveloperId = developer.Id;
             game.PublisherId = publisher.Id;
+            game.Genre = createGameModel.Genres.First(genre => decimal.Parse(genre.Value) == game.GenreId)?.Text;
             await _businessLogicGames.AddGame(game);
             await _businessLogicGames.SaveChangesAsync();
         }
 
         public async Task UpdateGameById(int id, EditGameModel model)
         {
-            Game game = new Game() { Name = model.Name, CoverArtUrl = model.CoverArtUrl, Description = model.Description, Platform = model.Platform, GenreId = model.GenreId, Genre = _commonService.GenreName(model.GenreId) };
+            Game game = _mapper.Map<EditGameModel, Game>(model);
+            game.Genre = model.Genres.First(genre => decimal.Parse(genre.Value) == game.GenreId)?.Text;
             await _businessLogicGames.UpdateGame(id, game);
             await _businessLogicGames.SaveChangesAsync();
         }

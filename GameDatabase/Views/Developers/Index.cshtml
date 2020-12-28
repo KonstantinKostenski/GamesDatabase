@@ -14,8 +14,8 @@
     @using (Html.BeginForm("Search", "Developers", FormMethod.Post))
     {
         <label>Name: </label>
-        <input type="text" name="Developer" value="@Model.SearchObject.Name" />
-        <input type="submit" value="Filter" />
+        <input type="text" name="Name" value="@Model.SearchObject.Name" />
+        <input type="submit" value="Search" />
     }
 </nav>
 <br />

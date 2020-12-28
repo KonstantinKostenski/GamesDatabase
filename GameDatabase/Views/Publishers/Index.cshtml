@@ -1,4 +1,4 @@
-﻿@model PaginatedList<GamesDatabaseBusinessLogic.Models.Publisher, GamesDatabaseBusinessLogic.Models.SearchObjectGames >
+﻿@model PaginatedList<GamesDatabaseBusinessLogic.Models.Publisher, GameDatabase.SearchObjectDevelopers>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,15 +14,9 @@
 <nav>
     @using (Html.BeginForm("Search", "Publishers", FormMethod.Post))
     {
-        <label>Genre: </label>
-        <select id="genreId" name="genreId">
-            @foreach (var item in Model.SearchObject.Genres)
-            {
-                <option value="@item.Value">@item.Text</option>//if the value is same as text
-            }
-        </select>
         <label>Name: </label>
-        <input type="text" name="Developer" value="@Model.SearchObject.Name" />
+        <input type="text" name="Name" value="@Model.SearchObject.Name" />
+        <input type="submit" value="Search" />
     }
 </nav>
 <br />

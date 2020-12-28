@@ -18,11 +18,13 @@ namespace GameDatabase.Services
         public async Task AddPublisherAsync(Publisher model)
         {
             await this._businessLogicPublishers.AddPublsherAsync(model);
+            await _businessLogicPublishers.SaveChangesAsync();
         }
 
         public async Task DeletePublisherByIdAsync(int id)
         {
             await _businessLogicPublishers.DeletePublisherById(id);
+            await _businessLogicPublishers.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Publisher>> GetAllPublishers(int? pageNumber, int pageSize) => await _businessLogicPublishers.GetPublisherListAsync(pageNumber, pageSize);
@@ -37,7 +39,12 @@ namespace GameDatabase.Services
         public async Task UpdatePublisherById(int id, Publisher model)
         {
             await _businessLogicPublishers.UpdatePublisherAsync(id, model);
+            await _businessLogicPublishers.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Publisher>> Search(SearchObjectDevelopers searchObject)
+        {
+            return await _businessLogicPublishers.SearchAsync(searchObject);
+        }
     }
 }

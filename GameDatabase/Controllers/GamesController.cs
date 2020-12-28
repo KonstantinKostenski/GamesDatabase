@@ -28,12 +28,7 @@ namespace GameDatabase.Controllers
         public async Task<IActionResult> Index(string platform, int? pageNumber)
         {
             var genres = await this._commonService.GetAllGenres();
-            List<SelectListItem> ddlItems = new List<SelectListItem>();
-            foreach (var genreItem in genres)
-            {
-                SelectListItem item = new SelectListItem(genreItem.Name, genreItem.Key.ToString());
-                ddlItems.Add(item);
-            }
+            List<SelectListItem> ddlItems = _mapper.Map<IEnumerable<Genre>, List<SelectListItem>>(genres);
             SearchObjectGames searchObject = new SearchObjectGames();
             searchObject.Genres = ddlItems;
             int pageSize = 10;
@@ -78,16 +73,24 @@ namespace GameDatabase.Controllers
         }
 
         [Authorize]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            CreateGameModel createGame = new CreateGameModel();
+            var genres = await _commonService.GetAllGenres();
+            List<SelectListItem> listItems = _mapper.Map<IEnumerable<Genre>, List<SelectListItem>>(genres);
+            createGame.Genres = listItems;
+            return View(createGame);
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id, Name, CoverArtUrl,Developer,Publisher,Description, Platform, Genre")] CreateGameModel game)
+        public async Task<IActionResult> Create(CreateGameModel game)
         {
+            var genres = await _commonService.GetAllGenres();
+            List<SelectListItem> listItems = _mapper.Map<IEnumerable<Genre>, List<SelectListItem>>(genres);
+            game.Genres = listItems;
+
             if (ModelState.IsValid)
             {
                 await _gamesService.AddGame(game);
@@ -106,17 +109,15 @@ namespace GameDatabase.Controllers
             }
 
             var gameFromDatabase = await _gamesService.GetGameById(id);
-
             var game = _mapper.Map<GameViewModel, EditGameModel>(gameFromDatabase);
-
             var genres = await _commonService.GetAllGenres();
-
-            List<SelectListItem> listItems = new List<SelectListItem>();
-
-            foreach (var genre in genres)
+            List<SelectListItem> listItems = _mapper.Map<IEnumerable<Genre>, List<SelectListItem>>(genres);
+            for (int i = 0; i < listItems.Count; i++)
             {
-                var listItem = new SelectListItem(genre.Name, genre.Key.ToString());
-                listItems.Add(listItem);
+                if (listItems[i].Value == game.GenreId)
+                {
+                    listItems[i].Selected = true;
+                }
             }
 
             game.Genres = listItems;
@@ -132,8 +133,12 @@ namespace GameDatabase.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, EditGameModel game)
+        public async Task<IActionResult> Edit(int id, EditGameModel game)
         {
+            var genres = await _commonService.GetAllGenres();
+            List<SelectListItem> listItems = _mapper.Map<IEnumerable<Genre>, List<SelectListItem>>(genres);
+            game.Genres = listItems;
+
             if (id != game.Id)
             {
                 return NotFound();
@@ -141,8 +146,8 @@ namespace GameDatabase.Controllers
 
             if (ModelState.IsValid)
             {
-                _gamesService.UpdateGameById(id, game);
-
+                await _gamesService.UpdateGameById(id, game);
+                return RedirectToAction(nameof(GamesController.Index), new { pageNumber = 1 });
             }
 
             return View(game);

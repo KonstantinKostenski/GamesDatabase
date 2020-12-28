@@ -12,13 +12,13 @@ namespace GameDatabase.Models
 
         public string CoverArtUrl { get; set; }
 
-        public string Developer { get; set; }
+        public string DeveloperName { get; set; }
 
-        public string Publisher { get; set; }
+        public string PublisherName { get; set; }
 
         public string Genre { get; set; }
 
-        public int GenreId { get; set; }
+        public string GenreId { get; set; }
 
         public IEnumerable<SelectListItem> Genres {get ;set;}
 

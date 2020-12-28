@@ -21,6 +21,7 @@ namespace GameDatabase.Services
         public async Task AddDeveloper(Developer model)
         {
             await _businessLogicDevelopers.AddDeveloper(model);
+            await _businessLogicDevelopers.SaveChangesAsync();
         }
 
         public async Task<bool> CheckiIfItCanBeDeletedAsync(int id)
@@ -31,6 +32,7 @@ namespace GameDatabase.Services
         public async Task DeleteDeveloperById(int id)
         {
             await _businessLogicDevelopers.DeleteDeveloper(id);
+            await _businessLogicDevelopers.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Developer>> GetAllDevelopers(int? pageNumber, int pageSize)
@@ -51,6 +53,7 @@ namespace GameDatabase.Services
         public async Task UpdateDeveloperByIdAsync(int id, Developer model)
         {
             await _businessLogicDevelopers.UpdateDeveloper(id, model);
+            await _businessLogicDevelopers.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Developer>> Search(SearchObjectDevelopers searchObject)

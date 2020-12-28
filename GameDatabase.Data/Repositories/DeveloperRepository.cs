@@ -38,7 +38,7 @@ namespace GameDatabase.Data
         public async Task<IEnumerable<Developer>> SearchAsync(SearchObjectDevelopers searchObject)
         {
             return await _dbContext.Developers
-             .Where(developer => developer.Name == searchObject.Name)
+             .Where(developer => developer.Name.Contains(searchObject.Name))
              .ToListAsync();
         }
     }

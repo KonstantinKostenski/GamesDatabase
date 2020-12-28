@@ -14,7 +14,7 @@ namespace GameDatabase.Models
 
         public string Genre { get; set; }
 
-        public decimal GenreId { get; set; }
+        public string GenreId { get; set; }
 
         public IEnumerable<SelectListItem> Genres { get; set; }
 

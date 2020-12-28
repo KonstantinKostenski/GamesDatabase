@@ -1,4 +1,5 @@
-﻿using GameDatabase.Data;
+﻿using GameDatabase;
+using GameDatabase.Data;
 using GamesDatabaseBusinessLogic.Interfaces;
 using GamesDatabaseBusinessLogic.Models;
 using System.Collections.Generic;
@@ -54,6 +55,11 @@ namespace GamesDatabaseBusinessLogic
         public async Task SaveChangesAsync()
         {
             await _publisherRepository.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Publisher>> SearchAsync(SearchObjectDevelopers searchObject)
+        {
+            return await _publisherRepository.SearchAsync(searchObject);
         }
     }
 
