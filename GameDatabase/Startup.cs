@@ -8,11 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GameDatabase.Data;
 using GameDatabase.Services;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using GamesDatabaseBusinessLogic.Models;
 using GameDatabase.Interfaces;
 using GamesDatabaseInversionOfControl;
 using AutoMapper;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 namespace GameDatabase
 {
@@ -50,25 +51,29 @@ namespace GameDatabase
                 .AddEntityFrameworkStores<GameDatabaseDbContext>()
                 .AddDefaultTokenProviders();
             services.AddAutoMapper(typeof(Startup));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddScoped<IGamesService, GamesService>();
             services.AddScoped<IDeveloperService, DeveloperService>();
             services.AddScoped<IPublisherService, PublisherService>();
             services.AddScoped<ICommonService, CommonService>();
             services.AddScoped<IReviewsService, ReviewsService>();
             services.AddScoped<ReviewsService>();
-
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "AngularInterface/dist";
+            });
             DependencyContainer.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                //app.UseDatabaseErrorPage();
             }
             else
             {
@@ -80,15 +85,14 @@ namespace GameDatabase
             app.UseCookiePolicy();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseAuthentication();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseRouting();
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
 
             app.UseSpa(spa =>
             {

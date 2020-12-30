@@ -47,8 +47,8 @@ namespace GameDatabase.Data
 
         public void UseStoredProcedure(int id = 3)
         {
-            var game = _dbContext.Games
-                      .FromSql($"GetGameById {id}").ToList()[0];
+            //var game = _dbContext.Games
+            //          .FromSql($"GetGameById {id}").ToList()[0];
         }
     }
 }

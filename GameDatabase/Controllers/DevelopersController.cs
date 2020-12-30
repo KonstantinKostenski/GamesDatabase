@@ -100,7 +100,7 @@ namespace GameDatabase.Controllers
                 {
                     await _developerService.UpdateDeveloperByIdAsync(id, developer);
                 }
-                catch (DbUpdateConcurrencyException ex)
+                catch (DbUpdateConcurrencyException)
                 {
                     var result = await DeveloperExistsAsync(developer.Id);
 
