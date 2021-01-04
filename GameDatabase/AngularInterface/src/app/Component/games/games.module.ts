@@ -5,13 +5,16 @@ import { GameDefinitionlisComponent } from './game-definitionlis/game-definition
 import { MaterialModule } from '../../material/material.module';
 import { TablesModule } from '../Tables/tables/tables.module';
 import { AddGamePopUpComponent } from './add-game-pop-up/add-game-pop-up.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [GamesListComponent, GameDefinitionlisComponent, AddGamePopUpComponent],
   imports: [
     CommonModule,
     TablesModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class GamesModule { }

@@ -15,7 +15,7 @@ import { MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerMo
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,
-        MatButtonModule
+      MatButtonModule
     ],
     exports: [
         MatTableModule,
@@ -24,7 +24,10 @@ import { MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerMo
         MatProgressSpinnerModule,
         MatMenuModule,
         MatIconModule,
-        MatDialogModule
+      MatDialogModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatButtonModule
     ]
 })
 export class MaterialModule { }

@@ -6,6 +6,10 @@
     <mat-progress-spinner  style="margin:0 auto;color:black;"  mode="indeterminate"></mat-progress-spinner>
   </ng-container>
   <ng-container *ngIf="data">
+    <button mat-button (click)="openDialog()">
+        Add Game
+    </button>
+    <button mat-raised-button color="accent"></button>
     <app-games-list-table [data]="data"></app-games-list-table>
   </ng-container>
 </div>

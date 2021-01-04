@@ -15,6 +15,7 @@ import { MaterialModule } from './material/material.module';
 import { ConfirmationDialogComponent } from './components/shared/confirmation-dialog/confirmation-dialog.component';
 import { SharedModule } from './components/shared/shared.module';
 import { PopUpsModule } from './Component/PopUps/pop-ups/pop-ups.module';
+import { AddGamePopUpComponent } from './Component/games/add-game-pop-up/add-game-pop-up.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { PopUpsModule } from './Component/PopUps/pop-ups/pop-ups.module';
         PopUpsModule
     ],
     entryComponents: [
-        ConfirmationDialogComponent
+      ConfirmationDialogComponent,
+      AddGamePopUpComponent
     ],
     providers: [],
     bootstrap: [AppComponent]
