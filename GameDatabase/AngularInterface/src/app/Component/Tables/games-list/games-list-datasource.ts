@@ -6,7 +6,7 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 // TODO: Replace this with your own data model type
 export interface GamesListItem {
   Id: number;
-  Name: string
+  Name: string;
         //CoverArtUrl { get; set; }
         //public int DeveloperId { get; set; }
         //public Developer Developer { get; set; }

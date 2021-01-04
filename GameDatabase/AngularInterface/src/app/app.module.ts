@@ -12,6 +12,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
+import { AddGamePopUpComponent } from './Component/PopUps/add-game-pop-up/add-game-pop-up.component';
+import { PopUpsModule } from './Component/PopUps/pop-ups/pop-ups.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { MaterialModule } from './material/material.module';
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    MaterialModule
+    MaterialModule,
+    PopUpsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
