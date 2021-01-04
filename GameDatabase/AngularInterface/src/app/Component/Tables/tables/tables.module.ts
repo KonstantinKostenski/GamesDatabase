@@ -5,6 +5,7 @@ import { DevelopersListTableComponent } from '../developers-list/developers-list
 import { PublishersListTableComponent } from '../publishers-list/publishers-list.component';
 import { FavouritesListTableComponent } from '../favourites-list/favourites-list.component';
 import { MaterialModule } from '../../../material/material.module';
+import { SharedModule } from '../../../components/shared/shared.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { MaterialModule } from '../../../material/material.module';
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ],
   exports: [
     GamesListTableComponent,

@@ -12,6 +12,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
+import { ConfirmationDialogComponent } from './components/shared/confirmation-dialog/confirmation-dialog.component';
+import { SharedModule } from './components/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,11 @@ import { MaterialModule } from './material/material.module';
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    MaterialModule
+    MaterialModule,
+    SharedModule
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
