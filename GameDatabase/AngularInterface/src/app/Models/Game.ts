@@ -1,4 +1,4 @@
 export class Game {
   name: string;
-  definition: string;
+  description: string;
 }

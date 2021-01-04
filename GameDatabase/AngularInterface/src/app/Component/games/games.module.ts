@@ -4,17 +4,18 @@ import { GamesListComponent } from './games-list/games-list.component';
 import { GameDefinitionlisComponent } from './game-definitionlis/game-definitionlis.component';
 import { MaterialModule } from '../../material/material.module';
 import { TablesModule } from '../Tables/tables/tables.module';
-import { AddGamePopUpComponent } from './add-game-pop-up/add-game-pop-up.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PopUpsModule } from '../PopUps/pop-ups/pop-ups.module';
 
 @NgModule({
-  declarations: [GamesListComponent, GameDefinitionlisComponent, AddGamePopUpComponent],
+  declarations: [GamesListComponent, GameDefinitionlisComponent],
   imports: [
     CommonModule,
     TablesModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PopUpsModule
   ]
 })
 export class GamesModule { }

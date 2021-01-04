@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { GamesServiceService } from '../services/games-service.service';
 import { Game } from '../../../Models/Game';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-add-game-pop-up',
@@ -11,28 +10,27 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 })
 export class AddGamePopUpComponent implements OnInit {
 
-  loginForm: FormGroup;
+  addGameForm: FormGroup;
   game: Game;
 
-  constructor(private formBuilder: FormBuilder, private gamesService: GamesServiceService, public dialogRef: MatDialogRef<AddGamePopUpComponent>) { }
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddGamePopUpComponent>) { }
 
   ngOnInit() {
     this.game = new Game();
-    this.loginForm = this.formBuilder.group({
+    this.addGameForm = this.formBuilder.group({
       name: [null, Validators.required],
-      definition: [null, Validators.required],
+      description: [null, Validators.required],
       releaseDate: [null, Validators.required]
     });
-    this.loginForm.patchValue(this.game);
+    this.addGameForm.patchValue(this.game);
   }
 
 
   submit() {
-    if (!this.loginForm.valid) {
+    if (!this.addGameForm.valid) {
       return;
     }
 
-
-    console.log(this.loginForm.value);
+    this.dialogRef.close(this.addGameForm.getRawValue());
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { AddGamePopUpComponent } from '../../PopUps/add-game-pop-up/add-game-pop-up.component';
 import { GamesListItem } from '../../Tables/games-list/games-list-datasource';
-import { AddGamePopUpComponent } from '../add-game-pop-up/add-game-pop-up.component';
 import { GamesServiceService } from '../services/games-service.service';
 
 @Component({
@@ -27,8 +27,7 @@ export class GamesListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Yes clicked');
-        // DO SOMETHING
+        this.gamesService.saveNewGame(result);
       }
     });
   }

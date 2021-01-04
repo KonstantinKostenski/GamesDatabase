@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GamesDatabaseBusinessLogic.Models
@@ -13,6 +14,9 @@ namespace GamesDatabaseBusinessLogic.Models
         [Required]
         [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
+
+        [Required]
+        public DateTime ReleaseDate { get; set; }
 
         [Required]
         public string CoverArtUrl { get; set; }
