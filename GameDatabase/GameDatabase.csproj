@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="AngularInterface\src\app\Models\Game.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="jQuery" Version="3.5.1" />
@@ -26,6 +30,10 @@
   <ItemGroup>
     <ProjectReference Include="..\GameDatabase.Data\GameDatabase.Data.csproj" />
     <ProjectReference Include="..\GamesDatabaseInversionOfControl\GamesDatabaseInversionOfControl.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="AngularInterface\src\app\Models\Game.ts" />
   </ItemGroup>
 
 </Project>

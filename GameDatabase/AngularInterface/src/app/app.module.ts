@@ -14,29 +14,31 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
 import { ConfirmationDialogComponent } from './components/shared/confirmation-dialog/confirmation-dialog.component';
 import { SharedModule } from './components/shared/shared.module';
+import { PopUpsModule } from './Component/PopUps/pop-ups/pop-ups.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    GamesModule,
-    HttpClientModule,
-    PublishersModule,
-    DevelopersModule,
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot(),
-    MaterialModule,
-    SharedModule
-  ],
-  entryComponents: [
-    ConfirmationDialogComponent
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        GamesModule,
+        HttpClientModule,
+        PublishersModule,
+        DevelopersModule,
+        BsDropdownModule.forRoot(),
+        TooltipModule.forRoot(),
+        ModalModule.forRoot(),
+        MaterialModule,
+        SharedModule,
+        PopUpsModule
+    ],
+    entryComponents: [
+        ConfirmationDialogComponent
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
