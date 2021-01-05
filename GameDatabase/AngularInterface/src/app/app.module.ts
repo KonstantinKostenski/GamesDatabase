@@ -16,10 +16,13 @@ import { ConfirmationDialogComponent } from './components/shared/confirmation-di
 import { SharedModule } from './components/shared/shared.module';
 import { PopUpsModule } from './Component/PopUps/pop-ups/pop-ups.module';
 import { AddGamePopUpComponent } from './Component/PopUps/add-game-pop-up/add-game-pop-up.component';
+import { SearchDevelopersPopUpComponent } from './Component/PopUps/search-developers-pop-up/search-developers-pop-up.component';
+import { SearchPublishersPopUpComponent } from './Component/PopUps/search-publishers-pop-up/search-publishers-pop-up.component';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        
     ],
     imports: [
         BrowserModule,
@@ -38,7 +41,9 @@ import { AddGamePopUpComponent } from './Component/PopUps/add-game-pop-up/add-ga
     ],
     entryComponents: [
       ConfirmationDialogComponent,
-      AddGamePopUpComponent
+      AddGamePopUpComponent,
+      SearchDevelopersPopUpComponent,
+      SearchPublishersPopUpComponent
     ],
     providers: [],
     bootstrap: [AppComponent]

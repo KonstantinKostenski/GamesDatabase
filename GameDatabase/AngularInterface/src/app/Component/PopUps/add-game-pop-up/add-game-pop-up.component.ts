@@ -20,7 +20,8 @@ export class AddGamePopUpComponent implements OnInit {
     this.addGameForm = this.formBuilder.group({
       name: [null, Validators.required],
       description: [null, Validators.required],
-      releaseDate: [null, Validators.required]
+      releaseDate: [null, Validators.required],
+      genreId: [null, Validators.required]
     });
     this.addGameForm.patchValue(this.game);
   }

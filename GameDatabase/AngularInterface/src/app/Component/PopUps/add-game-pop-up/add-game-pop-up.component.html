@@ -28,6 +28,19 @@
           <span *ngIf="addGameForm.controls.releaseDate.errors.required">This field is mandatory.</span>
         </mat-error>
       </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>
+          Genre
+        </mat-label>
+        <mat-select formControlName="genreId">
+          <mat-option *ngFor="let genre of genres" [value]="genre.value">
+            {{food.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="addGameForm.controls.genreId.touched && addGameForm.controls.genreId.invalid">
+          <span *ngIf="addGameForm.controls.genreId.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
       <button mat-raised-button color="primary" type="submit">Add</button>
     </form>
   </div>
