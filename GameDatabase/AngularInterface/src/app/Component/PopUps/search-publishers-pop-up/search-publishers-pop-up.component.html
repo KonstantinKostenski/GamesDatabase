@@ -1,3 +1,16 @@
-<p>
-  search-publishers-pop-up works!
-</p>
+<div class="example-container">
+  <div class="form-container">
+    <form [formGroup]="searchPublishersForm" (submit)="submit()">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>
+          Name
+        </mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="searchPublishersForm.controls.name.touched && searchPublishersForm.controls.name.invalid">
+          <span *ngIf="searchPublishersForm.controls.name.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Search</button>
+    </form>
+  </div>
+</div>

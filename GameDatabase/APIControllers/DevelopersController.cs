@@ -123,6 +123,7 @@ namespace GameDatabase.APIControllers
             return _context.Developers.Any(e => e.Id == id);
         }
 
+        [HttpPost("Search")]
         public async Task<IActionResult> Search(SearchObject searchObject)
         {
             var model = await _developerService.Search(searchObject);
