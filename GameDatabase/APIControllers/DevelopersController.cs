@@ -122,5 +122,11 @@ namespace GameDatabase.APIControllers
         {
             return _context.Developers.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> Search(SearchObject searchObject)
+        {
+            var model = await _developerService.Search(searchObject);
+            return Ok(model);
+        }
     }
 }

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="AngularInterface\src\app\Models\Developer.ts" />
     <None Remove="AngularInterface\src\app\Models\Game.ts" />
   </ItemGroup>
 
@@ -33,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="AngularInterface\src\app\Models\Developer.ts" />
     <TypeScriptCompile Include="AngularInterface\src\app\Models\Game.ts" />
   </ItemGroup>
 

@@ -116,6 +116,14 @@ namespace GameDatabase.APIControllers
             return Ok(game);
         }
 
+        [HttpPost("Search")]
+        public async Task<IActionResult> Search(SearchObject searchObject)
+        {
+            IEnumerable<GameViewModel> model;
+            model = await _gamesService.SearchGames(searchObject);
+            return Ok(model);
+        }
+
         private bool GameExists(int id)
         {
             return _context.Games.Any(e => e.Id == id);

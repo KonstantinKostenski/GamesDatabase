@@ -18,4 +18,8 @@ export class GamesServiceService {
   saveNewGame(game: Game) {
     return this.httpService.post<Game>("api/Games", game);
   }
+
+  search(game: Game) {
+    return this.httpService.post<Game>("api/Games/Search", game);
+  }
 }

@@ -15,3 +15,7 @@ export class Review {
   title: string;
   text: string;
 }
+
+export class Search {
+  Name: string;
+}
