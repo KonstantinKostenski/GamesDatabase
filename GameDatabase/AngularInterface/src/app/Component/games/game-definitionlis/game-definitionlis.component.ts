@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Game } from '../../../Models/Game';
+import { GamesServiceService } from '../services/games-service.service';
 
 @Component({
   selector: 'app-game-definitionlis',
@@ -6,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-definitionlis.component.css']
 })
 export class GameDefinitionlisComponent implements OnInit {
+  game: Game;
 
-  constructor() { }
+
+  constructor(private gamesService: GamesServiceService) { }
 
   ngOnInit() {
   }

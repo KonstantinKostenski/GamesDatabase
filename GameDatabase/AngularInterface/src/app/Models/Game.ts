@@ -3,7 +3,9 @@ export class Game {
   description: string;
   CoverArtUrl: string;
   developerId: number;
+  developer: string;
   publisherId: number;
+  publisher: string;
   genreId: number;
   platform: string;
   reviews: Review;

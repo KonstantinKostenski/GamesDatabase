@@ -41,6 +41,26 @@
           <span *ngIf="addGameForm.controls.genreId.errors.required">This field is mandatory.</span>
         </mat-error>
       </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>
+          Developer
+        </mat-label>
+        <input matInput formControlName="developer" required>
+        <mat-error *ngIf="addGameForm.controls.developer.touched && addGameForm.controls.developer.invalid">
+          <span *ngIf="addGameForm.controls.developer.errors.required">This field is mandatory.</span>
+        </mat-error>
+        <button mat-raised-button color="primary" (click)="openSearchDevelopers()" >Search Developers</button>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>
+          Publisher
+        </mat-label>
+        <input matInput formControlName="publisher" required>
+        <mat-error *ngIf="addGameForm.controls.publisher.touched && addGameForm.controls.publisher.invalid">
+          <span *ngIf="addGameForm.controls.publisher.errors.required">This field is mandatory.</span>
+        </mat-error>
+        <button mat-raised-button color="primary" (click)="openSearchPublishers()">Search Publishers</button>
+      </mat-form-field>
       <button mat-raised-button color="primary" type="submit">Add</button>
     </form>
   </div>
