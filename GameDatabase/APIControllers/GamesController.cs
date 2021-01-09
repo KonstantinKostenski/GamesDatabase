@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GameDatabase.Data;
 using GamesDatabaseBusinessLogic.Models;
+using GameDatabase.Models;
+using GameDatabase.Interfaces;
 
 namespace GameDatabase.APIControllers
 {
@@ -13,10 +15,12 @@ namespace GameDatabase.APIControllers
     public class GamesController : ControllerBase
     {
         private readonly GameDatabaseDbContext _context;
+        private readonly IGamesService _gamesService;
 
-        public GamesController(GameDatabaseDbContext context)
+        public GamesController(GameDatabaseDbContext context, IGamesService gamesService)
         {
             _context = context;
+            _gamesService = gamesService;
         }
 
         // GET: api/Games
@@ -117,7 +121,7 @@ namespace GameDatabase.APIControllers
         }
 
         [HttpPost("Search")]
-        public async Task<IActionResult> Search(SearchObject searchObject)
+        public async Task<IActionResult> Search(SearchObjectGames searchObject)
         {
             IEnumerable<GameViewModel> model;
             model = await _gamesService.SearchGames(searchObject);

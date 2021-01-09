@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Search } from '../../../Models/Developer';
+import { Developer, DeveloperSearch } from '../../../Models/Developer';
 import { MatDialogRef } from '@angular/material';
+import { DevelopersServiceService } from '../../Developers/services/developers-service.service';
 
 @Component({
   selector: 'app-search-developers-pop-up',
@@ -10,13 +11,14 @@ import { MatDialogRef } from '@angular/material';
 })
 export class SearchDevelopersPopUpComponent implements OnInit {
   searchDeveloperForm: FormGroup;
-  searchObject: Search;
-
-
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<SearchDevelopersPopUpComponent>) { }
+  searchObject: DeveloperSearch;
+  data: Developer[];
+  selectedDeveloper: Developer;
+  shouldShowGrid: boolean;
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<SearchDevelopersPopUpComponent>, private developersService: DevelopersServiceService) { }
 
   ngOnInit() {
-    this.searchObject = new Search();
+    this.searchObject = new DeveloperSearch();
     this.searchDeveloperForm = this.formBuilder.group({
       name: [null, Validators.required]
     });
@@ -24,11 +26,31 @@ export class SearchDevelopersPopUpComponent implements OnInit {
   }
 
   submit() {
+    debugger;
     if (!this.searchDeveloperForm.valid) {
       return;
     }
+    this.shouldShowGrid = true;
+    this.developersService.search(this.searchDeveloperForm.getRawValue()).subscribe(result => {
+      debugger;
+      this.data = result;
+      //this.dialogRef.close(result);
 
-    this.dialogRef.close(this.searchDeveloperForm.getRawValue());
+    })
+
   }
 
+  recieveResult(result) {
+    debugger;
+    this.selectedDeveloper = result;
+  }
+
+  chooseFromGrid() {
+    debugger;
+    if (this.selectedDeveloper) {
+      this.data = null;
+      this.shouldShowGrid = false;
+      this.dialogRef.close(this.selectedDeveloper);
+    }
+  }
 }

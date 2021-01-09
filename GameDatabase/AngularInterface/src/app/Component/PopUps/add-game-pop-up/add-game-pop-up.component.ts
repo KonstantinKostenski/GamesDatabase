@@ -37,7 +37,10 @@ export class AddGamePopUpComponent implements OnInit {
       width: '350px',
     });
     dialogRef.afterClosed().subscribe(result => {
+      debugger;
       if (result) {
+        console.log(result);
+        this.game.developer = result.name;
         this.addGameForm.patchValue(this.game);
       }
     });

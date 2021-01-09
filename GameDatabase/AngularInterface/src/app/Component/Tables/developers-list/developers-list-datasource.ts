@@ -2,6 +2,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { Developer } from '../../../Models/Developer';
 
 // TODO: Replace this with your own data model type
 export interface DevelopersListItem {
@@ -39,10 +40,12 @@ const EXAMPLE_DATA: DevelopersListItem[] = [
  * (including sorting, pagination, and filtering).
  */
 export class DevelopersListDataSource extends DataSource<DevelopersListItem> {
-  data: DevelopersListItem[] = EXAMPLE_DATA;
 
-  constructor(private paginator: MatPaginator, private sort: MatSort) {
+  data: Developer[] = [];
+
+  constructor(private paginator: MatPaginator, private sort: MatSort, data: Developer[]) {
     super();
+    this.data = data;
   }
 
   /**
@@ -50,7 +53,7 @@ export class DevelopersListDataSource extends DataSource<DevelopersListItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<DevelopersListItem[]> {
+  connect(): Observable<Developer[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -77,7 +80,7 @@ export class DevelopersListDataSource extends DataSource<DevelopersListItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: DevelopersListItem[]) {
+  private getPagedData(data: Developer[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -86,7 +89,7 @@ export class DevelopersListDataSource extends DataSource<DevelopersListItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: DevelopersListItem[]) {
+  private getSortedData(data: Developer[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GameDatabase.Data;
 using GamesDatabaseBusinessLogic.Models;
+using GameDatabase.Interfaces;
 
 namespace GameDatabase.APIControllers
 {
@@ -15,9 +14,11 @@ namespace GameDatabase.APIControllers
     public class DevelopersController : ControllerBase
     {
         private readonly GameDatabaseDbContext _context;
+        private readonly IDeveloperService _developerService;
 
-        public DevelopersController(GameDatabaseDbContext context)
+        public DevelopersController(GameDatabaseDbContext context, IDeveloperService developerService)
         {
+            _developerService = developerService;
             _context = context;
         }
 
@@ -124,7 +125,7 @@ namespace GameDatabase.APIControllers
         }
 
         [HttpPost("Search")]
-        public async Task<IActionResult> Search(SearchObject searchObject)
+        public async Task<IActionResult> Search(SearchObjectDevelopers searchObject)
         {
             var model = await _developerService.Search(searchObject);
             return Ok(model);

@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
+import { Developer } from '../../../Models/Developer';
 import { DevelopersListDataSource } from './developers-list-datasource';
 
 @Component({
@@ -11,11 +12,21 @@ export class DevelopersListTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: DevelopersListDataSource;
-
+  selectionMade: boolean;
+  @Input() data: Developer[];
+  @Output() selection: EventEmitter<Developer> = new EventEmitter<Developer>();
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name'];
 
   ngAfterViewInit() {
-    this.dataSource = new DevelopersListDataSource(this.paginator, this.sort);
+    debugger;
+    console.log(this.data);
+    this.dataSource = new DevelopersListDataSource(this.paginator, this.sort, this.data);
+  }
+
+  getRecord(row) {
+    debugger;
+    this.selectionMade = true;
+    this.selection.emit(row);
   }
 }
