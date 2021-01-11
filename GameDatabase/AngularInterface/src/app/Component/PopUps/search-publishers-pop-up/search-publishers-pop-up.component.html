@@ -13,4 +13,14 @@
       <button mat-raised-button color="primary" type="submit">Search</button>
     </form>
   </div>
+  <ng-container *ngIf="shouldShowGrid">
+    <ng-container *ngIf="!data">
+      <mat-progress-spinner style="margin:0 auto;color:black;" mode="indeterminate"></mat-progress-spinner>
+    </ng-container>
+    <ng-container *ngIf="data">
+      <app-developers-list-table [data]="data" (selection)="recieveResult($event)">
+      </app-developers-list-table>
+    </ng-container>
+  </ng-container>
+  <button mat-raised-button color="primary" (click)="chooseFromGrid()">Select Publisher</button>
 </div>

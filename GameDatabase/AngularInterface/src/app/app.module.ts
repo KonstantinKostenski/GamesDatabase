@@ -18,34 +18,39 @@ import { PopUpsModule } from './Component/PopUps/pop-ups/pop-ups.module';
 import { AddGamePopUpComponent } from './Component/PopUps/add-game-pop-up/add-game-pop-up.component';
 import { SearchDevelopersPopUpComponent } from './Component/PopUps/search-developers-pop-up/search-developers-pop-up.component';
 import { SearchPublishersPopUpComponent } from './Component/PopUps/search-publishers-pop-up/search-publishers-pop-up.component';
+import { FavouriteGameButtonComponent } from './Component/Buttons/favourite-game-button/favourite-game-button.component';
+import { ButtonsModule } from './Component/Buttons/buttons.module';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        GamesModule,
-        HttpClientModule,
-        PublishersModule,
-        DevelopersModule,
-        BsDropdownModule.forRoot(),
-        TooltipModule.forRoot(),
-        ModalModule.forRoot(),
-        MaterialModule,
-        SharedModule,
-        PopUpsModule
-    ],
-    entryComponents: [
-      ConfirmationDialogComponent,
-      AddGamePopUpComponent,
-      SearchDevelopersPopUpComponent,
-      SearchPublishersPopUpComponent
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    FavouriteGameButtonComponent,
+
+
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    GamesModule,
+    HttpClientModule,
+    PublishersModule,
+    DevelopersModule,
+    BsDropdownModule.forRoot(),
+    TooltipModule.forRoot(),
+    ModalModule.forRoot(),
+    MaterialModule,
+    SharedModule,
+    PopUpsModule,
+    ButtonsModule
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent,
+    AddGamePopUpComponent,
+    SearchDevelopersPopUpComponent,
+    SearchPublishersPopUpComponent
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,9 +6,10 @@ import { MaterialModule } from '../../material/material.module';
 import { TablesModule } from '../Tables/tables/tables.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PopUpsModule } from '../PopUps/pop-ups/pop-ups.module';
+import { FavouritesListComponent } from './favourites-list/favourites-list.component';
 
 @NgModule({
-  declarations: [GamesListComponent, GameDefinitionlisComponent],
+  declarations: [GamesListComponent, GameDefinitionlisComponent, FavouritesListComponent],
   imports: [
     CommonModule,
     TablesModule,

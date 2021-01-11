@@ -1,0 +1,25 @@
+<div class="example-container">
+  <div class="form-container">
+    <form [formGroup]="addDeveloperForm" (submit)="submit()">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>
+          Name
+        </mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="addDeveloperForm.controls.name.touched && addDeveloperForm.controls.name.invalid">
+          <span *ngIf="addDeveloperForm.controls.name.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>
+          Description
+        </mat-label>
+        <textarea matInput formControlName="description"></textarea>
+        <mat-error *ngIf="addDeveloperForm.controls.description.touched && addDeveloperForm.controls.description.invalid">
+          <span *ngIf="addDeveloperForm.controls.description.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Add</button>
+    </form>
+  </div>
+</div>

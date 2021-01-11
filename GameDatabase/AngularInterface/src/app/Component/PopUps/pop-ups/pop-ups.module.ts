@@ -6,17 +6,30 @@ import { AddGamePopUpComponent } from '../add-game-pop-up/add-game-pop-up.compon
 import { SearchDevelopersPopUpComponent } from '../search-developers-pop-up/search-developers-pop-up.component';
 import { SearchPublishersPopUpComponent } from '../search-publishers-pop-up/search-publishers-pop-up.component';
 import { TablesModule } from '../../Tables/tables/tables.module';
+import { AddPublisherPopUpComponent } from '../add-publisher-pop-up/add-publisher-pop-up.component';
+import { AddDeveloperPopUpComponent } from '../add-developer-pop-up/add-developer-pop-up.component';
 
 @NgModule({
-  declarations: [AddGamePopUpComponent, SearchDevelopersPopUpComponent, SearchPublishersPopUpComponent],
+  declarations: [
+    AddGamePopUpComponent,
+    AddPublisherPopUpComponent,
+    AddDeveloperPopUpComponent,
+    SearchDevelopersPopUpComponent,
+    SearchPublishersPopUpComponent,
+  ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
     TablesModule
+
   ],
   exports: [
-    AddGamePopUpComponent, SearchDevelopersPopUpComponent, SearchPublishersPopUpComponent
+    AddGamePopUpComponent,
+    AddPublisherPopUpComponent,
+    AddDeveloperPopUpComponent,
+    SearchDevelopersPopUpComponent,
+    SearchPublishersPopUpComponent
   ]
 })
 export class PopUpsModule { }
