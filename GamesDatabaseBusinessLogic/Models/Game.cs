@@ -41,5 +41,7 @@ namespace GamesDatabaseBusinessLogic.Models
         public string Platform { get; set; }
 
         public ICollection<Review> Reviews  { get; set; }
+
+        public ICollection<User> Fans { get; set; }
     }
 }

@@ -59,6 +59,11 @@ namespace GamesDatabaseBusinessLogic
             return await this._gameRepository.SearchGames(searchObject);
         }
 
+        public async Task<IEnumerable<Game>> AddGameToFavourites(int gameId)
+        {
+            return await this._gameRepository.SearchGames(gameId);
+        }
+
         public async Task SaveChangesAsync()
         {
             await _gameRepository.SaveChangesAsync();

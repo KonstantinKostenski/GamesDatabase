@@ -20,5 +20,7 @@ namespace GamesDatabaseBusinessLogic.Models
         public string FullName { get; set; }
 
         public ICollection<Review> Reviews { get; set; }
+
+        public ICollection<Game> FavouriteGames { get; set; }
     }
 }

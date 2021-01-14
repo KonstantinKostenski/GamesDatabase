@@ -128,6 +128,11 @@ namespace GameDatabase.APIControllers
             return Ok(model);
         }
 
+        public async Task<IActionResult> Favourite(int gameId)
+        {
+            
+        }
+
         private bool GameExists(int id)
         {
             return _context.Games.Any(e => e.Id == id);

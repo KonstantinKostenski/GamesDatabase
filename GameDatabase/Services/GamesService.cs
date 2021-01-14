@@ -147,5 +147,9 @@ namespace GameDatabase.Services
             }).ToList();
         }
 
+        public Task AddGameToFavourites(int gameId)
+        {
+
+        }
     }
 }

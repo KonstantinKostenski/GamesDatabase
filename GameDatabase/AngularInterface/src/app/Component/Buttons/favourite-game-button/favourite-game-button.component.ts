@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Game } from '../../../Models/Game';
 
 @Component({
   selector: 'app-favourite-game-button',
@@ -9,7 +10,12 @@ export class FavouriteGameButtonComponent implements OnInit {
 
   constructor() { }
 
+  Game: Game = new Game();
+
   ngOnInit() {
   }
 
+  addToFavourites() {
+
+  }
 }

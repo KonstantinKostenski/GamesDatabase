@@ -23,5 +23,7 @@ namespace GameDatabase.Interfaces
         Task AddGame(CreateGameModel gameModel);
 
         Task<IEnumerable<GameViewModel>> SearchGames(SearchObjectGames searchObject);
+
+        Task AddGameToFavourites(int gameId);
     }
 }

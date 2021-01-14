@@ -22,4 +22,8 @@ export class GamesServiceService {
   search(game: Game) {
     return this.httpService.post<Game>("api/Games/Search", game);
   }
+
+  facouriteValidityPeriod(gameId: number) {
+    return this.httpService.get<any>("api/Games/Favourite?gameId="+ gameId);
+  }
 }
