@@ -25,7 +25,7 @@ namespace GameDatabase.APIControllers
 
         // GET: api/Games
         [HttpGet]
-        public IEnumerable<GameViewModel> GetGames(int pageNumber, int pageSize)
+        public async Task<IEnumerable<GameViewModel>> GetGames(int pageNumber, int pageSize)
         {
             IEnumerable<GameViewModel> model;
             model = await _gamesService.GetAllGames(pageNumber, pageSize);
@@ -130,10 +130,10 @@ namespace GameDatabase.APIControllers
             return Ok(model);
         }
 
-        public async Task<IActionResult> Favourite(int gameId)
-        {
+        //public async Task<IActionResult> Favourite(int gameId)
+        //{
             
-        }
+        //}
 
         private bool GameExists(int id)
         {

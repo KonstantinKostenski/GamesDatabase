@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
+import { Search } from '../../../Models/Game';
 import {PublisherSearch, Publisher } from '../../../Models/Publisher';
 
 @Component({

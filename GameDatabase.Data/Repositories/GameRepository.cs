@@ -28,7 +28,7 @@ namespace GameDatabase.Data
             return await _dbContext.Games
              .Include(g => g.Developer)
              .Include(g => g.Publisher)
-             .Skip((pageNumber.Value == 1 ? 0 : pageNumber.Value * pageSize))
+             .Skip(pageNumber.Value == 0 ? 0 : pageNumber.Value * pageSize)
              .Take(pageSize)
              .ToListAsync();
         }

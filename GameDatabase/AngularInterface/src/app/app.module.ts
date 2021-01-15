@@ -24,9 +24,6 @@ import { ButtonsModule } from './Component/Buttons/buttons.module';
 @NgModule({
   declarations: [
     AppComponent,
-    FavouriteGameButtonComponent,
-
-
   ],
   imports: [
     BrowserModule,

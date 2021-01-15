@@ -149,7 +149,7 @@ namespace GameDatabase.Services
 
         public Task AddGameToFavourites(int gameId)
         {
-
+            return null;
         }
     }
 }
