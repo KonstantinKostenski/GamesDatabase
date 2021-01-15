@@ -10,15 +10,11 @@ import { GamesServiceService } from '../services/games-service.service';
   styleUrls: ['./games-list.component.css']
 })
 export class GamesListComponent implements OnInit {
-  data: GamesListItem[];
 
   constructor(private gamesService: GamesServiceService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.gamesService.getAllGames().subscribe(result => {
-      debugger;
-      this.data = result;
-    });
+    
   }
   openDialog(): void {
     debugger;

@@ -5,17 +5,13 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
 export interface GamesListItem {
-  Id: number;
-  Name: string;
-        //CoverArtUrl { get; set; }
-        //public int DeveloperId { get; set; }
-        //public Developer Developer { get; set; }
-        //public int PublisherId { get; set; }
-        //public Publisher Publisher { get; set; }
-        //public decimal GenreId { get; set; }
-        //public string Genre { get; set; }
-        //public string Description { get; set; }
-        //public string Platform { get; set; }
+  id: number;
+  name: string;
+  developer: string;
+  publisher: string;
+  genre: string;
+  description: string;
+  platform: string;
 }
 
 // TODO: replace this with real data from your application
@@ -83,8 +79,8 @@ export class GamesListDataSource extends DataSource<GamesListItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.Name, b.Name, isAsc);
-        case 'id': return compare(+a.Id, +b.Id, isAsc);
+        case 'name': return compare(a.name, b.name, isAsc);
+        case 'id': return compare(+a.id, +b.id, isAsc);
         default: return 0;
       }
     });

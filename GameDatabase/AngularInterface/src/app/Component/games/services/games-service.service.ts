@@ -11,8 +11,8 @@ export class GamesServiceService {
 
   constructor(private httpService: HttpClient) { }
 
-  getAllGames(): Observable<GamesListItem[]>{
-    return this.httpService.get<GamesListItem[]>("api/Games");
+  getAllGames(pageNumber: number, pageSize: number): Observable<GamesListItem[]>{
+    return this.httpService.get<GamesListItem[]>("api/Games?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
   }
 
   saveNewGame(game: Game) {

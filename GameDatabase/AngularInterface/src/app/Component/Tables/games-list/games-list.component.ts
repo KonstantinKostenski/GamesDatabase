@@ -13,7 +13,7 @@ export class GamesListTableComponent implements AfterViewInit, OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: GamesListDataSource;
-  @Input() data: GamesListItem[];
+  data: GamesListItem[];
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['Id', 'Name', 'Actions'];
 
@@ -22,11 +22,22 @@ export class GamesListTableComponent implements AfterViewInit, OnInit{
   }
     ngOnInit(): void {
       debugger;
+      this.gamesService.getAllGames(this.paginator.pageIndex, this.paginator.pageSize).subscribe(result => {
+        debugger;
+        this.data = result;
+      });
     }
 
   ngAfterViewInit() {
     this.dataSource = new GamesListDataSource(this.paginator, this.sort, this.data);
     this.cd.detectChanges();
+  }
+
+  getServerData($event) {
+    this.gamesService.getAllGames($event.pageIndex, $event.pageSize).subscribe(result => {
+      debugger;
+      this.data = result;
+    });
   }
 
   openDialog(row): void {

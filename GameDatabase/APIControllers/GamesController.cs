@@ -25,9 +25,11 @@ namespace GameDatabase.APIControllers
 
         // GET: api/Games
         [HttpGet]
-        public IEnumerable<Game> GetGames()
+        public IEnumerable<GameViewModel> GetGames(int pageNumber, int pageSize)
         {
-            return _context.Games;
+            IEnumerable<GameViewModel> model;
+            model = await _gamesService.GetAllGames(pageNumber, pageSize);
+            return model;
         }
 
         // GET: api/Games/5
