@@ -1,0 +1,34 @@
+<div class="example-container">
+  <div class="form-container">
+    <form [formGroup]="registerUserForm" (submit)="submit()">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>
+          Name
+        </mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="registerUserForm.controls.name.touched && registerUserForm.controls.name.invalid">
+          <span *ngIf="registerUserForm.controls.name.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>
+          Password
+        </mat-label>
+        <input matInput formControlName="password" required>
+        <mat-error *ngIf="registerUserForm.controls.password.touched && registerUserForm.controls.password.invalid">
+          <span *ngIf="registerUserForm.controls.password.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>
+          Repeat Password
+        </mat-label>
+        <input matInput formControlName="repeatPassword" required>
+        <mat-error *ngIf="registerUserForm.controls.repeatPassword.touched && registerUserForm.controls.repeatPassword.invalid">
+          <span *ngIf="registerUserForm.controls.repeatPassword.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Register</button>
+    </form>
+  </div>
+</div>

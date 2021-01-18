@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LogInFormComponent } from './log-in-form/log-in-form.component';
+import { LogInComponent } from './log-in/log-in.component';
+import { RegisterComponent } from './register/register.component';
+import { UsersListComponent } from './users-list/users-list.component';
 
 @NgModule({
-  declarations: [LogInFormComponent],
+  declarations: [ LogInComponent, RegisterComponent, UsersListComponent],
   imports: [
     CommonModule
   ]

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -10,6 +10,7 @@
     <None Remove="AngularInterface\src\app\Models\Developer.ts" />
     <None Remove="AngularInterface\src\app\Models\Game.ts" />
     <None Remove="AngularInterface\src\app\Models\Publisher.ts" />
+    <None Remove="AngularInterface\src\app\Models\user.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +39,7 @@
     <TypeScriptCompile Include="AngularInterface\src\app\Models\Developer.ts" />
     <TypeScriptCompile Include="AngularInterface\src\app\Models\Game.ts" />
     <TypeScriptCompile Include="AngularInterface\src\app\Models\Publisher.ts" />
+    <TypeScriptCompile Include="AngularInterface\src\app\Models\user.ts" />
   </ItemGroup>
 
 </Project>
