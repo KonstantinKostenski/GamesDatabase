@@ -58,6 +58,11 @@ namespace GameDatabase
             services.AddScoped<ICommonService, CommonService>();
             services.AddScoped<IReviewsService, ReviewsService>();
             services.AddScoped<ReviewsService>();
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            services.AddCors();
+            // configure DI for application services
+            services.AddScoped<IUserService, UserService>();
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "AngularInterface/dist";
@@ -87,6 +92,14 @@ namespace GameDatabase
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseRouting();
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
