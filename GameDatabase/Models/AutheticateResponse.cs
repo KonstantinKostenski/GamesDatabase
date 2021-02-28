@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GamesDatabaseBusinessLogic.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace GameDatabase.Models
         public string Token { get; set; }
 
 
-        public AuthenticateResponse(User user, string token)
+        public AuthenticateResponse(UserApi user, string token)
         {
             Id = user.Id;
             FirstName = user.FirstName;

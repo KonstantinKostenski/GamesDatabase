@@ -41,5 +41,6 @@ namespace GameDatabase.Data
 
         public DbSet<Genre> Genres { get; set; }
 
+        public DbSet<UserApi> UserApi { get; set; }
     }
 }

@@ -27,6 +27,7 @@ namespace GameDatabase.AutoMapperProfiles
             CreateMap<Genre, SelectListItem>()
                 .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Key))
                 .ForMember(dest => dest.Text, opt => opt.MapFrom(src => src.Name));
+            CreateMap<RegisterViewModel, UserApi>();
         }
     }
 }

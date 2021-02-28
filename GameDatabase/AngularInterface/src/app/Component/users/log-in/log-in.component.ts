@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { User } from '../../../Models/user';
+import { LoginUserModel } from '../../../Models/user';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
@@ -10,12 +10,12 @@ import { MatDialogRef } from '@angular/material';
 })
 export class LogInComponent implements OnInit {
   logInForm: FormGroup;
-  user: User;
+  user: LoginUserModel;
 
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<LogInComponent>) { }
 
   ngOnInit() {
-    this.user = new User();
+    this.user = new LoginUserModel();
     this.logInForm = this.formBuilder.group({
       name: [null, Validators.required],
       password: [null, Validators.required],

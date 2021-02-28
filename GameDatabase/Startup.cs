@@ -14,6 +14,8 @@ using GamesDatabaseInversionOfControl;
 using AutoMapper;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using GameDatabase.Helpers;
+using GameDatabase.Middleware;
 
 namespace GameDatabase
 {
@@ -63,6 +65,7 @@ namespace GameDatabase
             services.AddCors();
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "AngularInterface/dist";

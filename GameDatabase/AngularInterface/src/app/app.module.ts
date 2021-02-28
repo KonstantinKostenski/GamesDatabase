@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,8 +17,8 @@ import { PopUpsModule } from './Component/PopUps/pop-ups/pop-ups.module';
 import { AddGamePopUpComponent } from './Component/PopUps/add-game-pop-up/add-game-pop-up.component';
 import { SearchDevelopersPopUpComponent } from './Component/PopUps/search-developers-pop-up/search-developers-pop-up.component';
 import { SearchPublishersPopUpComponent } from './Component/PopUps/search-publishers-pop-up/search-publishers-pop-up.component';
-import { FavouriteGameButtonComponent } from './Component/Buttons/favourite-game-button/favourite-game-button.component';
 import { ButtonsModule } from './Component/Buttons/buttons.module';
+import { UsersModule } from './Component/users/users.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,8 @@ import { ButtonsModule } from './Component/Buttons/buttons.module';
     MaterialModule,
     SharedModule,
     PopUpsModule,
-    ButtonsModule
+    ButtonsModule,
+    UsersModule
   ],
   entryComponents: [
     ConfirmationDialogComponent,

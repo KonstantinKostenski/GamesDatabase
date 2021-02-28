@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { User } from '../../../Models/user';
-import { MatDialogRef } from '@angular/material';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import {RegisterUserModel } from '../../../Models/user';
+import { UsersService } from '../users.service';
 
 @Component({
   selector: 'app-register',
@@ -11,27 +11,45 @@ import { MatDialogRef } from '@angular/material';
 export class RegisterComponent implements OnInit {
 
   registerUserForm: FormGroup;
-  user: User;
+  user: RegisterUserModel;
 
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<RegisterComponent>) { }
+  constructor(private formBuilder: FormBuilder, private userService: UsersService) { }
 
   ngOnInit() {
-    this.user = new User();
+    this.user = new RegisterUserModel();
     this.registerUserForm = this.formBuilder.group({
-      name: [null, Validators.required],
+      firstName: [null, Validators.required],
+      lastName: [null, Validators.required],
+      username: [null, Validators.required],
       password: [null, Validators.required],
       repeatPassword: [null, Validators.required]
-    });
+    }, { validator: matchingFieldsValidation("password", "repeatPassword")});
     this.registerUserForm.patchValue(this.user);
   }
 
-
   submit() {
+    debugger;
     if (!this.registerUserForm.valid) {
       return;
     }
 
-    this.dialogRef.close(this.registerUserForm.getRawValue());
+    this.user = this.registerUserForm.getRawValue();
+
+    this.userService.register(this.user).subscribe(result => {
+
+    });
+
+    //this.dialogRef.close(this.registerUserForm.getRawValue());
   }
 
+}
+
+export function matchingFieldsValidation(password: string, repeatPassword: string) {
+  return (control: AbstractControl): { [key: string]: any } => {
+    debugger;
+    const firstControl = control.get(password);
+    const secondControl = control.get(repeatPassword);
+    if (!firstControl || !secondControl) return null;
+    return firstControl.value != secondControl.value ? { matchingFields: true } : null;
+  }
 }

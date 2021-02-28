@@ -1,4 +1,5 @@
 ﻿using GameDatabase.Data;
+using GameDatabase.Data.Repositories;
 using GamesDatabaseBusinessLogic;
 using GamesDatabaseBusinessLogic.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,8 @@ namespace GamesDatabaseInversionOfControl
             services.AddScoped<IBusinessLogicPublisher, BusinessLogicPublishers>();
             services.AddScoped<ICommonRepository, CommonRepository>();
             services.AddScoped<ICommon, CommonBusinessLogic>();
+            services.AddScoped<IBusinessLogicUsers, BusinessLogicUsers>();
+            services.AddScoped<IUserApiRepository, UserApiRepository>();
         }
     }
 }

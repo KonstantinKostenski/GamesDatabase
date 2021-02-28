@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using GameDatabase.Helpers;
+using GameDatabase.Interfaces;
+using GameDatabase.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GameDatabase.APIControllers
 {
@@ -25,6 +25,13 @@ namespace GameDatabase.APIControllers
                 return BadRequest(new { message = "Username or password is incorrect" });
 
             return Ok(response);
+        }
+
+        [HttpPost("Register")]
+        public async System.Threading.Tasks.Task<IActionResult> Register(RegisterViewModel model)
+        {
+            var response = await _userService.RegisterUserAsync(model);
+            return Ok();
         }
 
         [Authorize]
