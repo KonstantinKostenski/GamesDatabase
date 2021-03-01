@@ -27,20 +27,21 @@ namespace GameDatabase.Services
         private readonly AppSettings _appSettings;
         private  IMapper _mapper;
         private IBusinessLogicUsers _businessLogicUsers;
-
+        private IUtilityService _utilityService;
         public IConfiguration Configuration { get; }
 
-        public UserService(IOptions<AppSettings> appSettings, IMapper mapper, IBusinessLogicUsers businessLogicUsers, IConfiguration configuration)
+        public UserService(IOptions<AppSettings> appSettings, IMapper mapper, IBusinessLogicUsers businessLogicUsers, IConfiguration configuration, IUtilityService utilityService)
         {
             _appSettings = appSettings.Value;
             _mapper = mapper;
             _businessLogicUsers = businessLogicUsers;
             Configuration = configuration;
+            _utilityService = utilityService;
         }
 
         public async System.Threading.Tasks.Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
         {
-            model.Password = EncodePassword(model.Password);
+            model.Password = _utilityService.EncodePassword(model.Password);
             var user = await _businessLogicUsers.GetUserByNameAndPassword(model.Username, model.Password);
 
             // return null if user not found
@@ -83,21 +84,10 @@ namespace GameDatabase.Services
         public async System.Threading.Tasks.Task<UserApi> RegisterUserAsync(RegisterViewModel registerUser)
         {
             var user = _mapper.Map<UserApi>(registerUser);
-            user.Password = EncodePassword(user.Password);
+            user.Password = _utilityService.EncodePassword(user.Password);
             return await _businessLogicUsers.RegisterUserAsync(user);
         }
 
-        private string EncodePassword(string password)
-        {
-            byte[] encData_byte = new byte[password.Length];
-            encData_byte = Encoding.UTF8.GetBytes(password);
-            string encodedData = Convert.ToBase64String(encData_byte);
-            return encodedData;
-        }
-
-        private string DecodePassword(string password)
-        {
-            return null;
-        }
+        
     }
 }
