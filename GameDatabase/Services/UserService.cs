@@ -34,9 +34,10 @@ namespace GameDatabase.Services
             _businessLogicUsers = businessLogicUsers;
         }
 
-        public AuthenticateResponse Authenticate(AuthenticateRequest model)
+        public async System.Threading.Tasks.Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
         {
-            var user = _users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            model.Password = EncodePassword(model.Password);
+            var user = await _businessLogicUsers.GetUserByNameAndPassword(model.Username, model.Password);
 
             // return null if user not found
             if (user == null) return null;
@@ -77,8 +78,21 @@ namespace GameDatabase.Services
         public async System.Threading.Tasks.Task<UserApi> RegisterUserAsync(RegisterViewModel registerUser)
         {
             var user = _mapper.Map<UserApi>(registerUser);
-
+            user.Password = EncodePassword(user.Password);
             return await _businessLogicUsers.RegisterUserAsync(user);
+        }
+
+        private string EncodePassword(string password)
+        {
+            byte[] encData_byte = new byte[password.Length];
+            encData_byte = Encoding.UTF8.GetBytes(password);
+            string encodedData = Convert.ToBase64String(encData_byte);
+            return encodedData;
+        }
+
+        private string DecodePassword(string password)
+        {
+            return null;
         }
     }
 }

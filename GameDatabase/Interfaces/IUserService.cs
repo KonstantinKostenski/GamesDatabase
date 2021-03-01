@@ -7,7 +7,7 @@ namespace GameDatabase.Interfaces
 {
     public interface IUserService
     {
-        AuthenticateResponse Authenticate(AuthenticateRequest model);
+        Task<AuthenticateResponse> Authenticate(AuthenticateRequest model);
         IEnumerable<UserApi> GetAll();
         UserApi GetById(int id);
         Task<UserApi> RegisterUserAsync(RegisterViewModel registerUser);

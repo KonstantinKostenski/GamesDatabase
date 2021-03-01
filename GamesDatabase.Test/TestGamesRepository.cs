@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using GamesDatabaseBusinessLogic.Interfaces;
+//using GamesDatabaseBusinessLogic.Interfaces;
 
 namespace GamesDatabase.Test
 {
@@ -7,7 +7,7 @@ namespace GamesDatabase.Test
     {
         public Tests()
         {
-            IGameRepository gameRepository = 
+            //IGameRepository gameRepository = 
         }
 
         [SetUp]
