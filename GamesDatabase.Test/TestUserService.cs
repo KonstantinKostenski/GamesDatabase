@@ -1,6 +1,7 @@
 using AutoMapper;
 using GameDatabase.Helpers;
 using GameDatabase.Interfaces;
+using GameDatabase.Models;
 using GameDatabase.Services;
 using GamesDatabaseBusinessLogic.Interfaces;
 using GamesDatabaseBusinessLogic.Models;
@@ -30,16 +31,25 @@ namespace GamesDatabase.Test
 
         //integration tests
         [Test]
-        public void UserServiceShouldLoadUserCorrectly()
+        public async Task UserServiceShouldLoadUserCorrectlyAsync()
         {
             var mockOptions = new Mock<IOptions<AppSettings>>();
             var mockMapper = new Mock<IMapper>();
             var mockBusinessLogic = new Mock<IBusinessLogicUsers>();
+
+            var mockonfigurationSection = new Mock<IConfigurationSection>();
+            mockonfigurationSection.Setup(x => x.GetValue(typeof(string), "APP_SECRET")).Returns("SSUUSSSSUUSSSSUUSSSSUUSS");
             var mockConfiguration = new Mock<IConfiguration>();
             var encodedPassword = _utilityService.EncodePassword("83499999");
-            mockBusinessLogic.Setup(member => member.GetUserByNameAndPassword("KonstantinKostneski", encodedPassword)).Returns(Task.FromResult(new UserApi() {Username = "KonstantinKostneski", FirstName ="Konstantin", LastName = "Kostenski", Id = 1, Password = encodedPassword }));
+            mockBusinessLogic.Setup(member => member.GetUserByNameAndPassword("KonstantinKostenski", encodedPassword))
+                .Returns(Task.FromResult(new UserApi() {Username = "KonstantinKostneski", FirstName ="Konstantin", LastName = "Kostenski", Id = 1, Password = encodedPassword }));
+            mockConfiguration.Setup(member => member.GetSection("Secret")).Returns(mockonfigurationSection.Object);
             userService = new UserService(mockOptions.Object, mockMapper.Object, mockBusinessLogic.Object, mockConfiguration.Object, _utilityService);
-            Assert.Pass();
+            AuthenticateResponse authenticateResponse = await userService.Authenticate(new GameDatabase.Models.AuthenticateRequest() { Username = "KonstantinKostenski", Password = "83499999"});
+            Assert.IsTrue(authenticateResponse.FirstName == "Konstantin");
+            Assert.IsTrue(authenticateResponse.LastName == "Kostenski");
+            Assert.IsTrue(authenticateResponse.Id == 1);
+            Assert.IsTrue(authenticateResponse.Token != null);
         }
     }
 }
