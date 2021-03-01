@@ -1,13 +1,13 @@
 <div class="example-container">
-  <div class="form-container">
-    <form [formGroup]="logInForm" (submit)="submit()">
+  <form [formGroup]="logInForm" (submit)="submit()">
+    <div class="form-container">
       <mat-form-field class="form-field" appearance="outline">
         <mat-label>
-          Name
+          User Name
         </mat-label>
-        <input matInput formControlName="name" required>
-        <mat-error *ngIf="logInForm.controls.name.touched && logInForm.controls.name.invalid">
-          <span *ngIf="logInForm.controls.name.errors.required">This field is mandatory.</span>
+        <input matInput formControlName="username" required>
+        <mat-error *ngIf="logInForm.controls.username.touched && logInForm.controls.username.invalid">
+          <span *ngIf="logInForm.controls.username.errors.required">This field is mandatory.</span>
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="outline">
@@ -19,7 +19,16 @@
           <span *ngIf="logInForm.controls.password.errors.required">This field is mandatory.</span>
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">Register</button>
-    </form>
+      <mat-error *ngIf="error">
+        <span>{{error}}</span>
+      </mat-error>
+      <button mat-raised-button color="primary" type="submit">Login</button>
+    </div>
+  </form>
+  <div>
+    Don't have an account?
+    <a [routerLink]="['/Register']">
+      Register
+    </a>
   </div>
 </div>

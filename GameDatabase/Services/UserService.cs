@@ -4,6 +4,7 @@ using GameDatabase.Interfaces;
 using GameDatabase.Models;
 using GamesDatabaseBusinessLogic.Interfaces;
 using GamesDatabaseBusinessLogic.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -27,11 +28,14 @@ namespace GameDatabase.Services
         private  IMapper _mapper;
         private IBusinessLogicUsers _businessLogicUsers;
 
-        public UserService(IOptions<AppSettings> appSettings, IMapper mapper, IBusinessLogicUsers businessLogicUsers)
+        public IConfiguration Configuration { get; }
+
+        public UserService(IOptions<AppSettings> appSettings, IMapper mapper, IBusinessLogicUsers businessLogicUsers, IConfiguration configuration)
         {
             _appSettings = appSettings.Value;
             _mapper = mapper;
             _businessLogicUsers = businessLogicUsers;
+            Configuration = configuration;
         }
 
         public async System.Threading.Tasks.Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
@@ -64,14 +68,15 @@ namespace GameDatabase.Services
         {
             // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var secret = Configuration.GetSection("Secret").GetValue(typeof(string), "APP_SECRET");
+            var key = Encoding.ASCII.GetBytes(secret.ToString());
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.CreateJwtSecurityToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
 

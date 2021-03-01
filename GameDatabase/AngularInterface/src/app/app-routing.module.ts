@@ -4,9 +4,10 @@ import { GamesListComponent } from './Component/games/games-list/games-list.comp
 import { DeveloperListComponent } from './Component/developers/developer-list/developer-list.component';
 import { PublishersListComponent } from './Component/publishers/publishers-list/publishers-list.component';
 import { RegisterComponent } from './Component/users/register/register.component';
+import { LogInComponent } from './Component/users/log-in/log-in.component';
 
 const routes: Routes = [
-  //{ path: '', component: AppComponent, pathMatch: 'full' },
+  { path: '', component: LogInComponent, pathMatch: 'full' },
   { path: "Games", component: GamesListComponent },
   { path: "Developers", component: DeveloperListComponent },
   { path: "Publishers", component: PublishersListComponent },

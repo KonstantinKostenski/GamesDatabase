@@ -16,13 +16,13 @@ namespace GameDatabase.APIControllers
             _userService = userService;
         }
 
-        [HttpPost("authenticate")]
+        [HttpPost("Authenticate")]
         public async System.Threading.Tasks.Task<IActionResult> Authenticate(AuthenticateRequest model)
         {
             var response = await _userService.Authenticate(model);
 
             if (response == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+                return BadRequest(new { message = "Username or password is incorrect!" });
 
             return Ok(response);
         }
@@ -30,6 +30,11 @@ namespace GameDatabase.APIControllers
         [HttpPost("Register")]
         public async System.Threading.Tasks.Task<IActionResult> Register(RegisterViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var response = await _userService.RegisterUserAsync(model);
             return Ok();
         }

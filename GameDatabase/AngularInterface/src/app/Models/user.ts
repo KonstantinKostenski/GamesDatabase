@@ -7,6 +7,6 @@ export class RegisterUserModel {
 }
 
 export class LoginUserModel {
-  name: string;
+  username: string;
   password: string;
 }

@@ -14,7 +14,7 @@ export class UsersService {
   }
 
   authenticate(loginModel: LoginUserModel) {
-    return this.httpService.post<LoginUserModel>("api/Users", loginModel);
+    return this.httpService.post<LoginUserModel>("api/Users/Authenticate", loginModel);
   }
 
   //authorize(registerModel: RegisterUserModel) {

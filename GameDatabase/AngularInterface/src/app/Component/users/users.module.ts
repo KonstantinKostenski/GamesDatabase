@@ -6,13 +6,14 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material/material.module';
 import { PopUpsModule } from '../PopUps/pop-ups/pop-ups.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [ LogInComponent, RegisterComponent, UsersListComponent],
   imports: [
     CommonModule,  FormsModule,
     ReactiveFormsModule,
-    PopUpsModule, MaterialModule
+    PopUpsModule, MaterialModule, RouterModule
   ],
   exports: [LogInComponent, RegisterComponent, UsersListComponent]
 })
