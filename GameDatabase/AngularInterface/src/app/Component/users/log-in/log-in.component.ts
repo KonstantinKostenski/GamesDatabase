@@ -35,6 +35,7 @@ export class LogInComponent implements OnInit {
     this.userService.authenticate(this.logInForm.getRawValue()).subscribe(result => {
       debugger;
       this.error = null;
+      
     }, error => {
         debugger;
         this.error = error.error.message;

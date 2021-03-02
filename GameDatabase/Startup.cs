@@ -59,6 +59,7 @@ namespace GameDatabase
             services.AddScoped<IPublisherService, PublisherService>();
             services.AddScoped<ICommonService, CommonService>();
             services.AddScoped<IReviewsService, ReviewsService>();
+            services.AddScoped<IUtilityService, UtilityService>();
             services.AddScoped<ReviewsService>();
             // configure strongly typed settings object
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));

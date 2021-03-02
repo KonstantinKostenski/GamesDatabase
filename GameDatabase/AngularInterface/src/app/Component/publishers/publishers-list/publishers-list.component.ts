@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { AddPublisherPopUpComponent } from '../../PopUps/add-publisher-pop-up/add-publisher-pop-up.component';
 import { PublishersServiceService } from '../services/publishers-service.service';
 
 @Component({
@@ -9,7 +11,7 @@ import { PublishersServiceService } from '../services/publishers-service.service
 export class PublishersListComponent implements OnInit {
   pageNumber: number = 1;
 
-  constructor(private publisherService: PublishersServiceService) { }
+  constructor(private publisherService: PublishersServiceService, public dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -24,6 +26,19 @@ export class PublishersListComponent implements OnInit {
 
   loadNextPage() {
     this.pageNumber++;
+  }
+
+  openDialog(): void {
+    debugger;
+    const dialogRef = this.dialog.open(AddPublisherPopUpComponent, {
+      width: '350px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        //this.publisherService.sa(result);
+      }
+    });
   }
 
 }
