@@ -21,8 +21,11 @@ namespace GameDatabase.AutoMapperProfiles
             CreateMap<GameViewModel, EditGameModel>()
                 .ForMember(dest => dest.GenreId, opt => opt.MapFrom(src => src.GenreId.ToString()));
             CreateMap<CreateGameModel, Game>()
-                .ForMember(dest => dest.GenreId, opt => opt.MapFrom(src => decimal.Parse(src.GenreId)));
-            CreateMap < EditGameModel, Game>()
+                .ForMember(dest => dest.GenreId, opt => opt.MapFrom(src => decimal.Parse(src.GenreId)))
+                .ForMember(dest => dest.Publisher, opt => opt.MapFrom(src => new Publisher() { Name = src.PublisherName}))
+                .ForMember(dest => dest.Developer, opt => opt.MapFrom(src => new Developer() { Name = src.DeveloperName }));
+
+            CreateMap< EditGameModel, Game>()
                 .ForMember(dest => dest.GenreId, opt => opt.MapFrom(src => decimal.Parse(src.GenreId)));
             CreateMap<Genre, SelectListItem>()
                 .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Key))

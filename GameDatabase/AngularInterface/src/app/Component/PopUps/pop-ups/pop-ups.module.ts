@@ -8,9 +8,11 @@ import { SearchPublishersPopUpComponent } from '../search-publishers-pop-up/sear
 import { TablesModule } from '../../Tables/tables/tables.module';
 import { AddPublisherPopUpComponent } from '../add-publisher-pop-up/add-publisher-pop-up.component';
 import { AddDeveloperPopUpComponent } from '../add-developer-pop-up/add-developer-pop-up.component';
+import { ErrorPopUpComponent } from '../error-pop-up/error-pop-up.component';
 
 @NgModule({
   declarations: [
+    ErrorPopUpComponent,
     AddGamePopUpComponent,
     AddPublisherPopUpComponent,
     AddDeveloperPopUpComponent,
@@ -25,6 +27,7 @@ import { AddDeveloperPopUpComponent } from '../add-developer-pop-up/add-develope
 
   ],
   exports: [
+    ErrorPopUpComponent,
     AddGamePopUpComponent,
     AddPublisherPopUpComponent,
     AddDeveloperPopUpComponent,

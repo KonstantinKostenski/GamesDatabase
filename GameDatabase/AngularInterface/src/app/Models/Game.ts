@@ -1,14 +1,17 @@
+
 export class Game {
   name: string;
   description: string;
-  CoverArtUrl: string;
+  coverArtUrl: string;
   developerId: number;
-  developer: string;
+  developerName: string;
   publisherId: number;
-  publisher: string;
+  publisherName: string;
   genreId: number;
+  genre: string;
   platform: string;
   reviews: Review;
+  releaseDate: Date;
 }
 
 export class Review {

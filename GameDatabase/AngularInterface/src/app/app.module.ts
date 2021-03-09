@@ -22,6 +22,7 @@ import { UsersModule } from './Component/users/users.module';
 import { LandingPageComponent } from './Component/landing-page/landing-page.component';
 import { AddPublisherPopUpComponent } from './Component/PopUps/add-publisher-pop-up/add-publisher-pop-up.component';
 import { AddDeveloperPopUpComponent } from './Component/PopUps/add-developer-pop-up/add-developer-pop-up.component';
+import { ErrorPopUpComponent } from './Component/PopUps/error-pop-up/error-pop-up.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AddDeveloperPopUpComponent } from './Component/PopUps/add-developer-pop
     AddPublisherPopUpComponent,
     AddDeveloperPopUpComponent,
     SearchDevelopersPopUpComponent,
-    SearchPublishersPopUpComponent
+    SearchPublishersPopUpComponent,
+    ErrorPopUpComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -66,7 +66,10 @@ namespace GameDatabase
             services.AddCors();
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
-
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "AngularInterface/dist";

@@ -16,7 +16,7 @@ export class GamesServiceService {
   }
 
   saveNewGame(game: Game) {
-    return this.httpService.post<Game>("api/Games", game);
+    return this.httpService.post<Game>("api/Games/SaveGame", game);
   }
 
   search(game: Game) {

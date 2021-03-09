@@ -7,6 +7,7 @@ using GameDatabase.Data;
 using GamesDatabaseBusinessLogic.Models;
 using GameDatabase.Models;
 using GameDatabase.Interfaces;
+using AutoMapper;
 
 namespace GameDatabase.APIControllers
 {
@@ -16,11 +17,13 @@ namespace GameDatabase.APIControllers
     {
         private readonly GameDatabaseDbContext _context;
         private readonly IGamesService _gamesService;
+        IMapper _mapper;
 
-        public GamesController(GameDatabaseDbContext context, IGamesService gamesService)
+        public GamesController(GameDatabaseDbContext context, IGamesService gamesService, IMapper mapper)
         {
             _context = context;
             _gamesService = gamesService;
+            _mapper = mapper;
         }
 
         // GET: api/Games
@@ -88,17 +91,18 @@ namespace GameDatabase.APIControllers
 
         // POST: api/Games
         [HttpPost]
-        public async Task<IActionResult> PostGame([FromBody] Game game)
+        [Route("SaveGame")]
+        public async Task<IActionResult> SaveGame([FromBody] CreateGameModel game)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(ModelState.Values.SelectMany(v => v.Errors));
             }
 
-            _context.Games.Add(game);
+            var saveGameObject = _mapper.Map<CreateGameModel, Game>(game);
+            _context.Games.Add(saveGameObject);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetGame", new { id = game.Id }, game);
+            return CreatedAtAction("GetGame", new { id = saveGameObject.Id }, saveGameObject);
         }
 
         // DELETE: api/Games/5
