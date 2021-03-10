@@ -10,6 +10,6 @@ namespace GamesDatabaseBusinessLogic.Interfaces
     {
         Task<List<Publisher>> GetAllPublishers(int? pageNumber, int pageSize);
         Task<Publisher> GetByNameAsync(string name);
-        Task<IEnumerable<Publisher>> SearchAsync(SearchObjectDevelopers searchObject);
+        Task<IEnumerable<Publisher>> SearchAsync(SearchObjectPublishers searchObject);
     }
 }

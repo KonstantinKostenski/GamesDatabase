@@ -57,7 +57,7 @@ namespace GamesDatabaseBusinessLogic
             await _publisherRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Publisher>> SearchAsync(SearchObjectDevelopers searchObject)
+        public async Task<IEnumerable<Publisher>> SearchAsync(SearchObjectPublishers searchObject)
         {
             return await _publisherRepository.SearchAsync(searchObject);
         }

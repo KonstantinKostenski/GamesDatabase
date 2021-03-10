@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Search } from '../../../Models/Game';
 import {PublisherSearch, Publisher } from '../../../Models/Publisher';
+import { PublishersServiceService } from '../../publishers/services/publishers-service.service';
 
 @Component({
   selector: 'app-search-publishers-pop-up',
@@ -17,7 +18,7 @@ export class SearchPublishersPopUpComponent implements OnInit {
   selectedPublisher: Publisher;
   shouldShowGrid: boolean;
 
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<SearchPublishersPopUpComponent>) { }
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<SearchPublishersPopUpComponent>, private publisherService: PublishersServiceService) { }
 
   ngOnInit() {
     this.searchObject = new Search();
@@ -32,7 +33,14 @@ export class SearchPublishersPopUpComponent implements OnInit {
       return;
     }
 
-    this.dialogRef.close(this.searchPublishersForm.getRawValue());
+    this.publisherService.search(this.searchPublishersForm.getRawValue()).subscribe(result => {
+      debugger;
+      this.shouldShowGrid = true;
+      this.data = result;
+      //this.dialogRef.close(result);
+
+    })
+
   }
 
   recieveResult(result) {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GameDatabase.Data;
 using GamesDatabaseBusinessLogic.Models;
+using GameDatabase.Interfaces;
 
 namespace GameDatabase.APIControllers
 {
@@ -15,10 +16,12 @@ namespace GameDatabase.APIControllers
     public class PublishersController : ControllerBase
     {
         private readonly GameDatabaseDbContext _context;
+        private readonly IPublisherService _publisherService;
 
-        public PublishersController(GameDatabaseDbContext context)
+        public PublishersController(GameDatabaseDbContext context, IPublisherService publisherService)
         {
             _context = context;
+            _publisherService = publisherService;
         }
 
         // GET: api/Publishers
@@ -116,6 +119,13 @@ namespace GameDatabase.APIControllers
             await _context.SaveChangesAsync();
 
             return Ok(publisher);
+        }
+
+        [HttpPost("Search")]
+        public async Task<IActionResult> Search(SearchObjectPublishers searchObject)
+        {
+            var model = await _publisherService.Search(searchObject);
+            return Ok(model);
         }
 
         private bool PublisherExists(int id)

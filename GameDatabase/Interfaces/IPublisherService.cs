@@ -18,6 +18,6 @@ namespace GameDatabase.Interfaces
 
         Task UpdatePublisherById(int id, Publisher model);
 
-        Task<IEnumerable<Publisher>> Search(SearchObjectDevelopers searchObject);
+        Task<IEnumerable<Publisher>> Search(SearchObjectPublishers searchObject);
     }
 }

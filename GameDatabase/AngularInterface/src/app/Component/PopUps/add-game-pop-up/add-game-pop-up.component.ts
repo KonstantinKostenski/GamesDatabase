@@ -26,11 +26,11 @@ export class AddGamePopUpComponent implements OnInit {
     this.commonService.getGenres().subscribe(result => {
       debugger;
       this.genres = result;
-
     });
+
     this.addGameForm = this.formBuilder.group({
-      name: [null, Validators.required],
-      description: [null, Validators.required],
+      name: [null, Validators.required, Validators.min(3), Validators.max(50)],
+      description: [null, Validators.required, Validators.min(10), Validators.max(250)],
       releaseDate: [null, Validators.required],
       genreId: [null, Validators.required],
       publisherName: [null, Validators.required],
@@ -41,6 +41,14 @@ export class AddGamePopUpComponent implements OnInit {
     this.addGameForm.patchValue(this.game);
   }
 
+  getErrorMessage(control: any) {
+    debugger;
+    return control.hasError('required') ? 'You must enter a value' :
+      control.hasError('minlength') ? 'Required length is at least 3 characters' :
+        control.hasError('maxlength') ? 'Required length is at least 50 characters' :
+
+          '';
+  }
 
   openSearchDevelopers(): void {
     debugger;
@@ -51,7 +59,7 @@ export class AddGamePopUpComponent implements OnInit {
       debugger;
       if (result) {
         console.log(result);
-        this.game.publisherName = result.name;
+        this.game.developerName = result.name;
         this.addGameForm.patchValue(this.game);
       }
     });
@@ -64,6 +72,7 @@ export class AddGamePopUpComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.game.publisherName = result.name;
         this.addGameForm.patchValue(this.game);
       }
     });

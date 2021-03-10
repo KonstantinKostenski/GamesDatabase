@@ -2,6 +2,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { Publisher } from '../../../Models/Publisher';
 
 // TODO: Replace this with your own data model type
 export interface PublishersListItem {
@@ -38,11 +39,15 @@ const EXAMPLE_DATA: PublishersListItem[] = [
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class PublishersListDataSource extends DataSource<PublishersListItem> {
-  data: PublishersListItem[] = EXAMPLE_DATA;
+export class PublishersListDataSource extends DataSource<Publisher> {
+  data: Publisher[] = [];
 
-  constructor(private paginator: MatPaginator, private sort: MatSort) {
+  constructor(private paginator: MatPaginator, private sort: MatSort, private dataSource: Publisher[]) {
     super();
+    if (dataSource) {
+      this.data = dataSource;
+    }
+    
   }
 
   /**
@@ -50,7 +55,7 @@ export class PublishersListDataSource extends DataSource<PublishersListItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<PublishersListItem[]> {
+  connect(): Observable<Publisher[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -77,7 +82,7 @@ export class PublishersListDataSource extends DataSource<PublishersListItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: PublishersListItem[]) {
+  private getPagedData(data: Publisher[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -86,7 +91,7 @@ export class PublishersListDataSource extends DataSource<PublishersListItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: PublishersListItem[]) {
+  private getSortedData(data: Publisher[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }

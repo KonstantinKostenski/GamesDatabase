@@ -153,7 +153,7 @@ namespace GameDatabase.Controllers
 
 
         // GET: Publishers/Delete/5
-        public async Task<IActionResult> Search(SearchObjectDevelopers searchObject)
+        public async Task<IActionResult> Search(SearchObjectPublishers searchObject)
         {
             var pageSize = 10;
             var model = await _publisherService.Search(searchObject);

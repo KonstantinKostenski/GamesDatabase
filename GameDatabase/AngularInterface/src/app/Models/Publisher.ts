@@ -3,6 +3,7 @@ export class PublisherSearch {
 }
 
 export class Publisher {
+  id: number;
   logoUrl: string;
   name: string;
   location: string;

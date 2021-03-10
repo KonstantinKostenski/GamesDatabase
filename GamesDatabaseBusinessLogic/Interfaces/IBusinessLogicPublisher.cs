@@ -14,6 +14,6 @@ namespace GamesDatabaseBusinessLogic.Interfaces
         Task DeletePublisherById(int id);
         Task UpdatePublisherAsync(int id, Publisher model);
         Task SaveChangesAsync();
-        Task<IEnumerable<Publisher>> SearchAsync(SearchObjectDevelopers searchObject);
+        Task<IEnumerable<Publisher>> SearchAsync(SearchObjectPublishers searchObject);
     }
 }

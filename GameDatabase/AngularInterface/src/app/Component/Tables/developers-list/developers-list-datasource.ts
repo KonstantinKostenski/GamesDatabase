@@ -45,7 +45,12 @@ export class DevelopersListDataSource extends DataSource<DevelopersListItem> {
 
   constructor(private paginator: MatPaginator, private sort: MatSort, private dataSource: Developer[]) {
     super();
-    this.data = EXAMPLE_DATA;
+    if (dataSource) {
+      this.data = dataSource;
+    }
+    else {
+      this.data = EXAMPLE_DATA;
+    }
   }
 
   /**
