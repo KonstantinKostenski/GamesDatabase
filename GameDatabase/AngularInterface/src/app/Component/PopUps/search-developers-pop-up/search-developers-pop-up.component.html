@@ -18,6 +18,7 @@
       <mat-progress-spinner style="margin:0 auto;color:black;" mode="indeterminate"></mat-progress-spinner>
     </ng-container>
     <ng-container *ngIf="data">
+      <button mat-raised-button color="primary" (click)="addNewDeveloper()">Add Developer</button>
       <app-developers-list-table [data]="data" (selection)="recieveResult($event)">
 
       </app-developers-list-table>

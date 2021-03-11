@@ -12,6 +12,7 @@ export class AddDeveloperPopUpComponent implements OnInit {
 
   addDeveloperForm: FormGroup;
   developer: Developer;
+
   constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddDeveloperPopUpComponent>,) {
 
   }
@@ -21,15 +22,15 @@ export class AddDeveloperPopUpComponent implements OnInit {
     this.addDeveloperForm = this.formBuilder.group({
       name: [null, Validators.required],
       description: [null, Validators.required],
-      releaseDate: [null, Validators.required],
-      genreId: [null, Validators.required],
-      publisher: [null, Validators.required],
-      developer: [null, Validators.required],
+      location: [null, Validators.required],
+      logoUrl: [null, Validators.required]
     });
+
     this.addDeveloperForm.patchValue(this.developer);
   }
 
   submit() {
+    debugger;
     if (!this.addDeveloperForm.valid) {
       return;
     }

@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Developer, DeveloperSearch } from '../../../Models/Developer';
-import { MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { DevelopersServiceService } from '../../Developers/services/developers-service.service';
+import { AddDeveloperPopUpComponent } from '../add-developer-pop-up/add-developer-pop-up.component';
 
 @Component({
   selector: 'app-search-developers-pop-up',
@@ -15,7 +16,7 @@ export class SearchDevelopersPopUpComponent implements OnInit {
   data: Developer[];
   selectedDeveloper: Developer;
   shouldShowGrid: boolean;
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<SearchDevelopersPopUpComponent>, private developersService: DevelopersServiceService) { }
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<SearchDevelopersPopUpComponent>, private developersService: DevelopersServiceService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.searchObject = new DeveloperSearch();
@@ -38,6 +39,21 @@ export class SearchDevelopersPopUpComponent implements OnInit {
 
     })
 
+  }
+
+  addNewDeveloper() {
+    const dialogRef = this.dialog.open(AddDeveloperPopUpComponent, {
+      width: '350px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      debugger;
+      if (result) {
+        this.developersService.add(result).subscribe(result => {
+          debugger;
+          this.data = [...this.data, result]
+        });
+      }
+    });
   }
 
   recieveResult(result) {

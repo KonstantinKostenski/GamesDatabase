@@ -12,4 +12,8 @@ export class DevelopersServiceService {
   search(searchObject: DeveloperSearch) {
     return this.httpService.post<Developer[]>("api/Developers/Search", searchObject);
   }
+
+  add(developer: any) {
+    return this.httpService.post<any>("api/Developers", developer);
+  }
 }
