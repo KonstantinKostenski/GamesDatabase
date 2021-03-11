@@ -21,9 +21,9 @@ namespace GameDatabase.Services
             return await _businessLogicCommon.GetAllGenresAsync();
         }
 
-        public string GenreName(decimal key)
+        public async Task<string> GenreName(decimal key)
         {
-            return _businessLogicCommon.GetGenreName(key);
+            return await _businessLogicCommon.GetGenreName(key);
         }
     }
 }

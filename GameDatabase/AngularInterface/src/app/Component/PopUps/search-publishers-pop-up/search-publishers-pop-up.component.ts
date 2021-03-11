@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { Search } from '../../../Models/Game';
 import {PublisherSearch, Publisher } from '../../../Models/Publisher';
 import { PublishersServiceService } from '../../publishers/services/publishers-service.service';
+import { AddPublisherPopUpComponent } from '../add-publisher-pop-up/add-publisher-pop-up.component';
 
 @Component({
   selector: 'app-search-publishers-pop-up',
@@ -18,7 +19,7 @@ export class SearchPublishersPopUpComponent implements OnInit {
   selectedPublisher: Publisher;
   shouldShowGrid: boolean;
 
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<SearchPublishersPopUpComponent>, private publisherService: PublishersServiceService) { }
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<SearchPublishersPopUpComponent>, private publisherService: PublishersServiceService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.searchObject = new Search();
@@ -26,6 +27,21 @@ export class SearchPublishersPopUpComponent implements OnInit {
       name: [null, Validators.required]
     });
     this.searchPublishersForm.patchValue(this.searchObject);
+  }
+
+  addNewPublisher() {
+    const dialogRef = this.dialog.open(AddPublisherPopUpComponent, {
+      width: '350px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      debugger;
+      if (result) {
+        this.publisherService.add(result).subscribe(result => {
+          debugger;
+          this.data = [...this.data, result]
+        });
+      }
+    });
   }
 
   submit() {

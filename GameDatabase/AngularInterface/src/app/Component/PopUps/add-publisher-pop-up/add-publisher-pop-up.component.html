@@ -19,6 +19,24 @@
           <span *ngIf="addPublisherForm.controls.description.errors.required">This field is mandatory.</span>
         </mat-error>
       </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>
+          Location
+        </mat-label>
+        <textarea matInput formControlName="location"></textarea>
+        <mat-error *ngIf="addPublisherForm.controls.location.touched && addPublisherForm.controls.location.invalid">
+          <span *ngIf="addPublisherForm.controls.location.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>
+          Logo URL
+        </mat-label>
+        <textarea matInput formControlName="logoUrl"></textarea>
+        <mat-error *ngIf="addPublisherForm.controls.logoUrl.touched && addPublisherForm.controls.logoUrl.invalid">
+          <span *ngIf="addPublisherForm.controls.logoUrl.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
       <button mat-raised-button color="primary" type="submit">Add</button>
     </form>
   </div>

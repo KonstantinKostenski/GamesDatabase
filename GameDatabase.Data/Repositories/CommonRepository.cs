@@ -20,9 +20,10 @@ namespace GameDatabase.Data
             return await dbContext.Genres.ToListAsync();
         }
 
-        public string GetGenreName(decimal key)
+        public async Task<string> GetGenreName(decimal key)
         {
-            return dbContext.Genres.FindAsync(key).Result.Name;
+            var genre = await dbContext.Genres.FindAsync(key);
+            return genre.Name;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GameDatabase.Data;
+using GameDatabase.Interfaces;
 using GameDatabase.Models;
 using GamesDatabaseBusinessLogic.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -21,9 +22,7 @@ namespace GameDatabase.AutoMapperProfiles
             CreateMap<GameViewModel, EditGameModel>()
                 .ForMember(dest => dest.GenreId, opt => opt.MapFrom(src => src.GenreId.ToString()));
             CreateMap<CreateGameModel, Game>()
-                .ForMember(dest => dest.GenreId, opt => opt.MapFrom(src => decimal.Parse(src.GenreId)))
-                .ForMember(dest => dest.Publisher, opt => opt.MapFrom(src => new Publisher() { Name = src.PublisherName}))
-                .ForMember(dest => dest.Developer, opt => opt.MapFrom(src => new Developer() { Name = src.DeveloperName }));
+                .ForMember(dest => dest.GenreId, opt => opt.MapFrom(src => decimal.Parse(src.GenreId)));
 
             CreateMap< EditGameModel, Game>()
                 .ForMember(dest => dest.GenreId, opt => opt.MapFrom(src => decimal.Parse(src.GenreId)));

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Game } from '../../../Models/Game';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { SearchDevelopersPopUpComponent } from '../search-developers-pop-up/search-developers-pop-up.component';
@@ -29,8 +29,8 @@ export class AddGamePopUpComponent implements OnInit {
     });
 
     this.addGameForm = this.formBuilder.group({
-      name: [null, Validators.required, Validators.min(3), Validators.max(50)],
-      description: [null, Validators.required, Validators.min(10), Validators.max(250)],
+      name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      description: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
       releaseDate: [null, Validators.required],
       genreId: [null, Validators.required],
       publisherName: [null, Validators.required],
@@ -38,16 +38,8 @@ export class AddGamePopUpComponent implements OnInit {
       platform: [null, Validators.required],
       coverArtUrl: [null, Validators.required],
     });
+
     this.addGameForm.patchValue(this.game);
-  }
-
-  getErrorMessage(control: any) {
-    debugger;
-    return control.hasError('required') ? 'You must enter a value' :
-      control.hasError('minlength') ? 'Required length is at least 3 characters' :
-        control.hasError('maxlength') ? 'Required length is at least 50 characters' :
-
-          '';
   }
 
   openSearchDevelopers(): void {
@@ -58,8 +50,8 @@ export class AddGamePopUpComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       debugger;
       if (result) {
-        console.log(result);
         this.game.developerName = result.name;
+        this.game.developerId = result.id;
         this.addGameForm.patchValue(this.game);
       }
     });
@@ -71,8 +63,10 @@ export class AddGamePopUpComponent implements OnInit {
       width: '350px',
     });
     dialogRef.afterClosed().subscribe(result => {
+      debugger;
       if (result) {
         this.game.publisherName = result.name;
+        this.game.publisherId = result.id;
         this.addGameForm.patchValue(this.game);
       }
     });
@@ -83,6 +77,6 @@ export class AddGamePopUpComponent implements OnInit {
     if (!this.addGameForm.valid) {
       return;
     }
-    this.dialogRef.close(this.addGameForm.getRawValue());
+    this.dialogRef.close({ ...this.game, ...this.addGameForm.getRawValue() });
   }
 }

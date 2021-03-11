@@ -7,7 +7,7 @@
         </mat-label>
         <input matInput formControlName="name" required>
         <mat-error *ngIf="addDeveloperForm.controls.name.touched && addDeveloperForm.controls.name.invalid">
-          <span *ngIf="addDeveloperForm.controls.name.errors.required">This field is mandatory.</span>
+          {{commonService.getErrorMessage(addDeveloperForm.controls.name)}}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="outline">
@@ -16,7 +16,7 @@
         </mat-label>
         <textarea matInput formControlName="description"></textarea>
         <mat-error *ngIf="addDeveloperForm.controls.description.touched && addDeveloperForm.controls.description.invalid">
-          <span *ngIf="addDeveloperForm.controls.description.errors.required">This field is mandatory.</span>
+          {{commonService.getErrorMessage(addDeveloperForm.controls.description)}}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="outline">
@@ -25,16 +25,16 @@
         </mat-label>
         <textarea matInput formControlName="location"></textarea>
         <mat-error *ngIf="addDeveloperForm.controls.location.touched && addDeveloperForm.controls.location.invalid">
-          <span *ngIf="addDeveloperForm.controls.location.errors.required">This field is mandatory.</span>
+          {{commonService.getErrorMessage(addDeveloperForm.controls.location)}}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="outline">
         <mat-label>
-          Location
+          Logo URL
         </mat-label>
         <textarea matInput formControlName="logoUrl"></textarea>
         <mat-error *ngIf="addDeveloperForm.controls.logoUrl.touched && addDeveloperForm.controls.logoUrl.invalid">
-          <span *ngIf="addDeveloperForm.controls.logoUrl.errors.required">This field is mandatory.</span>
+          {{commonService.getErrorMessage(addDeveloperForm.controls.logoUrl)}}
         </mat-error>
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit">Add</button>

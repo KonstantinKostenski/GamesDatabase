@@ -13,9 +13,15 @@ namespace GameDatabase.Models
 
         [Required]
         public string CoverArtUrl { get; set; }
+        
+        [Required]
+        public int DeveloperId { get; set; }
 
         [Required]
         public string DeveloperName { get; set; }
+
+        [Required]
+        public int PublisherId { get; set; }
 
         [Required]
         public string PublisherName { get; set; }

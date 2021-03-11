@@ -7,6 +7,6 @@ namespace GamesDatabaseBusinessLogic.Interfaces
     public interface ICommonRepository
     {
         Task<IEnumerable<Genre>> GetAllGenres();
-        string GetGenreName(decimal key);
+        Task<string> GetGenreName(decimal key);
     }
 }

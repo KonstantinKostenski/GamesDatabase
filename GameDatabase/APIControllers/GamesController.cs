@@ -18,11 +18,13 @@ namespace GameDatabase.APIControllers
         private readonly GameDatabaseDbContext _context;
         private readonly IGamesService _gamesService;
         IMapper _mapper;
+        ICommonService _commonService;
 
-        public GamesController(GameDatabaseDbContext context, IGamesService gamesService, IMapper mapper)
+        public GamesController(GameDatabaseDbContext context, IGamesService gamesService, IMapper mapper, ICommonService commonService)
         {
             _context = context;
             _gamesService = gamesService;
+            _commonService = commonService;
             _mapper = mapper;
         }
 
@@ -91,8 +93,7 @@ namespace GameDatabase.APIControllers
 
         // POST: api/Games
         [HttpPost]
-        [Route("SaveGame")]
-        public async Task<IActionResult> SaveGame([FromBody] CreateGameModel game)
+        public async Task<IActionResult> PostGame([FromBody] CreateGameModel game)
         {
             if (!ModelState.IsValid)
             {
@@ -100,6 +101,7 @@ namespace GameDatabase.APIControllers
             }
 
             var saveGameObject = _mapper.Map<CreateGameModel, Game>(game);
+            saveGameObject.Genre = await _commonService.GenreName(saveGameObject.GenreId);
             _context.Games.Add(saveGameObject);
             await _context.SaveChangesAsync();
             return CreatedAtAction("GetGame", new { id = saveGameObject.Id }, saveGameObject);

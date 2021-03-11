@@ -17,4 +17,8 @@ export class PublishersServiceService {
   search(searchObject: PublisherSearch) {
     return this.httpClient.post<Publisher[]>("api/Publishers/Search", searchObject);
   }
+
+  add(publisher: Publisher) {
+    return this.httpClient.post<Publisher>("api/Publishers", publisher);
+  }
 }

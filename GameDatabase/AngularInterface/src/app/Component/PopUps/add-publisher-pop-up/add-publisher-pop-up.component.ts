@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Publisher } from '../../../Models/Publisher';
 import { MatDialogRef } from '@angular/material';
+import { CommonServiceService } from '../../Services/common-service.service';
 
 @Component({
   selector: 'app-add-publisher-pop-up',
@@ -12,7 +13,7 @@ export class AddPublisherPopUpComponent implements OnInit {
 
   addPublisherForm: FormGroup;
   publisher: Publisher;
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddPublisherPopUpComponent>) {
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddPublisherPopUpComponent>, private commonService: CommonServiceService) {
 
   }
 
@@ -21,10 +22,8 @@ export class AddPublisherPopUpComponent implements OnInit {
     this.addPublisherForm = this.formBuilder.group({
       name: [null, Validators.required],
       description: [null, Validators.required],
-      releaseDate: [null, Validators.required],
-      genreId: [null, Validators.required],
-      publisher: [null, Validators.required],
-      developer: [null, Validators.required],
+      location: [null, Validators.required],
+      logoUrl: [null, Validators.required]
     });
     this.addPublisherForm.patchValue(this.publisher);
   }

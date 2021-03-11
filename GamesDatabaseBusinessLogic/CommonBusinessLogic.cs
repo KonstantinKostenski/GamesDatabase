@@ -19,9 +19,9 @@ namespace GamesDatabaseBusinessLogic
             return await this._context.GetAllGenres();
         }
 
-        public string GetGenreName(decimal key)
+        public async Task<string> GetGenreName(decimal key)
         {
-            throw new System.NotImplementedException();
+            return await this._context.GetGenreName(key);
         }
     }
 }

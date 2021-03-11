@@ -8,6 +8,6 @@ namespace GameDatabase.Interfaces
     public interface ICommonService
     {
         Task<IEnumerable<Genre>> GetAllGenres();
-        string GenreName(decimal key);
+        Task<string> GenreName(decimal key);
     }
 }
