@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatDialog, MatPaginator, MatSort } from '@angular/material';
+import { ConfirmationDialogComponent } from '../../../components/shared/confirmation-dialog/confirmation-dialog.component';
 import { Developer } from '../../../Models/Developer';
 import { DevelopersServiceService } from '../../Developers/services/developers-service.service';
 import { DevelopersListDataSource } from './developers-list-datasource';
@@ -18,12 +19,12 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
   @Input() data: Developer[];
   @Output() selection: EventEmitter<Developer> = new EventEmitter<Developer>();
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'name', "Actions"];
   selectedRowId: number;
   pageIndex: number = 0;
   pageSize: number = 25;
 
-  constructor(private developersService: DevelopersServiceService) {
+  constructor(private developersService: DevelopersServiceService, public dialog: MatDialog) {
 
   }
 
@@ -55,5 +56,23 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
     debugger;
     this.selectedRowId = row.id;
     this.selection.emit(row);
+  }
+
+  openDialog(row): void {
+    debugger;
+
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: "Do you confirm the deletion of this data?",
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      debugger;
+      // DO SOMETHING
+      this.developersService.delete(this.selectedRowId).subscribe(result => {
+        debugger;
+      });
+    });
   }
 }

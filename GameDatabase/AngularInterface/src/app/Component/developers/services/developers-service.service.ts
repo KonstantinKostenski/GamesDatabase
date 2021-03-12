@@ -20,4 +20,8 @@ export class DevelopersServiceService {
   add(developer: any) {
     return this.httpService.post<any>("api/Developers", developer);
   }
+
+  delete(id: number) {
+    return this.httpService.delete<any>("api/Developers/" + id);
+  }
 }
