@@ -6,6 +6,8 @@ import { SearchDevelopersPopUpComponent } from '../search-developers-pop-up/sear
 import { SearchPublishersPopUpComponent } from '../search-publishers-pop-up/search-publishers-pop-up.component';
 import { SelectListItem } from '../../../Models/SelectListItem';
 import { CommonServiceService } from '../../Services/common-service.service';
+import { ImageSnippet } from '../../../Models/ImageSnippet';
+import { FileUploadServiceService } from '../../Services/file-upload-service.service';
 
 @Component({
   selector: 'app-add-game-pop-up',
@@ -17,8 +19,9 @@ export class AddGamePopUpComponent implements OnInit {
   addGameForm: FormGroup;
   game: Game;
   genres: SelectListItem[] = [];
+    selectedFile: ImageSnippet;
 
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddGamePopUpComponent>, public dialog: MatDialog, private commonService: CommonServiceService) { }
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddGamePopUpComponent>, public dialog: MatDialog, private commonService: CommonServiceService, private imageService: FileUploadServiceService) { }
 
   ngOnInit() {
     debugger;
@@ -36,7 +39,7 @@ export class AddGamePopUpComponent implements OnInit {
       publisherName: [null, Validators.required],
       developerName: [null, Validators.required],
       platform: [null, Validators.required],
-      coverArtUrl: [null, Validators.required],
+      file: [null, Validators.required],
     });
 
     this.addGameForm.patchValue(this.game);
@@ -55,6 +58,27 @@ export class AddGamePopUpComponent implements OnInit {
         this.addGameForm.patchValue(this.game);
       }
     });
+  }
+
+  onFileChange(event) {
+    debugger;
+    const file: File = event.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+      debugger;
+      this.selectedFile = new ImageSnippet(event.target.result, file);
+
+      //this.imageService.uploadImage(this.selectedFile.file).subscribe(
+      //  (res) => {
+
+      //  },
+      //  (err) => {
+
+      //  })
+    });
+
+    reader.readAsDataURL(file);
   }
 
   openSearchPublishers(): void {
@@ -77,6 +101,7 @@ export class AddGamePopUpComponent implements OnInit {
     if (!this.addGameForm.valid) {
       return;
     }
+    this.game.coverArtUrl = this.selectedFile.src;
     this.dialogRef.close({ ...this.game, ...this.addGameForm.getRawValue() });
   }
 }

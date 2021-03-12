@@ -70,15 +70,18 @@
           {{commonService.getErrorMessage(addGameForm.controls.platform)}}
         </mat-error>
       </mat-form-field>
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label>
-          Cover Art Url
-        </mat-label>
-        <input matInput formControlName="coverArtUrl" required>
-        <mat-error *ngIf="addGameForm.controls.coverArtUrl.touched && addGameForm.controls.coverArtUrl.invalid">
-          {{commonService.getErrorMessage(addGameForm.controls.coverArtUrl)}}
-        </mat-error>
-      </mat-form-field>
+      <mat-label>
+        Cover Art Image
+      </mat-label>
+      <input
+             #imageInput
+             formControlName="file"
+             type="file"
+             class="form-control"
+             (change)="onFileChange(imageInput)">
+      <mat-error *ngIf="addGameForm.controls.file.touched && addGameForm.controls.file.invalid">
+        {{commonService.getErrorMessage(addGameForm.controls.file)}}
+      </mat-error>
       <button mat-raised-button color="primary" type="submit">Add</button>
     </form>
   </div>

@@ -9,9 +9,8 @@ export class PublishersServiceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getGamesByPageNumber(pageNumber: number) {
-
-    //this.httpClient.get();
+  getAll(pageNumber: number, pageSize: number) {
+    return this.httpClient.get<Publisher[]>("api/Publishers?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
   }
 
   search(searchObject: PublisherSearch) {

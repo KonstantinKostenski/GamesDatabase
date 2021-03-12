@@ -12,6 +12,7 @@ export class Game {
   platform: string;
   reviews: Review;
   releaseDate: Date;
+    coverArtFile: any;
 }
 
 export class Review {

@@ -13,6 +13,10 @@ export class DevelopersServiceService {
     return this.httpService.post<Developer[]>("api/Developers/Search", searchObject);
   }
 
+  getAll(pageNumber: number, pageSize: number) {
+    return this.httpService.get<Developer[]>("api/Developers?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
+  }
+
   add(developer: any) {
     return this.httpService.post<any>("api/Developers", developer);
   }

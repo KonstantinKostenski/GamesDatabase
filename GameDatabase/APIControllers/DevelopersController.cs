@@ -24,9 +24,10 @@ namespace GameDatabase.APIControllers
 
         // GET: api/Developers
         [HttpGet]
-        public IEnumerable<Developer> GetDevelopers()
+        public async Task<IEnumerable<Developer>> GetDevelopers(int pageNumber, int pageSize)
         {
-            return _context.Developers;
+            var model = await _developerService.GetAllDevelopers(pageNumber, pageSize);
+            return model;
         }
 
         // GET: api/Developers/5

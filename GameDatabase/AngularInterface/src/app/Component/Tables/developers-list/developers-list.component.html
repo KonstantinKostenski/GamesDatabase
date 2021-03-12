@@ -20,9 +20,10 @@
   </table>
 
   <mat-paginator #paginator
-      [length]="(dataSource && dataSource.data) ? dataSource.data.length : 0"
-      [pageIndex]="0"
-      [pageSize]="50"
-      [pageSizeOptions]="[25, 50, 100, 250]">
+                 [length]="(dataSource && dataSource.data) ? dataSource.data.length : 0"
+                 [pageIndex]="pageIndex"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[25, 50, 100, 250]"
+                 (page)="pageEvent = getServerData($event)">
   </mat-paginator>
 </div>
