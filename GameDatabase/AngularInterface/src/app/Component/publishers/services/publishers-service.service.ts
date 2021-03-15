@@ -20,4 +20,8 @@ export class PublishersServiceService {
   add(publisher: Publisher) {
     return this.httpClient.post<Publisher>("api/Publishers", publisher);
   }
+
+  update(publisher: Publisher) {
+    return this.httpClient.put<any>("api/Publishers/" + publisher.id, publisher);
+  }
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Publisher } from '../../../Models/Publisher';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CommonServiceService } from '../../Services/common-service.service';
 
 @Component({
@@ -13,18 +13,24 @@ export class AddPublisherPopUpComponent implements OnInit {
 
   addPublisherForm: FormGroup;
   publisher: Publisher;
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddPublisherPopUpComponent>, private commonService: CommonServiceService) {
-
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddPublisherPopUpComponent>, private commonService: CommonServiceService, @Inject(MAT_DIALOG_DATA) public data: Publisher) {
+    if (data) {
+      this.publisher = data;
+    }
   }
 
   ngOnInit() {
-    this.publisher = new Publisher();
+    if (!this.publisher) {
+      this.publisher = new Publisher();
+    }
+
     this.addPublisherForm = this.formBuilder.group({
-      name: [null, Validators.required],
-      description: [null, Validators.required],
-      location: [null, Validators.required],
-      logoUrl: [null, Validators.required]
+      name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      description: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(250)]],
+      location: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      logoUrl: [null, [Validators.required]]
     });
+
     this.addPublisherForm.patchValue(this.publisher);
   }
 

@@ -21,11 +21,17 @@
             </span>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="openDialog(row)">
+            <button mat-menu-item (click)="openDialogDelete(row)">
               <span class="material-icons">
                 delete_forever
               </span>
               <span>Delete</span>
+            </button>
+            <button mat-menu-item (click)="openDialogEdit(row)">
+              <span class="material-icons">
+                create
+              </span>
+              <span>Edit</span>
             </button>
           </mat-menu>
         </td>

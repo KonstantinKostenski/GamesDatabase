@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Developer } from '../../../Models/Developer';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CommonServiceService } from '../../Services/common-service.service';
 
 @Component({
@@ -14,12 +14,16 @@ export class AddDeveloperPopUpComponent implements OnInit {
   addDeveloperForm: FormGroup;
   developer: Developer;
 
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddDeveloperPopUpComponent>, private commonService: CommonServiceService) {
-
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddDeveloperPopUpComponent>, private commonService: CommonServiceService, @Inject(MAT_DIALOG_DATA) public data: Developer) {
+    if (data) {
+      this.developer = data;
+    }
   }
 
   ngOnInit() {
-    this.developer = new Developer();
+    if (!this.developer) {
+      this.developer = new Developer();
+    }
 
     this.addDeveloperForm = this.formBuilder.group({
       name: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
@@ -29,7 +33,6 @@ export class AddDeveloperPopUpComponent implements OnInit {
     });
 
     this.addDeveloperForm.patchValue(this.developer);
-    console.log(this.addDeveloperForm);
   }
 
 

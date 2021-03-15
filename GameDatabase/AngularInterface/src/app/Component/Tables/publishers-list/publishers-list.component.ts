@@ -2,6 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Outpu
 import { MatDialog, MatPaginator, MatSort } from '@angular/material';
 import { ConfirmationDialogComponent } from '../../../components/shared/confirmation-dialog/confirmation-dialog.component';
 import { Publisher } from '../../../Models/Publisher';
+import { AddPublisherPopUpComponent } from '../../PopUps/add-publisher-pop-up/add-publisher-pop-up.component';
 import { PublishersServiceService } from '../../publishers/services/publishers-service.service';
 import { PublishersListDataSource } from './publishers-list-datasource';
 
@@ -22,6 +23,7 @@ export class PublishersListTableComponent implements AfterViewInit, OnChanges, O
   @Output() selection: EventEmitter<Publisher> = new EventEmitter<Publisher>();
   pageIndex: number = 0;
   pageSize: number = 25;
+    currentSelection: Publisher;
 
   constructor(private publisherService: PublishersServiceService, public dialog: MatDialog) {
 
@@ -69,6 +71,26 @@ export class PublishersListTableComponent implements AfterViewInit, OnChanges, O
         console.log('Yes clicked');
         // DO SOMETHING
       }
+    });
+  }
+
+  openDialogEdit(row) {
+    debugger;
+    this.currentSelection = this.data.find(item => item.id === this.selectedRowId);
+    const dialogRef = this.dialog.open(AddPublisherPopUpComponent, {
+      width: '350px',
+      data: this.currentSelection
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      debugger;
+      // DO SOMETHING
+      this.publisherService.update({ ...this.currentSelection, ...result }).subscribe(result => {
+        debugger;
+        Object.assign(this.currentSelection, result);
+        this.currentSelection = null;
+        //this.dataSource = new DevelopersListDataSource(this.paginator, this.sort, this.data);
+      });
     });
   }
 }

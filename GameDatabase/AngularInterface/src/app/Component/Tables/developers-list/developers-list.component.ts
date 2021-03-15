@@ -3,6 +3,7 @@ import { MatDialog, MatPaginator, MatSort } from '@angular/material';
 import { ConfirmationDialogComponent } from '../../../components/shared/confirmation-dialog/confirmation-dialog.component';
 import { Developer } from '../../../Models/Developer';
 import { DevelopersServiceService } from '../../Developers/services/developers-service.service';
+import { AddDeveloperPopUpComponent } from '../../PopUps/add-developer-pop-up/add-developer-pop-up.component';
 import { DevelopersListDataSource } from './developers-list-datasource';
 
 @Component({
@@ -23,6 +24,7 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
   selectedRowId: number;
   pageIndex: number = 0;
   pageSize: number = 25;
+    currentSelection: Developer;
 
   constructor(private developersService: DevelopersServiceService, public dialog: MatDialog) {
 
@@ -58,9 +60,9 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
     this.selection.emit(row);
   }
 
-  openDialog(row): void {
+  openDialogDelete(row): void {
     debugger;
-
+    
 
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
@@ -72,6 +74,26 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
       // DO SOMETHING
       this.developersService.delete(this.selectedRowId).subscribe(result => {
         debugger;
+      });
+    });
+  }
+
+  openDialogEdit(row) {
+    debugger;
+    this.currentSelection = this.data.find(item => item.id === this.selectedRowId);
+    const dialogRef = this.dialog.open(AddDeveloperPopUpComponent, {
+      width: '350px',
+      data: this.currentSelection
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      debugger;
+      // DO SOMETHING
+      this.developersService.update({ ...this.currentSelection, ...result }).subscribe(result => {
+        debugger;
+        Object.assign(this.currentSelection, result);
+        this.currentSelection = null;
+        //this.dataSource = new DevelopersListDataSource(this.paginator, this.sort, this.data);
       });
     });
   }

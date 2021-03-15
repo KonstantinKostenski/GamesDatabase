@@ -24,4 +24,8 @@ export class DevelopersServiceService {
   delete(id: number) {
     return this.httpService.delete<any>("api/Developers/" + id);
   }
+
+  update(developer: Developer) {
+    return this.httpService.put<any>("api/Developers/" + developer.id, developer);
+  }
 }

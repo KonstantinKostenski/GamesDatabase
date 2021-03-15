@@ -81,7 +81,7 @@ namespace GameDatabase.APIControllers
                 }
             }
 
-            return NoContent();
+            return Ok(developer);
         }
 
         // POST: api/Developers

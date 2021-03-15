@@ -46,12 +46,18 @@
               </span>
               <span>Delete</span>
             </button>
+            <button mat-menu-item (click)="openDialogEdit(row)">
+              <span class="material-icons">
+                create
+              </span>
+              <span>Edit</span>
+            </button>
           </mat-menu>
         </td>
       </ng-container>
     </tr>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr>
   </table>
   <!--<ng-container *ngIf="!data">
     <mat-progress-spinner style="margin:0 auto;color:black;" mode="indeterminate"></mat-progress-spinner>
