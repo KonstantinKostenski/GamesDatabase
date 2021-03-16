@@ -45,7 +45,7 @@ namespace GamesDatabase.Test
                 .Returns(Task.FromResult(new UserApi() {Username = "KonstantinKostneski", FirstName ="Konstantin", LastName = "Kostenski", Id = 1, Password = encodedPassword }));
             mockConfiguration.Setup(member => member.GetSection("Secret")).Returns(mockonfigurationSection.Object);
             userService = new UserService(mockOptions.Object, mockMapper.Object, mockBusinessLogic.Object, mockConfiguration.Object, _utilityService);
-            AuthenticateResponse authenticateResponse = await userService.Authenticate(new GameDatabase.Models.AuthenticateRequest() { Username = "KonstantinKostenski", Password = "83499999"});
+            AuthenticateResponse authenticateResponse = await userService.Authenticate(new AuthenticateRequest() { Username = "KonstantinKostenski", Password = "83499999"});
             Assert.IsTrue(authenticateResponse.FirstName == "Konstantin");
             Assert.IsTrue(authenticateResponse.LastName == "Kostenski");
             Assert.IsTrue(authenticateResponse.Id == 1);
