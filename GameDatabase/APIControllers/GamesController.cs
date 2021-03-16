@@ -8,6 +8,7 @@ using GamesDatabaseBusinessLogic.Models;
 using GameDatabase.Models;
 using GameDatabase.Interfaces;
 using AutoMapper;
+using System;
 
 namespace GameDatabase.APIControllers
 {
@@ -30,110 +31,156 @@ namespace GameDatabase.APIControllers
 
         // GET: api/Games
         [HttpGet]
-        public async Task<IEnumerable<GameViewModel>> GetGames(int pageNumber, int pageSize)
+        public async Task<IActionResult> GetGames(int pageNumber, int pageSize)
         {
-            IEnumerable<GameViewModel> model;
-            model = await _gamesService.GetAllGames(pageNumber, pageSize);
-            return model;
+            try
+            {
+                IEnumerable<GameViewModel> model;
+                model = await _gamesService.GetAllGames(pageNumber, pageSize);
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         // GET: api/Games/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGame([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var game = await _context.Games.FindAsync(id);
+
+                if (game == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(game);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
-            var game = await _context.Games.FindAsync(id);
-
-            if (game == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(game);
         }
 
         // PUT: api/Games/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGame([FromRoute] int id, [FromBody] Game game)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != game.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(game).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                if (id != game.Id)
+                {
+                    return BadRequest();
+                }
+
+                _context.Entry(game).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!GameExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return Ok(game);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!GameExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest(ex.Message);
             }
 
-            return Ok(game);
         }
 
         // POST: api/Games
         [HttpPost]
         public async Task<IActionResult> PostGame([FromBody] CreateGameModel game)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState.Values.SelectMany(v => v.Errors));
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState.Values.SelectMany(v => v.Errors));
+                }
+
+                var saveGameObject = _mapper.Map<CreateGameModel, Game>(game);
+                saveGameObject.Genre = await _commonService.GenreName(saveGameObject.GenreId);
+                _context.Games.Add(saveGameObject);
+                await _context.SaveChangesAsync();
+                return CreatedAtAction("GetGame", new { id = saveGameObject.Id }, saveGameObject);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
-            var saveGameObject = _mapper.Map<CreateGameModel, Game>(game);
-            saveGameObject.Genre = await _commonService.GenreName(saveGameObject.GenreId);
-            _context.Games.Add(saveGameObject);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction("GetGame", new { id = saveGameObject.Id }, saveGameObject);
         }
 
         // DELETE: api/Games/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGame([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            var game = await _context.Games.FindAsync(id);
-            if (game == null)
+                var game = await _context.Games.FindAsync(id);
+                if (game == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Games.Remove(game);
+                await _context.SaveChangesAsync();
+
+                return Ok(game);
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                return BadRequest(ex.Message);
             }
-
-            _context.Games.Remove(game);
-            await _context.SaveChangesAsync();
-
-            return Ok(game);
         }
 
         [HttpPost("Search")]
         public async Task<IActionResult> Search(SearchObjectGames searchObject)
         {
-            IEnumerable<GameViewModel> model;
-            model = await _gamesService.SearchGames(searchObject);
-            return Ok(model);
+            try
+            {
+                IEnumerable<GameViewModel> model;
+                model = await _gamesService.SearchGames(searchObject);
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         //public async Task<IActionResult> Favourite(int gameId)

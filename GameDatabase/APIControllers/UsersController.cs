@@ -2,6 +2,8 @@
 using GameDatabase.Interfaces;
 using GameDatabase.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace GameDatabase.APIControllers
 {
@@ -17,34 +19,58 @@ namespace GameDatabase.APIControllers
         }
 
         [HttpPost("Authenticate")]
-        public async System.Threading.Tasks.Task<IActionResult> Authenticate(AuthenticateRequest model)
+        public async Task<IActionResult> Authenticate(AuthenticateRequest model)
         {
-            var response = await _userService.Authenticate(model);
+            try
+            {
+                var response = await _userService.Authenticate(model);
 
-            if (response == null)
-                return BadRequest(new { message = "Username or password is incorrect!" });
+                if (response == null)
+                    return BadRequest(new { message = "Username or password is incorrect!" });
 
-            return Ok(response);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         [HttpPost("Register")]
-        public async System.Threading.Tasks.Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                var response = await _userService.RegisterUserAsync(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
 
-            var response = await _userService.RegisterUserAsync(model);
-            return Ok();
         }
 
         [Authorize]
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users = _userService.GetAll();
-            return Ok(users);
+            try
+            {
+                var users = _userService.GetAll();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }
