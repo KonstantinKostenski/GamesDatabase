@@ -18,9 +18,14 @@ namespace GamesDatabaseBusinessLogic
             return await _userApiRepository.GetUserByNameAndPassword(name, password);
         }
 
-        public async System.Threading.Tasks.Task<UserApi> RegisterUserAsync(UserApi user)
+        public async Task<UserApi> RegisterUserAsync(UserApi user)
         {
             return await _userApiRepository.AddAsync(user);
+        }
+
+        public async Task SaveChanges()
+        {
+             await _userApiRepository.SaveChangesAsync();
         }
     }
 }

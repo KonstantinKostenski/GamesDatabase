@@ -7,6 +7,6 @@ namespace GamesDatabaseBusinessLogic.Interfaces
     {
         Task<UserApi> RegisterUserAsync(UserApi user);
         Task<UserApi> GetUserByNameAndPassword(string name, string password);
-
+        Task SaveChanges();
     }
 }

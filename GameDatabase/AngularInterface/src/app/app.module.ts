@@ -28,6 +28,7 @@ import { ConfirmationDialogComponent } from './Component/shared/confirmation-dia
   declarations: [
     AppComponent,
     LandingPageComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,

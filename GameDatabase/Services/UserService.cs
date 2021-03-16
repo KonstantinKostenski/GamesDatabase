@@ -13,6 +13,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GameDatabase.Services
 {
@@ -39,7 +40,7 @@ namespace GameDatabase.Services
             _utilityService = utilityService;
         }
 
-        public async System.Threading.Tasks.Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
+        public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
         {
             model.Password = _utilityService.EncodePassword(model.Password);
             var user = await _businessLogicUsers.GetUserByNameAndPassword(model.Username, model.Password);
@@ -81,11 +82,13 @@ namespace GameDatabase.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public async System.Threading.Tasks.Task<UserApi> RegisterUserAsync(RegisterViewModel registerUser)
+        public async Task<UserApi> RegisterUserAsync(RegisterViewModel registerUser)
         {
             var user = _mapper.Map<UserApi>(registerUser);
             user.Password = _utilityService.EncodePassword(user.Password);
-            return await _businessLogicUsers.RegisterUserAsync(user);
+            var result = await _businessLogicUsers.RegisterUserAsync(user);
+            await _businessLogicUsers.SaveChanges();
+            return result;
         }
 
         
