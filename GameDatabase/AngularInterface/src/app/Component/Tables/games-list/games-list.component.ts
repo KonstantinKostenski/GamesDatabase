@@ -1,9 +1,8 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, PageEvent } from '@angular/material';
-import { ConfirmationDialogComponent } from '../../../components/shared/confirmation-dialog/confirmation-dialog.component';
-import { Developer } from '../../../Models/Developer';
 import { GamesServiceService } from '../../games/services/games-service.service';
 import { AddGamePopUpComponent } from '../../PopUps/add-game-pop-up/add-game-pop-up.component';
+import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { GamesListDataSource, GamesListItem } from './games-list-datasource';
 
 @Component({

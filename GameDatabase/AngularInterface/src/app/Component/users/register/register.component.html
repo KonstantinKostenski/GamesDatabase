@@ -7,7 +7,7 @@
         </mat-label>
         <input matInput formControlName="firstName" required>
         <mat-error *ngIf="registerUserForm.controls.firstName.touched && registerUserForm.controls.firstName.invalid">
-          <span *ngIf="registerUserForm.controls.firstName.errors.required">This field is mandatory.</span>
+          {{commonService.getErrorMessage(registerUserForm.controls.firstName)}}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="outline">
@@ -16,7 +16,7 @@
         </mat-label>
         <input matInput formControlName="lastName" required>
         <mat-error *ngIf="registerUserForm.controls.lastName.touched && registerUserForm.controls.lastName.invalid">
-          <span *ngIf="registerUserForm.controls.lastName.errors.required">This field is mandatory.</span>
+          {{commonService.getErrorMessage(registerUserForm.controls.lastName)}}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="outline">
@@ -25,7 +25,7 @@
         </mat-label>
         <input matInput formControlName="username" required>
         <mat-error *ngIf="registerUserForm.controls.username.touched && registerUserForm.controls.username.invalid">
-          <span *ngIf="registerUserForm.controls.username.errors.required">This field is mandatory.</span>
+          {{commonService.getErrorMessage(registerUserForm.controls.username)}}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="outline">
@@ -34,7 +34,7 @@
         </mat-label>
         <input matInput formControlName="password" required>
         <mat-error *ngIf="registerUserForm.controls.password.touched && registerUserForm.controls.password.invalid">
-          <span *ngIf="registerUserForm.controls.password.errors.required">This field is mandatory.</span>
+          {{commonService.getErrorMessage(registerUserForm.controls.password)}}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="outline">
@@ -43,7 +43,7 @@
         </mat-label>
         <input matInput formControlName="repeatPassword" required>
         <mat-error *ngIf="registerUserForm.controls.repeatPassword.touched && registerUserForm.controls.repeatPassword.invalid">
-          <span *ngIf="registerUserForm.controls.repeatPassword.errors.required">This field is mandatory.</span>
+          {{commonService.getErrorMessage(registerUserForm.controls.repeatPassword)}}
         </mat-error>
       </mat-form-field>
       <mat-error *ngIf="registerUserForm.get(['password']).value != registerUserForm.get(['repeatPassword']).value && registerUserForm.get(['repeatPassword']).value != null">

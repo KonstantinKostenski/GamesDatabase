@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort } from '@angular/material';
-import { ConfirmationDialogComponent } from '../../../components/shared/confirmation-dialog/confirmation-dialog.component';
 import { Publisher } from '../../../Models/Publisher';
 import { AddPublisherPopUpComponent } from '../../PopUps/add-publisher-pop-up/add-publisher-pop-up.component';
 import { PublishersServiceService } from '../../publishers/services/publishers-service.service';
+import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { PublishersListDataSource } from './publishers-list-datasource';
 
 @Component({

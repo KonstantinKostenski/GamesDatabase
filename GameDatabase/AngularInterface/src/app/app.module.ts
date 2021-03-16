@@ -11,8 +11,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material/material.module';
-import { ConfirmationDialogComponent } from './components/shared/confirmation-dialog/confirmation-dialog.component';
-import { SharedModule } from './components/shared/shared.module';
 import { PopUpsModule } from './Component/PopUps/pop-ups/pop-ups.module';
 import { AddGamePopUpComponent } from './Component/PopUps/add-game-pop-up/add-game-pop-up.component';
 import { SearchDevelopersPopUpComponent } from './Component/PopUps/search-developers-pop-up/search-developers-pop-up.component';
@@ -23,6 +21,8 @@ import { LandingPageComponent } from './Component/landing-page/landing-page.comp
 import { AddPublisherPopUpComponent } from './Component/PopUps/add-publisher-pop-up/add-publisher-pop-up.component';
 import { AddDeveloperPopUpComponent } from './Component/PopUps/add-developer-pop-up/add-developer-pop-up.component';
 import { ErrorPopUpComponent } from './Component/PopUps/error-pop-up/error-pop-up.component';
+import { SharedModule } from './Component/Shared/shared.module';
+import { ConfirmationDialogComponent } from './Component/shared/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [

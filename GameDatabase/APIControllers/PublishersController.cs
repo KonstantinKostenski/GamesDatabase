@@ -26,12 +26,12 @@ namespace GameDatabase.APIControllers
 
         // GET: api/Publishers
         [HttpGet]
-        public async Task<IEnumerable<Publisher>> GetPublishers(int pageNumber, int pageSize)
+        public async Task<IActionResult> GetPublishers(int pageNumber, int pageSize)
         {
             try
             {
                 var model = await _publisherService.GetAllPublishers(pageNumber, pageSize);
-                return model;
+                return Ok(model);
             }
             catch (Exception ex)
             {
