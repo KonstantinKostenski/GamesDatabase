@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnIni
 import { MatDialog, MatPaginator, MatSort, PageEvent } from '@angular/material';
 import { GamesServiceService } from '../../games/services/games-service.service';
 import { AddGamePopUpComponent } from '../../PopUps/add-game-pop-up/add-game-pop-up.component';
+import { CommonServiceService } from '../../Services/common-service.service';
 import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { GamesListDataSource, GamesListItem } from './games-list-datasource';
 
@@ -24,7 +25,7 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
   displayedColumns = ['Id', 'Name', 'ReleaseDate', 'Platform', 'Developer', 'Publisher', 'Actions'];
     currentSelection: GamesListItem;
 
-  constructor(private gamesService: GamesServiceService, private cd: ChangeDetectorRef, public dialog: MatDialog) {
+  constructor(private gamesService: GamesServiceService, private cd: ChangeDetectorRef, public dialog: MatDialog, private commonService: CommonServiceService) {
 
   }
 
@@ -34,6 +35,9 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
       debugger;
       this.data = result;
       this.dataSource = new GamesListDataSource(this.paginator, this.sort, this.data);
+    }, error => {
+      debugger;
+      this.commonService.handleError([error]);
     });
   }
 
@@ -45,6 +49,9 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
     this.gamesService.getAllGames(event.pageIndex, event.pageSize).subscribe(result => {
       debugger;
       this.data = result;
+    }, error => {
+      debugger;
+      this.commonService.handleError([error]);
     });
   }
 

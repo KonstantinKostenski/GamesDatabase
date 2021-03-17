@@ -3,6 +3,7 @@ import { MatDialog, MatPaginator, MatSort } from '@angular/material';
 import { Publisher } from '../../../Models/Publisher';
 import { AddPublisherPopUpComponent } from '../../PopUps/add-publisher-pop-up/add-publisher-pop-up.component';
 import { PublishersServiceService } from '../../publishers/services/publishers-service.service';
+import { CommonServiceService } from '../../Services/common-service.service';
 import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { PublishersListDataSource } from './publishers-list-datasource';
 
@@ -25,7 +26,7 @@ export class PublishersListTableComponent implements AfterViewInit, OnChanges, O
   pageSize: number = 25;
     currentSelection: Publisher;
 
-  constructor(private publisherService: PublishersServiceService, public dialog: MatDialog) {
+  constructor(private publisherService: PublishersServiceService, public dialog: MatDialog, private commonService: CommonServiceService) {
 
   }
 
@@ -34,6 +35,9 @@ export class PublishersListTableComponent implements AfterViewInit, OnChanges, O
       debugger;
       this.data = result;
       this.dataSource = new PublishersListDataSource(this.paginator, this.sort, this.data);
+    }, error => {
+      debugger;
+      this.commonService.handleError([error]);
     });
   }
 
@@ -51,6 +55,9 @@ export class PublishersListTableComponent implements AfterViewInit, OnChanges, O
       debugger;
       this.data = result;
       this.dataSource = new PublishersListDataSource(this.paginator, this.sort, this.data);
+    }, error => {
+      debugger;
+      this.commonService.handleError([error]);
     });
   }
 

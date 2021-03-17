@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { LoginUserModel } from '../../../Models/user';
 import { MatDialogRef } from '@angular/material';
 import { UsersService } from '../users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -14,7 +15,7 @@ export class LogInComponent implements OnInit {
   user: LoginUserModel;
     error: any;
 
-  constructor(private formBuilder: FormBuilder, private userService: UsersService) { }
+  constructor(private formBuilder: FormBuilder, private userService: UsersService, private router: Router) { }
 
   ngOnInit() {
     this.user = new LoginUserModel();
@@ -36,7 +37,7 @@ export class LogInComponent implements OnInit {
       debugger;
       localStorage.setItem("token", result.token);
       this.error = null;
-      
+      this.router.navigateByUrl("/Games");
     }, error => {
         debugger;
         this.error = error.error.message;

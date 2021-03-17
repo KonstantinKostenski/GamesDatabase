@@ -3,6 +3,7 @@ import { MatDialog, MatPaginator, MatSort } from '@angular/material';
 import { Developer } from '../../../Models/Developer';
 import { DevelopersServiceService } from '../../Developers/services/developers-service.service';
 import { AddDeveloperPopUpComponent } from '../../PopUps/add-developer-pop-up/add-developer-pop-up.component';
+import { CommonServiceService } from '../../Services/common-service.service';
 import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { DevelopersListDataSource } from './developers-list-datasource';
 
@@ -24,9 +25,9 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
   selectedRowId: number;
   pageIndex: number = 0;
   pageSize: number = 25;
-    currentSelection: Developer;
+  currentSelection: Developer;
 
-  constructor(private developersService: DevelopersServiceService, public dialog: MatDialog) {
+  constructor(private developersService: DevelopersServiceService, public dialog: MatDialog, private commonService: CommonServiceService) {
 
   }
 
@@ -34,6 +35,9 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
     this.developersService.getAll(this.pageIndex, this.pageSize).subscribe(result => {
       this.data = result;
       this.dataSource = new DevelopersListDataSource(this.paginator, this.sort, this.data);
+    }, error => {
+        debugger;
+        this.commonService.handleError([error]);
     });
   }
 
@@ -47,6 +51,8 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
     this.developersService.getAll(this.pageIndex, this.pageSize).subscribe(result => {
       this.data = result;
       this.dataSource = new DevelopersListDataSource(this.paginator, this.sort, this.data);
+    }, error => {
+      debugger;
     });
   }
 
@@ -62,7 +68,7 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
 
   openDialogDelete(row): void {
     debugger;
-    
+
 
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',

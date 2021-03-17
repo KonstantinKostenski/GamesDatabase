@@ -27,8 +27,17 @@ namespace GameDatabase.APIControllers
         [HttpGet]
         public async Task<IActionResult> GetDevelopers(int pageNumber, int pageSize)
         {
-            var model = await _developerService.GetAllDevelopers(pageNumber, pageSize);
-            return Ok(model);
+            try
+            {
+                throw new Exception();
+                var model = await _developerService.GetAllDevelopers(pageNumber, pageSize);
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         // GET: api/Developers/5

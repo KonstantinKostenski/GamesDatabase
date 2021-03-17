@@ -1,5 +1,5 @@
 <table>
   <tr *ngFor="let error of data">
-    <td>{{error.errorMessage}}</td>
+    <td>{{error.errorMessage ? error.errorMessage : error.message}}</td>
   </tr>
 </table>

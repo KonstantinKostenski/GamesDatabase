@@ -47,5 +47,14 @@ namespace GamesDatabase.Test
             OkObjectResult resultDelete = (OkObjectResult)await developersController.DeleteDeveloper(developer.Id);
             Assert.That(resultDelete.StatusCode == 200);
         }
+
+        [Test]
+        public async Task TestUpdate()
+        {
+            var result = (OkObjectResult)(await developersController.GetDeveloper(4));
+            var developer = (Developer)result.Value;
+            OkObjectResult resultUpdate = (OkObjectResult)await developersController.PutDeveloper(developer.Id, developer);
+            Assert.That(resultUpdate.StatusCode == 200);
+        }
     }
 }
