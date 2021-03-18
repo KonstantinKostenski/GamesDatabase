@@ -34,7 +34,7 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
   ngOnInit(): void {
     this.developersService.getAll(this.pageIndex, this.pageSize).subscribe(result => {
       this.data = result;
-      this.dataSource = new DevelopersListDataSource(this.paginator, this.sort, this.data);
+      this.changeDataSource();
     }, error => {
         debugger;
         this.commonService.handleError([error]);
@@ -46,18 +46,23 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
 
   }
 
+  changeDataSource() {
+    this.dataSource = new DevelopersListDataSource(this.paginator, this.sort, this.data);
+
+  }
+
   getServerData(event) {
     debugger;
     this.developersService.getAll(this.pageIndex, this.pageSize).subscribe(result => {
       this.data = result;
-      this.dataSource = new DevelopersListDataSource(this.paginator, this.sort, this.data);
+      this.changeDataSource();
     }, error => {
       debugger;
     });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.dataSource = new DevelopersListDataSource(this.paginator, this.sort, this.data);
+    this.changeDataSource();
   }
 
   getRecord(row) {
@@ -80,6 +85,8 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
       // DO SOMETHING
       this.developersService.delete(this.selectedRowId).subscribe(result => {
         debugger;
+        this.data = this.data.filter(item => item.id !== result.id);
+        this.changeDataSource();
       });
     });
   }

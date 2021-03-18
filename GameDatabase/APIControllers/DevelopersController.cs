@@ -29,7 +29,6 @@ namespace GameDatabase.APIControllers
         {
             try
             {
-                throw new Exception();
                 var model = await _developerService.GetAllDevelopers(pageNumber, pageSize);
                 return Ok(model);
             }

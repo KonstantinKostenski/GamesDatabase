@@ -10,9 +10,9 @@ namespace GameDatabase.Models
         public string CoverArtUrl { get; set; }
         public string AuthorName { get; set; }
         public int DeveloperId { get; set; }
-        public string Developer { get; set; }
+        public string DeveloperName { get; set; }
         public int PublisherId { get; set; }
-        public string Publisher { get; set; }
+        public string PublisherName { get; set; }
         public string Genre { get; set; }
         public decimal GenreId { get; set; }
         public string Description { get; set; }

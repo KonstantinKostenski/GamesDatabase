@@ -36,6 +36,7 @@ export class AddGamePopUpComponent implements OnInit {
     this.commonService.getGenres().subscribe(result => {
       debugger;
       this.genres = result;
+      this.setValues();
     });
 
     this.addGameForm = this.formBuilder.group({
@@ -50,6 +51,12 @@ export class AddGamePopUpComponent implements OnInit {
     });
 
     this.addGameForm.patchValue(this.game);
+  }
+
+  setValues() {
+    this.addGameForm.patchValue({
+      genreId: this.game.genreId,
+    });
   }
 
   openSearchDevelopers(): void {

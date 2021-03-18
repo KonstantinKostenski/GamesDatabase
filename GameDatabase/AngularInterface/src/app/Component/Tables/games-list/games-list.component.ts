@@ -1,5 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, PageEvent } from '@angular/material';
+import { Game } from '../../../Models/Game';
 import { GamesServiceService } from '../../games/services/games-service.service';
 import { AddGamePopUpComponent } from '../../PopUps/add-game-pop-up/add-game-pop-up.component';
 import { CommonServiceService } from '../../Services/common-service.service';
@@ -15,15 +16,15 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: GamesListDataSource;
-  data: GamesListItem[];
-  @Output() selection: EventEmitter<GamesListItem> = new EventEmitter<GamesListItem>();
+  data: Game[];
+  @Output() selection: EventEmitter<Game> = new EventEmitter<Game>();
   pageEvent: PageEvent;
   pageIndex: number = 0;
   pageSize: number = 25;
   selectedRowId: number;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['Id', 'Name', 'ReleaseDate', 'Platform', 'Developer', 'Publisher', 'Actions'];
-    currentSelection: GamesListItem;
+  displayedColumns = ['Id', 'Name', 'ReleaseDate', 'Platform', 'DeveloperName', 'PublisherName', 'Actions'];
+  currentSelection: Game;
 
   constructor(private gamesService: GamesServiceService, private cd: ChangeDetectorRef, public dialog: MatDialog, private commonService: CommonServiceService) {
 
@@ -34,7 +35,7 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
     this.gamesService.getAllGames(this.pageIndex, this.pageSize).subscribe(result => {
       debugger;
       this.data = result;
-      this.dataSource = new GamesListDataSource(this.paginator, this.sort, this.data);
+      this.addNewDatasource();
     }, error => {
       debugger;
       this.commonService.handleError([error]);
@@ -42,6 +43,10 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
+  }
+
+  addNewDatasource() {
+    this.dataSource = new GamesListDataSource(this.paginator, this.sort, this.data);
   }
 
   getServerData(event) {
@@ -90,7 +95,7 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
         debugger;
         Object.assign(this.currentSelection, result);
         this.currentSelection = null;
-        //this.dataSource = new DevelopersListDataSource(this.paginator, this.sort, this.data);
+        this.addNewDatasource();
       });
     });
   }

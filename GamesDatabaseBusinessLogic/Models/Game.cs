@@ -25,9 +25,15 @@ namespace GamesDatabaseBusinessLogic.Models
         [Required]
         public Developer Developer { get; set; }
 
+        [Required]
+        public string DeveloperName { get; set; }
+
         public int PublisherId { get; set; }
         [Required]
         public Publisher Publisher { get; set; }
+
+        [Required]
+        public string PublisherName { get; set; }
 
         public decimal GenreId { get; set; }
         [Required]

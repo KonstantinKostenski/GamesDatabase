@@ -64,8 +64,8 @@ namespace GameDatabase.Services
             var result = await _businessLogicGames.GetAllGames(pageNumber ?? 1, pageSize);
             return result.Where(game => game.GenreId == genreId).Select(game => new GameViewModel
             {
-                Developer = game.Developer.Name,
-                Publisher = game.Publisher.Name,
+                DeveloperName = game.Developer.Name,
+                PublisherName = game.Publisher.Name,
                 Genre = game.Genre,
                 Name = game.Name,
                 CoverArtUrl = game.CoverArtUrl,
@@ -136,8 +136,8 @@ namespace GameDatabase.Services
             var result = await this._businessLogicGames.SearchGames(searchObject);
             return result.Select(game => new GameViewModel
             {
-                Developer = game.Developer.Name,
-                Publisher = game.Publisher.Name,
+                DeveloperName = game.Developer.Name,
+                PublisherName = game.Publisher.Name,
                 Genre = game.Genre,
                 Name = game.Name,
                 CoverArtUrl = game.CoverArtUrl,

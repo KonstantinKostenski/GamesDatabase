@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { Developer } from '../../../Models/Developer';
 import { AddDeveloperPopUpComponent } from '../../PopUps/add-developer-pop-up/add-developer-pop-up.component';
+import { CommonServiceService } from '../../Services/common-service.service';
+import { DevelopersListTableComponent } from '../../Tables/developers-list/developers-list.component';
+import { DevelopersServiceService } from '../services/developers-service.service';
 
 @Component({
   selector: 'app-developer-list',
@@ -9,7 +13,9 @@ import { AddDeveloperPopUpComponent } from '../../PopUps/add-developer-pop-up/ad
 })
 export class DeveloperListComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  @ViewChild("developersTable") developersTable: DevelopersListTableComponent;
+
+  constructor(public dialog: MatDialog, private developerService: DevelopersServiceService, private commonService: CommonServiceService) { }
 
   ngOnInit() {
   }
@@ -22,7 +28,16 @@ export class DeveloperListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        //this.publisherService.sa(result);
+        this.developerService.add(result).subscribe(result => {
+          debugger;
+          let targetObject: Developer = new Developer();
+          Object.assign(targetObject, result);
+          this.developersTable.data.push(targetObject);
+          this.developersTable.changeDataSource();
+        }, error => {
+          debugger;
+          this.commonService.handleError(error.error);
+        });
       }
     });
   }

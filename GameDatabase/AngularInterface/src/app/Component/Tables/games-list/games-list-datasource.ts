@@ -2,6 +2,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { Game } from '../../../Models/Game';
 
 // TODO: Replace this with your own data model type
 export interface GamesListItem {
@@ -15,17 +16,17 @@ export interface GamesListItem {
 }
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: GamesListItem[] = [];
+const EXAMPLE_DATA: Game[] = [];
 
 /**
  * Data source for the GamesList view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
  * (including sorting, pagination, and filtering).
  */
-export class GamesListDataSource extends DataSource<GamesListItem> {
-  data: GamesListItem[] = [];
+export class GamesListDataSource extends DataSource<Game> {
+  data: Game[] = [];
 
-  constructor(private paginator: MatPaginator, private sort: MatSort, data: GamesListItem[]) {
+  constructor(private paginator: MatPaginator, private sort: MatSort, data: Game[]) {
     super();
     this.data = data;
   }
@@ -35,7 +36,7 @@ export class GamesListDataSource extends DataSource<GamesListItem> {
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<GamesListItem[]> {
+  connect(): Observable<Game[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -62,7 +63,7 @@ export class GamesListDataSource extends DataSource<GamesListItem> {
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: GamesListItem[]) {
+  private getPagedData(data: Game[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -71,7 +72,7 @@ export class GamesListDataSource extends DataSource<GamesListItem> {
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: GamesListItem[]) {
+  private getSortedData(data: Game[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
