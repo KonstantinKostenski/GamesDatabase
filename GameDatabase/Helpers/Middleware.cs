@@ -1,9 +1,11 @@
 ﻿using GameDatabase.Helpers;
 using GameDatabase.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
@@ -15,11 +17,13 @@ namespace GameDatabase.Middleware
     {
         private readonly RequestDelegate _next;
         private readonly AppSettings _appSettings;
+        public IConfiguration Configuration { get; }
 
-        public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings)
+        public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings, IConfiguration configuration)
         {
             _next = next;
             _appSettings = appSettings.Value;
+            Configuration = configuration;
         }
 
         public async Task Invoke(HttpContext context, IUserService userService)
@@ -37,7 +41,7 @@ namespace GameDatabase.Middleware
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+                var key = Encoding.ASCII.GetBytes(Configuration.GetSection("Secret").GetValue(typeof(string), "APP_SECRET").ToString());
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,

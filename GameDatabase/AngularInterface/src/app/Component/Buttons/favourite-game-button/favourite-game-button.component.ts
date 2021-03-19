@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Game } from '../../../Models/Game';
+import { CommonServiceService } from '../../Services/common-service.service';
+import { ButtonsService } from '../buttons.service';
 
 @Component({
   selector: 'app-favourite-game-button',
@@ -8,14 +10,17 @@ import { Game } from '../../../Models/Game';
 })
 export class FavouriteGameButtonComponent implements OnInit {
 
-  constructor() { }
+  constructor(private buttonsService: ButtonsService, private commonSerice: CommonServiceService) { }
 
-  Game: Game = new Game();
+  game: Game = new Game();
 
   ngOnInit() {
   }
 
   addToFavourites() {
+    this.buttonsService.favouriteGame(this.game.id, this.commonSerice.parseJwt(localStorage.getItem("token")).id).subscribe(result => {
+      this.game.isFavouritedByUser = true;
 
+    });
   }
 }

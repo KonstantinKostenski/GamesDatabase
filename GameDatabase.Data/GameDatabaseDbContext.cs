@@ -28,6 +28,17 @@ namespace GameDatabase.Data
                 .WithOne(r => r.Game)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<GamesFavourites>()
+        .HasKey(bc => new { bc.GameId, bc.UserId });
+            builder.Entity<GamesFavourites>()
+                .HasOne(bc => bc.Game)
+                .WithMany(b => b.GamesFavourites)
+                .HasForeignKey(bc => bc.GameId);
+            builder.Entity<GamesFavourites>()
+                .HasOne(bc => bc.User)
+                .WithMany(c => c.GamesFavourites)
+                .HasForeignKey(bc => bc.UserId);
+
             base.OnModelCreating(builder);
         }
 
@@ -42,5 +53,7 @@ namespace GameDatabase.Data
         public DbSet<Genre> Genres { get; set; }
 
         public DbSet<UserApi> UserApi { get; set; }
+
+        public DbSet<GamesFavourites> GamesFavourites { get; set; }
     }
 }

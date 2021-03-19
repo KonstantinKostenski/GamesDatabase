@@ -58,6 +58,8 @@ namespace GameDatabase.APIControllers
                 }
 
                 var game = await _context.Games.FindAsync(id);
+                //To do
+                //game.IsFavouritedByUser = await _context.GamesFavourites.FirstOrDefaultAsync(item => item.GameId == game.Id && item.UserId == );
 
                 if (game == null)
                 {

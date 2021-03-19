@@ -37,5 +37,20 @@ namespace GameDatabase.APIControllers
                 return BadRequest(ex.Message);
             }
         }
+
+        // DELETE: api/Games/5
+        [HttpPost]
+        public async Task<IActionResult> FavouriteGame(int gameId, int userId)
+        {
+            try
+            {
+                await _commonService.FavouriteGame(gameId, userId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

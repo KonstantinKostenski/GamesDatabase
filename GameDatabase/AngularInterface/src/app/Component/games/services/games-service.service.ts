@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Game } from '../../../Models/Game';
@@ -12,7 +12,7 @@ export class GamesServiceService {
   constructor(private httpService: HttpClient) { }
 
   getAllGames(pageNumber: number, pageSize: number): Observable<Game[]>{
-    return this.httpService.get<Game[]>("api/Games?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
+    return this.httpService.get<Game[]>("api/Games?pageNumber=" + pageNumber + "&pageSize=" + pageSize, { headers: new HttpHeaders().append("Authorization", "Bearer " + localStorage.getItem("token")) });
   }
 
   saveNewGame(game: Game) {

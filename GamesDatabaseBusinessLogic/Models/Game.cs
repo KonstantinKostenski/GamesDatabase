@@ -46,8 +46,12 @@ namespace GamesDatabaseBusinessLogic.Models
         [Required]
         public string Platform { get; set; }
 
+        public bool IsFavouritedByUser { get; set; }
+
         public ICollection<Review> Reviews  { get; set; }
 
         public ICollection<User> Fans { get; set; }
+
+        public ICollection<GamesFavourites> GamesFavourites { get; set; }
     }
 }

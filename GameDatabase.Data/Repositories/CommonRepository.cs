@@ -25,5 +25,14 @@ namespace GameDatabase.Data
             var genre = await dbContext.Genres.FindAsync(key);
             return genre.Name;
         }
+
+        public async Task FavouriteGame(int gameId, int userId)
+        {
+            GamesFavourites gamesFavourites = new GamesFavourites();
+            gamesFavourites.GameId = gameId;
+            gamesFavourites.UserId = userId;
+            gamesFavourites.IsFavourited = true;
+            await dbContext.Set<GamesFavourites>().AddAsync(gamesFavourites);
+        }
     }
 }

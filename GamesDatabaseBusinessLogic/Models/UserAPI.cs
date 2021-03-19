@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace GamesDatabaseBusinessLogic.Models
 {
@@ -10,5 +11,7 @@ namespace GamesDatabaseBusinessLogic.Models
 
         [JsonIgnore]
         public string Password { get; set; }
+
+        public ICollection<GamesFavourites> GamesFavourites { get; set; }
     }
 }

@@ -8,7 +8,6 @@ import { SelectListItem } from '../../../Models/SelectListItem';
 import { CommonServiceService } from '../../Services/common-service.service';
 import { ImageSnippet } from '../../../Models/ImageSnippet';
 import { FileUploadServiceService } from '../../Services/file-upload-service.service';
-import { ignoreElements } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-game-pop-up',

@@ -14,6 +14,7 @@ export class Game {
   reviews: Review;
   releaseDate: Date;
     coverArtFile: any;
+    isFavouritedByUser: boolean;
 }
 
 export class Review {

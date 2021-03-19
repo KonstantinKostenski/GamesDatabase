@@ -25,5 +25,10 @@ namespace GameDatabase.Services
         {
             return await _businessLogicCommon.GetGenreName(key);
         }
+
+        public async Task FavouriteGame(int gameId, int userId)
+        {
+            await _businessLogicCommon.FavouriteGame(gameId, userId);
+        }
     }
 }

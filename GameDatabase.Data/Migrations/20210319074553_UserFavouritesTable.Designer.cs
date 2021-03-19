@@ -4,14 +4,16 @@ using GameDatabase.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GameDatabase.Data.Migrations
 {
     [DbContext(typeof(GameDatabaseDbContext))]
-    partial class GameDatabaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210319074553_UserFavouritesTable")]
+    partial class UserFavouritesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,9 +96,6 @@ namespace GameDatabase.Data.Migrations
 
                     b.Property<decimal>("GenreId")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<bool>("IsFavouritedByUser")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
