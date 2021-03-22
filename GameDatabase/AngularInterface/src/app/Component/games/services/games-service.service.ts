@@ -15,9 +15,15 @@ export class GamesServiceService {
     return this.httpService.get<Game[]>("api/Games?pageNumber=" + pageNumber + "&pageSize=" + pageSize, { headers: new HttpHeaders().append("Authorization", "Bearer " + localStorage.getItem("token")) });
   }
 
+  getGameById(id: number): Observable<Game> {
+    return this.httpService.get<Game>("api/Games/" + id, { headers: new HttpHeaders().append("Authorization", "Bearer " + localStorage.getItem("token")) });
+  }
+
   saveNewGame(game: Game) {
     return this.httpService.post<Game>("api/Games", game);
   }
+
+  GetGameById
 
   delete(id: number) {
     return this.httpService.delete<any>("api/Games/" + id);

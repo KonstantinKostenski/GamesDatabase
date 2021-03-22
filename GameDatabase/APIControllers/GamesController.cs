@@ -61,12 +61,15 @@ namespace GameDatabase.APIControllers
                 //To do
                 //game.IsFavouritedByUser = await _context.GamesFavourites.FirstOrDefaultAsync(item => item.GameId == game.Id && item.UserId == );
 
+
                 if (game == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(game);
+                var result = _mapper.Map<Game, GameViewModel>(game);
+
+                return Ok(result);
             }
             catch (Exception ex)
             {

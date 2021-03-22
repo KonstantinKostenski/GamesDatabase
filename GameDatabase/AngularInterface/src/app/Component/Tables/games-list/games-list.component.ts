@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, PageEvent } from '@angular/material';
 import { Game } from '../../../Models/Game';
+import { GameDefinitionlisComponent } from '../../games/game-definition/game-definitionlis.component';
 import { GamesServiceService } from '../../games/services/games-service.service';
 import { AddGamePopUpComponent } from '../../PopUps/add-game-pop-up/add-game-pop-up.component';
 import { CommonServiceService } from '../../Services/common-service.service';
@@ -65,6 +66,19 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
       data: "Do you confirm the deletion of this data?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Yes clicked');
+        // DO SOMETHING
+      }
+    });
+  }
+
+  openDialogDetails(row) {
+    const dialogRef = this.dialog.open(GameDefinitionlisComponent, {
+      width: '350px',
+      data: row.id
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

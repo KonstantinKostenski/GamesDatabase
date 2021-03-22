@@ -23,6 +23,7 @@ import { AddDeveloperPopUpComponent } from './Component/PopUps/add-developer-pop
 import { ErrorPopUpComponent } from './Component/PopUps/error-pop-up/error-pop-up.component';
 import { SharedModule } from './Component/Shared/shared.module';
 import { ConfirmationDialogComponent } from './Component/shared/confirmation-dialog/confirmation-dialog.component';
+import { GameDefinitionlisComponent } from './Component/games/game-definition/game-definitionlis.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ConfirmationDialogComponent } from './Component/shared/confirmation-dia
     AddDeveloperPopUpComponent,
     SearchDevelopersPopUpComponent,
     SearchPublishersPopUpComponent,
-    ErrorPopUpComponent
+    ErrorPopUpComponent,
+    GameDefinitionlisComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
