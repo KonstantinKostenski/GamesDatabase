@@ -33,7 +33,7 @@ namespace GameDatabase.Controllers
             searchObject.Genres = ddlItems;
             int pageSize = 10;
             IEnumerable<GameViewModel> model;
-            model = await _gamesService.GetAllGames(pageNumber, pageSize);
+            model = await _gamesService.GetAllGames(pageNumber, pageSize, 0);
             return View(PaginatedList<GameViewModel, SearchObjectGames>.Create(model, pageNumber ?? 1, pageSize, searchObject));
         }
 

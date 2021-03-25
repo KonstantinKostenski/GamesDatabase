@@ -39,7 +39,7 @@ namespace GameDatabase.APIControllers
         }
 
         // DELETE: api/Games/5
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> FavouriteGame(int gameId, int userId)
         {
             try

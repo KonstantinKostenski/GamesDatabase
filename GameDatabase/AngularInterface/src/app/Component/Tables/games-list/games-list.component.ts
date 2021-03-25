@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatPaginator, MatSort, PageEvent } from '@angular/material';
 import { Game } from '../../../Models/Game';
+import { ButtonsService } from '../../Buttons/buttons.service';
 import { GameDefinitionlisComponent } from '../../games/game-definition/game-definitionlis.component';
 import { GamesServiceService } from '../../games/services/games-service.service';
 import { AddGamePopUpComponent } from '../../PopUps/add-game-pop-up/add-game-pop-up.component';
@@ -24,22 +25,23 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
   pageSize: number = 25;
   selectedRowId: number;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['Id', 'Name', 'ReleaseDate', 'Platform', 'DeveloperName', 'PublisherName', 'Actions'];
+  displayedColumns = ['Id', 'Name', 'ReleaseDate', 'Platform', 'DeveloperName', 'PublisherName', 'Actions', 'FavouriteGame'];
   currentSelection: Game;
 
-  constructor(private gamesService: GamesServiceService, private cd: ChangeDetectorRef, public dialog: MatDialog, private commonService: CommonServiceService) {
+  constructor(private gamesService: GamesServiceService, private cd: ChangeDetectorRef, public dialog: MatDialog, private commonService: CommonServiceService, private buttonsService: ButtonsService) {
 
   }
 
   ngOnInit(): void {
     debugger;
+    this.favouriteGame.bind(this);
     this.gamesService.getAllGames(this.pageIndex, this.pageSize).subscribe(result => {
       debugger;
       this.data = result;
       this.addNewDatasource();
     }, error => {
       debugger;
-      this.commonService.handleError([error]);
+        this.commonService.handleError([error], error.status);
     });
   }
 
@@ -57,7 +59,7 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
       this.data = result;
     }, error => {
       debugger;
-      this.commonService.handleError([error]);
+        this.commonService.handleError([error], error.status);
     });
   }
 
@@ -77,7 +79,7 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
 
   openDialogDetails(row) {
     const dialogRef = this.dialog.open(GameDefinitionlisComponent, {
-      width: '350px',
+      width: '1000px',
       data: row.id
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -85,6 +87,15 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
         console.log('Yes clicked');
         // DO SOMETHING
       }
+    });
+  }
+
+  favouriteGame(row) {
+    this.buttonsService.favouriteGame(row.id, this.commonService.parseJwt(localStorage.getItem("token")).id).subscribe(result => {
+      debugger;
+      this.currentSelection.isFavouritedByUser = true;
+      this.addNewDatasource();
+      this.currentSelection = null;
     });
   }
 

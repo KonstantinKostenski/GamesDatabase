@@ -10,7 +10,9 @@ namespace GameDatabase.Interfaces
 {
     public interface IGamesService
     {
-        Task<IEnumerable<GameViewModel>> GetAllGames(int? pageNumber, int pageSize);
+        UserApi User { get; set; }
+
+        Task<IEnumerable<GameViewModel>> GetAllGames(int? pageNumber, int pageSize, int userId);
 
         Task<IEnumerable<GameViewModel>> GetAllGamesByGenre(int? pageNumber, int pageSize, int genreId);
 

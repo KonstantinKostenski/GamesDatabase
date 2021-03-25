@@ -18,6 +18,7 @@ namespace GameDatabase.Models
         public string Description { get; set; }
         public string Platform { get; set; }
         public int Id { get; set; }
+        public bool IsFavouritedByUser { get; set; }
         public List<SelectListItem> Genres { get; set; }
         public IEnumerable<ReviewViewModel> Reviews { get; set; }
     }

@@ -6,7 +6,7 @@ namespace GamesDatabaseBusinessLogic.Interfaces
 {
     public interface IBusinessLogicGames
     {
-        Task<IEnumerable<Game>> GetAllGames(int? pageNumber, int pageSize);
+        Task<IEnumerable<Game>> GetAllGames(int? pageNumber, int pageSize, int gameId);
         Task<Game> GetGameById(int id);
         Task<Game> GetGameAndReviewsById(int id);
         Task DeleteGame(int id);

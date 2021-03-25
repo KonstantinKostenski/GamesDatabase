@@ -37,7 +37,7 @@ export class PublishersListTableComponent implements AfterViewInit, OnChanges, O
       this.dataSource = new PublishersListDataSource(this.paginator, this.sort, this.data);
     }, error => {
       debugger;
-      this.commonService.handleError([error]);
+        this.commonService.handleError([error], error.status);
     });
   }
 
@@ -57,7 +57,7 @@ export class PublishersListTableComponent implements AfterViewInit, OnChanges, O
       this.dataSource = new PublishersListDataSource(this.paginator, this.sort, this.data);
     }, error => {
       debugger;
-      this.commonService.handleError([error]);
+        this.commonService.handleError([error], error.status);
     });
   }
 

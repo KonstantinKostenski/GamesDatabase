@@ -36,14 +36,20 @@ namespace GameDatabase.APIControllers
             try
             {
                 IEnumerable<GameViewModel> model;
-                model = await _gamesService.GetAllGames(pageNumber, pageSize);
-                return Ok(model);
+                var user = (UserApi)ControllerContext.HttpContext.Items["UserAPI"];
+
+                if (user != null)
+                {
+                    model = await _gamesService.GetAllGames(pageNumber, pageSize, user != null ? user.Id : 0);
+                    return Ok(model);
+                }
+
+                return Unauthorized();
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-
         }
 
         // GET: api/Games/5
@@ -190,7 +196,7 @@ namespace GameDatabase.APIControllers
 
         //public async Task<IActionResult> Favourite(int gameId)
         //{
-            
+
         //}
 
         private bool GameExists(int id)

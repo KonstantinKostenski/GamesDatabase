@@ -30,5 +30,10 @@ namespace GameDatabase.Services
         {
             await _businessLogicCommon.FavouriteGame(gameId, userId);
         }
+
+        public async Task<bool> CheckIfFavourited(int gameId, int userId)
+        {
+            return await _businessLogicCommon.CheckIfFavourited(gameId, userId);
+        }
     }
 }

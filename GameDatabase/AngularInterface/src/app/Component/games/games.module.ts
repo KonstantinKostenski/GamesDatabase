@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PopUpsModule } from '../PopUps/pop-ups/pop-ups.module';
 import { FavouritesListComponent } from './favourites-list/favourites-list.component';
 import { GameDefinitionlisComponent } from './game-definition/game-definitionlis.component';
+import { ButtonsModule } from '../Buttons/buttons.module';
 
 @NgModule({
   declarations: [GamesListComponent, GameDefinitionlisComponent, FavouritesListComponent],
@@ -16,7 +17,8 @@ import { GameDefinitionlisComponent } from './game-definition/game-definitionlis
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    PopUpsModule
+    PopUpsModule,
+    ButtonsModule
   ]
 })
 export class GamesModule { }

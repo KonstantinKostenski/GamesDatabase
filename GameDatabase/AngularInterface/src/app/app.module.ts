@@ -24,6 +24,7 @@ import { ErrorPopUpComponent } from './Component/PopUps/error-pop-up/error-pop-u
 import { SharedModule } from './Component/Shared/shared.module';
 import { ConfirmationDialogComponent } from './Component/shared/confirmation-dialog/confirmation-dialog.component';
 import { GameDefinitionlisComponent } from './Component/games/game-definition/game-definitionlis.component';
+import { CanActivatePath } from './Component/Services/can-activate.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { GameDefinitionlisComponent } from './Component/games/game-definition/ga
     ErrorPopUpComponent,
     GameDefinitionlisComponent
   ],
-  providers: [],
+  providers: [CanActivatePath],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -16,6 +16,7 @@ export class GameDefinitionlisComponent implements OnInit {
 
   ngOnInit() {
     this.gamesService.getGameById(this.id).subscribe(result => {
+      debugger;
       this.game = result;
     });
   }

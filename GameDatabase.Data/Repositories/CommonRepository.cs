@@ -33,6 +33,13 @@ namespace GameDatabase.Data
             gamesFavourites.UserId = userId;
             gamesFavourites.IsFavourited = true;
             await dbContext.Set<GamesFavourites>().AddAsync(gamesFavourites);
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> CheckIfFavourited(int gameId, int userId)
+        {
+            var result = await dbContext.GamesFavourites.FirstOrDefaultAsync(item => item.GameId == gameId && item.UserId == userId);
+            return result != null ? result.IsFavourited : false; 
         }
     }
 }

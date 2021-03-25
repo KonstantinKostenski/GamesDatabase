@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 import { ErrorPopUpComponent } from '../PopUps/error-pop-up/error-pop-up.component';
 
 @Injectable({
@@ -9,17 +10,23 @@ import { ErrorPopUpComponent } from '../PopUps/error-pop-up/error-pop-up.compone
 })
 export class CommonServiceService {
 
-  constructor(private http: HttpClient, public dialog: MatDialog) { }
+  constructor(private http: HttpClient, public dialog: MatDialog, private router: Router) { }
 
   getGenres() {
     return this.http.get<any>("api/Common/GetGenres");
   }
 
-  handleError(errors: any[]) {
+  handleError(errors: any[], statusCode: number) {
     debugger;
-    const dialogRef = this.dialog.open(ErrorPopUpComponent, {
-      data: errors
-    });
+    if (statusCode === 401) {
+      this.router.navigateByUrl("Login");
+    }
+    else {
+      const dialogRef = this.dialog.open(ErrorPopUpComponent, {
+        data: errors
+      });
+    }
+   
   }
 
   getErrorMessage(control: FormControl) {

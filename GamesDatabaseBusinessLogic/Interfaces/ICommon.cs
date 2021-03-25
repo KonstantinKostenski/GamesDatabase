@@ -9,5 +9,6 @@ namespace GamesDatabaseBusinessLogic.Interfaces
         Task<IEnumerable<Genre>> GetAllGenresAsync();
         Task<string> GetGenreName(decimal key);
         Task FavouriteGame (int gameId, int userId);
+        Task<bool> CheckIfFavourited(int gameId, int userId);
     }
 }

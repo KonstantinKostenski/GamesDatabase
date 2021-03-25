@@ -10,16 +10,22 @@ namespace GamesDatabaseBusinessLogic
     public class BusinessLogicGames : IBusinessLogicGames
     {
         private readonly IGameRepository _gameRepository;
+        private readonly ICommon _commonBusinessLogic;
 
-        public BusinessLogicGames(IGameRepository gameRepository)
+        public BusinessLogicGames(IGameRepository gameRepository, ICommon commonBusinessLogic)
         {
             _gameRepository = gameRepository;
+            _commonBusinessLogic = commonBusinessLogic;
         }
 
-        public async Task<IEnumerable<Game>> GetAllGames(int? pageNumber, int pageSize)
+        public async Task<IEnumerable<Game>> GetAllGames(int? pageNumber, int pageSize, int userId)
         {
-            //_gameRepository.UseStoredProcedure();
-            return await _gameRepository.GetAllGames(pageNumber, pageSize);
+            var gameList = await _gameRepository.GetAllGames(pageNumber, pageSize);
+            foreach (Game game in gameList)
+            {
+                //game.IsFavouritedByUser = _commonBusinessLogic.CheckIfFavourited(game.Id);
+            }
+            return gameList; 
         }
 
         public async Task<Game> GetGameById(int id)

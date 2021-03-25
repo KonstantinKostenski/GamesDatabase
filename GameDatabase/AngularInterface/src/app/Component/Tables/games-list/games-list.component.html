@@ -58,7 +58,22 @@
               </span>
               <span>View Details</span>
             </button>
+            
           </mat-menu>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="FavouriteGame">
+        <th mat-header-cell *matHeaderCellDef>Favorite</th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-menu-item (click)="favouriteGame(row)">
+            <span class="material-icons" *ngIf="!row.isFavouritedByUser">
+              favorite_border
+            </span>
+            <span class="material-icons" *ngIf="row.isFavouritedByUser">
+              favorite
+            </span>
+            <span>Favorite</span>
+          </button>
         </td>
       </ng-container>
     </tr>

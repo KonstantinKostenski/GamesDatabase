@@ -54,11 +54,10 @@ namespace GameDatabase.Middleware
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
-
                 // attach user to context on successful jwt validation
-                context.Items["User"] = userService.GetById(userId);
+                context.Items.Add("UserAPI", userService.GetById(userId));
             }
-            catch
+            catch (Exception ex)
             {
                 // do nothing if jwt validation fails
                 // user is not attached to context so request won't have access to secure routes
