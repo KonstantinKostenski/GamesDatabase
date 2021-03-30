@@ -37,7 +37,7 @@ export class GamesListComponent implements OnInit {
           this.gamesTable.addNewDatasource();
         }, error => {
             debugger;
-            this.commonService.handleError(error.error);
+            this.commonService.handleError(error.error, error.status);
         });
       }
     });

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
@@ -56,5 +56,11 @@ export class CommonServiceService {
     }
 
     return "";
+  }
+
+  checkIfTokenHasExpired() {
+    debugger;
+    let headers = new HttpHeaders().set('Authorization', "Bearer " + localStorage.getItem("token"));
+    return this.http.get("api/Users/CheckIfTokenHasExpired", { headers: headers });
   }
 }

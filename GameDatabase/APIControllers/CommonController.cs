@@ -52,5 +52,7 @@ namespace GameDatabase.APIControllers
                 return BadRequest(ex.Message);
             }
         }
+
+        
     }
 }

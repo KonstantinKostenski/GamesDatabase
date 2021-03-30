@@ -91,6 +91,7 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
   }
 
   favouriteGame(row) {
+    debugger;
     this.buttonsService.favouriteGame(row.id, this.commonService.parseJwt(localStorage.getItem("token")).id).subscribe(result => {
       debugger;
       this.currentSelection.isFavouritedByUser = true;

@@ -37,7 +37,7 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
       this.changeDataSource();
     }, error => {
         debugger;
-        this.commonService.handleError([error]);
+        this.commonService.handleError([error], error.status);
     });
   }
 
@@ -61,7 +61,7 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     this.changeDataSource();
   }
 
