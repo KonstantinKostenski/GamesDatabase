@@ -24,9 +24,9 @@ namespace GamesDatabaseBusinessLogic
             return await this._context.GetGenreName(key);
         }
 
-        public async Task FavouriteGame(int gameId, int userId)
+        public async Task FavouriteGame(int gameId, int userId, bool isFavourited)
         {
-            await _context.FavouriteGame(gameId, userId);
+            await _context.FavouriteGame(gameId, userId, isFavourited);
         }
 
         public async Task<bool> CheckIfFavourited(int gameId, int userId)

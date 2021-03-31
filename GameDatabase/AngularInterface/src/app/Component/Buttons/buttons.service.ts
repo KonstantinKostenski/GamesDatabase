@@ -8,7 +8,7 @@ export class ButtonsService {
 
   constructor(private http: HttpClient) { }
 
-  favouriteGame(gameId: number, userId: number) {
-    return this.http.get("api/Common/FavouriteGame?gameId=" + gameId + "&userId=" + userId);
+  favouriteGame(gameId: number, userId: number, isFavourited: boolean) {
+    return this.http.get("api/Common/FavouriteGame?gameId=" + gameId + "&userId=" + userId + "&isFavourited=" + isFavourited);
   }
 }

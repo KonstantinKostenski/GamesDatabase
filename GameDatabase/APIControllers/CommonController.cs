@@ -40,11 +40,11 @@ namespace GameDatabase.APIControllers
 
         // DELETE: api/Games/5
         [HttpGet]
-        public async Task<IActionResult> FavouriteGame(int gameId, int userId)
+        public async Task<IActionResult> FavouriteGame(int gameId, int userId, bool isFavourited)
         {
             try
             {
-                await _commonService.FavouriteGame(gameId, userId);
+                await _commonService.FavouriteGame(gameId, userId, isFavourited);
                 return Ok();
             }
             catch (Exception ex)

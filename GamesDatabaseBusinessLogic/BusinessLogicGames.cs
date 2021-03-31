@@ -23,7 +23,7 @@ namespace GamesDatabaseBusinessLogic
             var gameList = await _gameRepository.GetAllGames(pageNumber, pageSize);
             foreach (Game game in gameList)
             {
-                //game.IsFavouritedByUser = _commonBusinessLogic.CheckIfFavourited(game.Id);
+                game.IsFavouritedByUser = await _commonBusinessLogic.CheckIfFavourited(game.Id, userId);
             }
             return gameList; 
         }

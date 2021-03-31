@@ -19,7 +19,7 @@ export class FavouriteGameButtonComponent implements OnInit {
 
   addToFavourites() {
     debugger;
-    this.buttonsService.favouriteGame(this.game.id, this.commonSerice.parseJwt(localStorage.getItem("token")).id).subscribe(result => {
+    this.buttonsService.favouriteGame(this.game.id, this.commonSerice.parseJwt(localStorage.getItem("token")).id, true).subscribe(result => {
       debugger;
       this.game.isFavouritedByUser = true;
 
