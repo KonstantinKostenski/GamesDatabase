@@ -87,6 +87,8 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
         debugger;
         this.data = this.data.filter(item => item.id !== result.id);
         this.changeDataSource();
+      }, error => {
+          this.commonService.handleError([error], error.status);
       });
     });
   }

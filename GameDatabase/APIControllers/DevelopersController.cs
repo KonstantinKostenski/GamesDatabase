@@ -144,9 +144,17 @@ namespace GameDatabase.APIControllers
                 }
 
                 var developer = await _context.Developers.FindAsync(id);
+                
                 if (developer == null)
                 {
                     return NotFound();
+                }
+
+                var isAssociatedWithAGame = await _context.Games.AnyAsync(game => game.DeveloperId == developer.Id);
+
+                if (isAssociatedWithAGame)
+                {
+                    return BadRequest("Cannot delete developer due to its association with a game.");
                 }
 
                 _context.Developers.Remove(developer);
