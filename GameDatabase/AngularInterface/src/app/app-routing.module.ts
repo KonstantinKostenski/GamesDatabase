@@ -6,6 +6,7 @@ import { PublishersListComponent } from './Component/publishers/publishers-list/
 import { RegisterComponent } from './Component/users/register/register.component';
 import { LogInComponent } from './Component/users/log-in/log-in.component';
 import { LandingPageComponent } from './Component/landing-page/landing-page.component';
+import { FavouritesListComponent } from './Component/games/favourites-list/favourites-list.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent, pathMatch: 'full' },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: "Developers", component: DeveloperListComponent },
   { path: "Publishers", component: PublishersListComponent },
   { path: "Register", component: RegisterComponent },
-  { path: "Login", component: LogInComponent }
+  { path: "Login", component: LogInComponent },
+  { path: "Favourites", component: FavouritesListComponent }
 ];
 
 @NgModule({

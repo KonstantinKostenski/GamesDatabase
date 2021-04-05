@@ -12,7 +12,7 @@ namespace GameDatabase.Interfaces
     {
         UserApi User { get; set; }
 
-        Task<IEnumerable<GameViewModel>> GetAllGames(int? pageNumber, int pageSize, int userId);
+        Task<IEnumerable<GameViewModel>> GetAllGames(int? pageNumber, int pageSize, int userId, bool isFavourites);
 
         Task<IEnumerable<GameViewModel>> GetAllGamesByGenre(int? pageNumber, int pageSize, int genreId);
 

@@ -11,8 +11,8 @@ export class GamesServiceService {
 
   constructor(private httpService: HttpClient) { }
 
-  getAllGames(pageNumber: number, pageSize: number): Observable<Game[]>{
-    return this.httpService.get<Game[]>("api/Games?pageNumber=" + pageNumber + "&pageSize=" + pageSize, { headers: new HttpHeaders().append("Authorization", "Bearer " + localStorage.getItem("token")) });
+  getAllGames(pageNumber: number, pageSize: number, isFavourites: boolean): Observable<Game[]>{
+    return this.httpService.get<Game[]>("api/Games?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&isFavourites=" + isFavourites, { headers: new HttpHeaders().append("Authorization", "Bearer " + localStorage.getItem("token")) });
   }
 
   getGameById(id: number): Observable<Game> {

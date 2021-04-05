@@ -29,14 +29,14 @@ namespace GameDatabase.APIControllers
         {
             try
             {
-                var model = await _developerService.GetAllDevelopers(pageNumber, pageSize);
-                return Ok(model);
+                var developers = await _developerService.GetAllDevelopers(pageNumber, pageSize);
+                return Ok(developers);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
 
         // GET: api/Developers/5
@@ -84,20 +84,11 @@ namespace GameDatabase.APIControllers
 
                 _context.Entry(developer).State = EntityState.Modified;
 
-                try
+                await _context.SaveChangesAsync();
+
+                if (!DeveloperExists(id))
                 {
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    if (!DeveloperExists(id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw ex;
-                    }
+                    return NotFound();
                 }
 
                 return Ok(developer);
@@ -144,7 +135,7 @@ namespace GameDatabase.APIControllers
                 }
 
                 var developer = await _context.Developers.FindAsync(id);
-                
+
                 if (developer == null)
                 {
                     return NotFound();

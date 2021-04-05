@@ -31,7 +31,7 @@ namespace GameDatabase.APIControllers
 
         // GET: api/Games
         [HttpGet]
-        public async Task<IActionResult> GetGames(int pageNumber, int pageSize)
+        public async Task<IActionResult> GetGames(int pageNumber, int pageSize, bool isFavourites)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace GameDatabase.APIControllers
 
                 if (user != null)
                 {
-                    model = await _gamesService.GetAllGames(pageNumber, pageSize, user != null ? user.Id : 0);
+                    model = await _gamesService.GetAllGames(pageNumber, pageSize, user != null ? user.Id : 0, isFavourites);
                     return Ok(model);
                 }
 

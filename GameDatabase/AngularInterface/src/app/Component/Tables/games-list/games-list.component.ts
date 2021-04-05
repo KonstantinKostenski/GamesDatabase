@@ -7,14 +7,14 @@ import { GamesServiceService } from '../../games/services/games-service.service'
 import { AddGamePopUpComponent } from '../../PopUps/add-game-pop-up/add-game-pop-up.component';
 import { CommonServiceService } from '../../Services/common-service.service';
 import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
-import { GamesListDataSource, GamesListItem } from './games-list-datasource';
+import { GamesListDataSource } from './games-list-datasource';
 
 @Component({
   selector: 'app-games-list-table',
   templateUrl: './games-list.component.html',
   styleUrls: ['./games-list.component.css']
 })
-export class GamesListTableComponent implements AfterViewInit, OnInit {
+export class GamesListTableComponent implements  OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: GamesListDataSource;
@@ -27,15 +27,16 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['Id', 'Name', 'ReleaseDate', 'Platform', 'DeveloperName', 'PublisherName', 'Actions', 'FavouriteGame'];
   currentSelection: Game;
+  @Input() isFavourites: boolean = false;
 
-  constructor(private gamesService: GamesServiceService, private cd: ChangeDetectorRef, public dialog: MatDialog, private commonService: CommonServiceService, private buttonsService: ButtonsService) {
+  constructor(private gamesService: GamesServiceService, public dialog: MatDialog, private commonService: CommonServiceService, private buttonsService: ButtonsService) {
 
   }
 
   ngOnInit(): void {
     debugger;
     this.favouriteGame.bind(this);
-    this.gamesService.getAllGames(this.pageIndex, this.pageSize).subscribe(result => {
+    this.gamesService.getAllGames(this.pageIndex, this.pageSize, this.isFavourites).subscribe(result => {
       debugger;
       this.data = result;
       this.addNewDatasource();
@@ -45,16 +46,13 @@ export class GamesListTableComponent implements AfterViewInit, OnInit {
     });
   }
 
-  ngAfterViewInit() {
-  }
-
   addNewDatasource() {
     this.dataSource = new GamesListDataSource(this.paginator, this.sort, this.data);
   }
 
   getServerData(event) {
     debugger;
-    this.gamesService.getAllGames(event.pageIndex, event.pageSize).subscribe(result => {
+    this.gamesService.getAllGames(event.pageIndex, event.pageSize, this.isFavourites).subscribe(result => {
       debugger;
       this.data = result;
     }, error => {

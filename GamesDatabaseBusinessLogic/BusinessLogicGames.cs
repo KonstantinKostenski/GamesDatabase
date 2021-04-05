@@ -18,9 +18,9 @@ namespace GamesDatabaseBusinessLogic
             _commonBusinessLogic = commonBusinessLogic;
         }
 
-        public async Task<IEnumerable<Game>> GetAllGames(int? pageNumber, int pageSize, int userId)
+        public async Task<IEnumerable<Game>> GetAllGames(int? pageNumber, int pageSize, int userId, bool isFavourites)
         {
-            var gameList = await _gameRepository.GetAllGames(pageNumber, pageSize);
+            var gameList = await _gameRepository.GetAllGames(pageNumber, pageSize, isFavourites, userId);
             foreach (Game game in gameList)
             {
                 game.IsFavouritedByUser = await _commonBusinessLogic.CheckIfFavourited(game.Id, userId);

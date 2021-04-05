@@ -37,9 +37,9 @@ namespace GameDatabase.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<GameViewModel>> GetAllGames(int? pageNumber, int pageSize, int userId)
+        public async Task<IEnumerable<GameViewModel>> GetAllGames(int? pageNumber, int pageSize, int userId, bool isFavourites)
         {
-            var result = await _businessLogicGames.GetAllGames(pageNumber ?? 1, pageSize, userId);
+            var result = await _businessLogicGames.GetAllGames(pageNumber ?? 1, pageSize, userId, isFavourites);
             return _mapper.Map<IEnumerable<Game>, IEnumerable<GameViewModel>>(result);
             //return result.Select(game => new GameViewModel
             //{
@@ -63,7 +63,7 @@ namespace GameDatabase.Services
 
         public async Task<IEnumerable<GameViewModel>> GetAllGamesByGenre(int? pageNumber, int pageSize, int genreId)
         {
-            var result = await _businessLogicGames.GetAllGames(pageNumber ?? 1, pageSize, 0);
+            var result = await _businessLogicGames.GetAllGames(pageNumber ?? 1, pageSize, 0, false);
             return result.Where(game => game.GenreId == genreId).Select(game => new GameViewModel
             {
                 DeveloperName = game.Developer.Name,

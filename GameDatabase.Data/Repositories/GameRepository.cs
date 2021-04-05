@@ -23,11 +23,12 @@ namespace GameDatabase.Data
                 .FirstOrDefaultAsync(game => game.Id == id);
         }
 
-        public async Task<IEnumerable<Game>> GetAllGames(int? pageNumber, int pageSize)
+        public async Task<IEnumerable<Game>> GetAllGames(int? pageNumber, int pageSize, bool isFavourites, int userId)
         {
             return await _dbContext.Games
              .Include(g => g.Developer)
              .Include(g => g.Publisher)
+             .Where(g => !isFavourites || g.GamesFavourites.Any(gf => gf.UserId == userId && gf.IsFavourited == true)) 
              .Skip(pageNumber.Value == 0 ? 0 : pageNumber.Value * pageSize)
              .Take(pageSize)
              .ToListAsync();

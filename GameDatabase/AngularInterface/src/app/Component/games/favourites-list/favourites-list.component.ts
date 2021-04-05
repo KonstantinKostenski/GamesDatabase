@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./favourites-list.component.css']
 })
 export class FavouritesListComponent implements OnInit {
+  isFavourites: boolean = true;
 
   constructor() { }
 
