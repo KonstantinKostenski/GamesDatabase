@@ -8,9 +8,10 @@ import { PopUpsModule } from '../PopUps/pop-ups/pop-ups.module';
 import { FavouritesListComponent } from './favourites-list/favourites-list.component';
 import { GameDefinitionlisComponent } from './game-definition/game-definitionlis.component';
 import { ButtonsModule } from '../Buttons/buttons.module';
+import { SearchGamesPanelComponent } from './search-games-panel/search-games-panel.component';
 
 @NgModule({
-  declarations: [GamesListComponent, GameDefinitionlisComponent, FavouritesListComponent],
+  declarations: [GamesListComponent, GameDefinitionlisComponent, FavouritesListComponent, SearchGamesPanelComponent],
   imports: [
     CommonModule,
     TablesModule,

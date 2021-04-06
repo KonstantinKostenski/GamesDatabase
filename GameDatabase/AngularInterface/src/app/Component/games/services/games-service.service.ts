@@ -34,7 +34,7 @@ export class GamesServiceService {
   }
 
   search(game: Game) {
-    return this.httpService.post<Game>("api/Games/Search", game);
+    return this.httpService.post<Game[]>("api/Games/Search", game);
   }
 
   facouriteValidityPeriod(gameId: number) {

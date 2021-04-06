@@ -6,9 +6,10 @@ import { MaterialModule } from '../../material/material.module';
 import { TablesModule } from '../Tables/tables/tables.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PopUpsModule } from '../PopUps/pop-ups/pop-ups.module';
+import { SearchPublishersComponentComponent } from './search-publishers-component/search-publishers-component.component';
 
 @NgModule({
-  declarations: [PublishersListComponent, PublisherDefinitionComponent],
+  declarations: [PublishersListComponent, PublisherDefinitionComponent, SearchPublishersComponentComponent],
   imports: [
     CommonModule,
     TablesModule,
