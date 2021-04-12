@@ -51,7 +51,7 @@ namespace GameDatabase.Controllers
             }
             searchObject.Genres = ddlItems;
             IEnumerable<GameViewModel> model;
-            model = await _gamesService.SearchGames(searchObject);
+            model = await _gamesService.SearchGames(searchObject, 0);
             return View("~/Views/Games/Index.cshtml", PaginatedList<GameViewModel, SearchObjectGames>.Create(model, pageNumber, pageSize, searchObject));
         }
 

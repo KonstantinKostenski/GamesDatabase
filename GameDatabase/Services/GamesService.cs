@@ -133,20 +133,10 @@ namespace GameDatabase.Services
             await _businessLogicGames.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<GameViewModel>> SearchGames(SearchObjectGames searchObject)
+        public async Task<IEnumerable<GameViewModel>> SearchGames(SearchObjectGames searchObject, int userId)
         {
-            var result = await this._businessLogicGames.SearchGames(searchObject);
-            return result.Select(game => new GameViewModel
-            {
-                DeveloperName = game.Developer.Name,
-                PublisherName = game.Publisher.Name,
-                Genre = game.Genre,
-                Name = game.Name,
-                CoverArtUrl = game.CoverArtUrl,
-                Description = game.Description,
-                Platform = game.Platform,
-                Id = game.Id
-            }).ToList();
+            var result = await this._businessLogicGames.SearchGames(searchObject, userId);
+            return _mapper.Map<IEnumerable<Game>, IEnumerable<GameViewModel>>(result);
         }
 
         public Task AddGameToFavourites(int gameId)

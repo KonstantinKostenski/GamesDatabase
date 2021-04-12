@@ -21,3 +21,7 @@ body {
   flex-direction: column;
   background-color: #424242;
 }
+
+.form-field {
+  margin: 10px;
+}

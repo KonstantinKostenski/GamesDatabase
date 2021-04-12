@@ -1,8 +1,9 @@
 import { DataSource } from '@angular/cdk/collections';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { Game } from '../../../Models/Game';
+import { MatPaginator } from '@angular/material/paginator';
 
 // TODO: Replace this with your own data model type
 export interface GamesListItem {

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Game } from '../../../Models/Game';
 import { AddGamePopUpComponent } from '../../PopUps/add-game-pop-up/add-game-pop-up.component';
 import { CommonServiceService } from '../../Services/common-service.service';

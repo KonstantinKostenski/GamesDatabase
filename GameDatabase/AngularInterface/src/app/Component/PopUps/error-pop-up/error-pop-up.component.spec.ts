@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ErrorPopUpComponent } from './error-pop-up.component';
 
 describe('ErrorPopUpComponent', () => {

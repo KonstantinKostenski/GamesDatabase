@@ -1,11 +1,14 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 import { Developer } from '../../../Models/Developer';
 import { DevelopersServiceService } from '../../Developers/services/developers-service.service';
 import { AddDeveloperPopUpComponent } from '../../PopUps/add-developer-pop-up/add-developer-pop-up.component';
 import { CommonServiceService } from '../../Services/common-service.service';
 import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { DevelopersListDataSource } from './developers-list-datasource';
+import { MatPaginator, PageEvent } from '@angular/material/paginator'
+
 
 @Component({
   selector: 'app-developers-list-table',
@@ -26,6 +29,8 @@ export class DevelopersListTableComponent implements AfterViewInit, OnChanges, O
   pageIndex: number = 0;
   pageSize: number = 25;
   currentSelection: Developer;
+  pageEvent: PageEvent;
+
 
   constructor(private developersService: DevelopersServiceService, public dialog: MatDialog, private commonService: CommonServiceService) {
 

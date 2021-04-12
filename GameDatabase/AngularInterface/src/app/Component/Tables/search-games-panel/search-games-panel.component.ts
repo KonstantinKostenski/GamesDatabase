@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Game, Search } from '../../../Models/Game';
-import { GamesServiceService } from '../services/games-service.service';
+import { GamesServiceService } from '../../games/services/games-service.service';
 
 @Component({
   selector: 'app-search-games-panel',

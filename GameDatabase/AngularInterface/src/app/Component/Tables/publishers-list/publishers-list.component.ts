@@ -1,12 +1,13 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort } from '@angular/material';
 import { Publisher } from '../../../Models/Publisher';
 import { AddPublisherPopUpComponent } from '../../PopUps/add-publisher-pop-up/add-publisher-pop-up.component';
 import { PublishersServiceService } from '../../publishers/services/publishers-service.service';
 import { CommonServiceService } from '../../Services/common-service.service';
 import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { PublishersListDataSource } from './publishers-list-datasource';
-
+import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-publishers-list-table',
   templateUrl: './publishers-list.component.html',
@@ -16,6 +17,7 @@ export class PublishersListTableComponent implements AfterViewInit, OnChanges, O
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  pageEvent: PageEvent;
   dataSource: PublishersListDataSource;
   @Input() data: Publisher[];
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */

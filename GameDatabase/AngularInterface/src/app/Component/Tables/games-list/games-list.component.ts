@@ -1,5 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort, PageEvent } from '@angular/material';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Game } from '../../../Models/Game';
 import { ButtonsService } from '../../Buttons/buttons.service';
 import { GameDefinitionlisComponent } from '../../games/game-definition/game-definitionlis.component';
@@ -8,6 +7,9 @@ import { AddGamePopUpComponent } from '../../PopUps/add-game-pop-up/add-game-pop
 import { CommonServiceService } from '../../Services/common-service.service';
 import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 import { GamesListDataSource } from './games-list-datasource';
+import { MatPaginator, PageEvent } from '@angular/material/paginator'
+import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-games-list-table',

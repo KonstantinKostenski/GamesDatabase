@@ -49,6 +49,6 @@
                  [pageIndex]="pageIndex"
                  [pageSize]="pageSize"
                  [pageSizeOptions]="[25, 50, 100, 250]"
-                 (page)="pageEvent = getServerData($event)">
+                 (page)="getServerData($event)">
   </mat-paginator>
 </div>

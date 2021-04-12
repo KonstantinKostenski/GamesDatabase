@@ -1,4 +1,4 @@
-<app-search-games-panel  [(data)]="data"></app-search-games-panel>
+<app-search-games-panel  [(data)]="data" (dataChange)="addNewDatasource()"></app-search-games-panel>
 <div class="mat-elevation-z8">
   <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
     <!-- Id Column -->
@@ -89,7 +89,7 @@
                  [pageIndex]="pageIndex"
                  [pageSize]="pageSize"
                  [pageSizeOptions]="[25, 50, 100, 250]"
-                 (page)="pageEvent = getServerData($event)">
+                 (page)="getServerData($event)">
   </mat-paginator>
 </div>
 

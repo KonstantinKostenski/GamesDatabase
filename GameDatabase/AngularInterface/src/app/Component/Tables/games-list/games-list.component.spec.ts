@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatPaginatorModule, MatSortModule, MatTableModule } from '@angular/material';
-
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator/paginator-module'
 import { GamesListTableComponent } from './games-list.component';
+import { MatTableModule } from '@angular/material/table';
 
 describe('GamesListComponent', () => {
   let component: GamesListTableComponent;

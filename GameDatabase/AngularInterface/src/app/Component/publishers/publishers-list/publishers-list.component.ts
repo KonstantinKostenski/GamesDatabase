@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { AddPublisherPopUpComponent } from '../../PopUps/add-publisher-pop-up/add-publisher-pop-up.component';
 import { PublishersServiceService } from '../services/publishers-service.service';
 

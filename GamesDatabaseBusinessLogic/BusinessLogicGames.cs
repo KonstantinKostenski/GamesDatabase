@@ -60,9 +60,16 @@ namespace GamesDatabaseBusinessLogic
             _gameRepository.Update(game);
         }
 
-        public async Task<IEnumerable<Game>> SearchGames(SearchObjectGames searchObject)
+        public async Task<IEnumerable<Game>> SearchGames(SearchObjectGames searchObject, int userId)
         {
-            return await this._gameRepository.SearchGames(searchObject);
+            var result = await this._gameRepository.SearchGames(searchObject);
+
+            foreach (Game game in result)
+            {
+                game.IsFavouritedByUser = await _commonBusinessLogic.CheckIfFavourited(game.Id, userId);
+            }
+
+            return result;
         }
 
         //public async Task<IEnumerable<Game>> AddGameToFavourites(int gameId)

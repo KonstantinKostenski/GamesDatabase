@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { LoginUserModel } from '../../../Models/user';
-import { MatDialogRef } from '@angular/material';
 import { UsersService } from '../users.service';
 import { Router } from '@angular/router';
 

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatSort } from '@angular/material/sort';
 import { FavouritesListDataSource } from './favourites-list-datasource';
+import { MatPaginator } from '@angular/material/paginator'
 
 @Component({
   selector: 'app-favourites-list-table',

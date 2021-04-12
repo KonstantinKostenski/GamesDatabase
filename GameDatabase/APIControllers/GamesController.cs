@@ -185,7 +185,8 @@ namespace GameDatabase.APIControllers
             try
             {
                 IEnumerable<GameViewModel> model;
-                model = await _gamesService.SearchGames(searchObject);
+                var user = (UserApi)ControllerContext.HttpContext.Items["UserAPI"];
+                model = await _gamesService.SearchGames(searchObject, user != null ? user.Id : 0);
                 return Ok(model);
             }
             catch (Exception ex)

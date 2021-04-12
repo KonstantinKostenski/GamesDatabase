@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,6 +8,7 @@ import { TablesModule } from '../../Tables/tables/tables.module';
 import { AddPublisherPopUpComponent } from '../add-publisher-pop-up/add-publisher-pop-up.component';
 import { AddDeveloperPopUpComponent } from '../add-developer-pop-up/add-developer-pop-up.component';
 import { ErrorPopUpComponent } from '../error-pop-up/error-pop-up.component';
+import { NgModule } from '@angular/core';
 
 @NgModule({
   declarations: [

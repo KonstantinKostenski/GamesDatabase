@@ -1,5 +1,4 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,12 +24,12 @@ import { SharedModule } from './Component/Shared/shared.module';
 import { ConfirmationDialogComponent } from './Component/shared/confirmation-dialog/confirmation-dialog.component';
 import { GameDefinitionlisComponent } from './Component/games/game-definition/game-definitionlis.component';
 import { CanActivatePath } from './Component/Services/can-activate.service';
+import { NgModule } from '@angular/core';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingPageComponent,
-    ConfirmationDialogComponent
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,

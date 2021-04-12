@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Developer, DeveloperSearch } from '../../../Models/Developer';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DevelopersServiceService } from '../../Developers/services/developers-service.service';
 import { AddDeveloperPopUpComponent } from '../add-developer-pop-up/add-developer-pop-up.component';
 

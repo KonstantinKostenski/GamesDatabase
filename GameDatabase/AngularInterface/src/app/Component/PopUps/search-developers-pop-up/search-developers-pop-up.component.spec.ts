@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SearchDevelopersPopUpComponent } from './search-developers-pop-up.component';
 
 describe('SearchDevelopersPopUpComponent', () => {

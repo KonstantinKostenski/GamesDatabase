@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Game } from '../../../Models/Game';
-import { GamesListItem } from '../../Tables/games-list/games-list-datasource';
 
 @Injectable({
   providedIn: 'root'

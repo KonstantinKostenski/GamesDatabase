@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 import { GamesListComponent } from './Component/games/games-list/games-list.component';
 import { DeveloperListComponent } from './Component/developers/developer-list/developer-list.component';
 import { PublishersListComponent } from './Component/publishers/publishers-list/publishers-list.component';
@@ -7,6 +5,8 @@ import { RegisterComponent } from './Component/users/register/register.component
 import { LogInComponent } from './Component/users/log-in/log-in.component';
 import { LandingPageComponent } from './Component/landing-page/landing-page.component';
 import { FavouritesListComponent } from './Component/games/favourites-list/favourites-list.component';
+import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent, pathMatch: 'full' },

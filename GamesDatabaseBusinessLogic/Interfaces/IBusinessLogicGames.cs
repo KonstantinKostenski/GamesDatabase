@@ -12,7 +12,7 @@ namespace GamesDatabaseBusinessLogic.Interfaces
         Task DeleteGame(int id);
         Task AddGame(Game game);
         Task UpdateGame(int id, Game game);
-        Task<IEnumerable<Game>> SearchGames(SearchObjectGames searchObject);
+        Task<IEnumerable<Game>> SearchGames(SearchObjectGames searchObject, int userId);
         Task SaveChangesAsync();
     }
 }
