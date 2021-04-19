@@ -3,15 +3,15 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator/paginator-module'
-import { DevelopersListTableComponent } from './developers-list.component';
+import { FavouritesListTableComponent } from './favourites-list-table.component';
 
-describe('DevelopersListComponent', () => {
-  let component: DevelopersListTableComponent;
-  let fixture: ComponentFixture<DevelopersListTableComponent>;
+describe('FavouritesListComponent', () => {
+  let component: FavouritesListTableComponent;
+  let fixture: ComponentFixture<FavouritesListTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DevelopersListTableComponent ],
+      declarations: [FavouritesListTableComponent ],
       imports: [
         NoopAnimationsModule,
         MatPaginatorModule,
@@ -22,7 +22,7 @@ describe('DevelopersListComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DevelopersListTableComponent);
+    fixture = TestBed.createComponent(FavouritesListTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

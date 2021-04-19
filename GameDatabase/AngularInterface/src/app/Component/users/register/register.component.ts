@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import {RegisterUserModel } from '../../../Models/user';
+import {RegisterUserModel } from '../../../Models/User';
 import { CommonServiceService } from '../../Services/common-service.service';
 import { UsersService } from '../users.service';
 
@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   registerUserForm: FormGroup;
   user: RegisterUserModel;
 
-  constructor(private formBuilder: FormBuilder, private userService: UsersService, private router: Router, private commonService: CommonServiceService) { }
+  constructor(private formBuilder: FormBuilder, private userService: UsersService, private router: Router, public commonService: CommonServiceService) { }
 
   ngOnInit() {
     this.user = new RegisterUserModel();

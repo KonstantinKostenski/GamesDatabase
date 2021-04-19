@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Search } from '../../../Models/Game';
-import {PublisherSearch, Publisher } from '../../../Models/Publisher';
-import { PublishersServiceService } from '../../publishers/services/publishers-service.service';
-import { AddPublisherPopUpComponent } from '../add-publisher-pop-up/add-publisher-pop-up.component';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { Search } from "../../../Models/Game";
+import { Publisher, PublisherSearch } from "../../../Models/Publisher";
+import { PublishersServiceService } from "../../Publishers/services/publishers-service.service";
+import { AddPublisherPopUpComponent } from "../add-publisher-pop-up/add-publisher-pop-up.component";
+
 
 @Component({
   selector: 'app-search-publishers-pop-up',

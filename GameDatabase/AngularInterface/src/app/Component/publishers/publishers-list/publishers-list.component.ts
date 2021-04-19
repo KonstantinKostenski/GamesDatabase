@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddPublisherPopUpComponent } from '../../PopUps/add-publisher-pop-up/add-publisher-pop-up.component';
 import { PublishersServiceService } from '../services/publishers-service.service';
 
+
 @Component({
   selector: 'app-publishers-list',
   templateUrl: './publishers-list.component.html',

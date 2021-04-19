@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Developer } from '../../../Models/Developer';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CommonServiceService } from '../../Services/common-service.service';
+import { Component, Inject, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Developer } from "../../../Models/Developer";
+import { CommonServiceService } from "../../Services/common-service.service";
+
 
 @Component({
   selector: 'app-add-developer-pop-up',
@@ -14,7 +15,7 @@ export class AddDeveloperPopUpComponent implements OnInit {
   addDeveloperForm: FormGroup;
   developer: Developer;
 
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddDeveloperPopUpComponent>, private commonService: CommonServiceService, @Inject(MAT_DIALOG_DATA) public data: Developer) {
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddDeveloperPopUpComponent>, public commonService: CommonServiceService, @Inject(MAT_DIALOG_DATA) public data: Developer) {
     if (data) {
       this.developer = data;
     }

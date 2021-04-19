@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { FavouriteGameButtonComponent } from './favourite-game-button/favourite-game-button.component';
-import { MaterialModule } from '../../material/material.module';
+import { MaterialModule } from '../../Material/material.module';
 import { NgModule } from '@angular/core';
 
 @NgModule({

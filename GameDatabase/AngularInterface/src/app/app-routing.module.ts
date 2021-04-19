@@ -1,10 +1,10 @@
-import { GamesListComponent } from './Component/games/games-list/games-list.component';
-import { DeveloperListComponent } from './Component/developers/developer-list/developer-list.component';
-import { PublishersListComponent } from './Component/publishers/publishers-list/publishers-list.component';
-import { RegisterComponent } from './Component/users/register/register.component';
-import { LogInComponent } from './Component/users/log-in/log-in.component';
+import { GamesListComponent } from './Component/Games/games-list/games-list.component';
+import { DeveloperListComponent } from './Component/Developers/developer-list/developer-list.component';
+import { PublishersListComponent } from './Component/Publishers/publishers-list/publishers-list.component';
+import { RegisterComponent } from './Component/Users/register/register.component';
+import { LogInComponent } from './Component/Users/log-in/log-in.component';
 import { LandingPageComponent } from './Component/landing-page/landing-page.component';
-import { FavouritesListComponent } from './Component/games/favourites-list/favourites-list.component';
+import { FavouritesListComponent } from './Component/Games/favourites-list/favourites-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 

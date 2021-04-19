@@ -1,17 +1,18 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { Publisher } from '../../../Models/Publisher';
-import { AddPublisherPopUpComponent } from '../../PopUps/add-publisher-pop-up/add-publisher-pop-up.component';
-import { PublishersServiceService } from '../../publishers/services/publishers-service.service';
-import { CommonServiceService } from '../../Services/common-service.service';
-import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
-import { PublishersListDataSource } from './publishers-list-datasource';
-import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { Publisher } from "../../../Models/Publisher";
+import { AddPublisherPopUpComponent } from "../../PopUps/add-publisher-pop-up/add-publisher-pop-up.component";
+import { PublishersServiceService } from "../../Publishers/services/publishers-service.service";
+import { CommonServiceService } from "../../Services/common-service.service";
+import { ConfirmationDialogComponent } from "../../Shared/confirmation-dialog/confirmation-dialog.component";
+import { PublishersListDataSource } from "./publishers-list-table-datasource";
+
 @Component({
   selector: 'app-publishers-list-table',
-  templateUrl: './publishers-list.component.html',
-  styleUrls: ['./publishers-list.component.css']
+  templateUrl: './publishers-list-table.component.html',
+  styleUrls: ['./publishers-list-table.component.css']
 })
 export class PublishersListTableComponent implements AfterViewInit, OnChanges, OnInit {
 

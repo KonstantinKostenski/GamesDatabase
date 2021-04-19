@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Developer, DeveloperSearch } from '../../../Models/Developer';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { DevelopersServiceService } from '../../Developers/services/developers-service.service';
-import { AddDeveloperPopUpComponent } from '../add-developer-pop-up/add-developer-pop-up.component';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { Developer, DeveloperSearch } from "../../../Models/Developer";
+import { DevelopersServiceService } from "../../Developers/services/developers-service.service";
+import { AddDeveloperPopUpComponent } from "../add-developer-pop-up/add-developer-pop-up.component";
+
 
 @Component({
   selector: 'app-search-developers-pop-up',

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Game } from '../../../Models/Game';
 import { AddGamePopUpComponent } from '../../PopUps/add-game-pop-up/add-game-pop-up.component';
 import { CommonServiceService } from '../../Services/common-service.service';
-import { GamesListTableComponent } from '../../Tables/games-list/games-list.component';
+import { GamesListTableComponent } from '../../Tables/games-list-table/games-list-table.component';
 import { GamesServiceService } from '../services/games-service.service';
 
 @Component({

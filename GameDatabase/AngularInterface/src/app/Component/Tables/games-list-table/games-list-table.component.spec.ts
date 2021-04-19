@@ -1,17 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator/paginator-module'
-import { FavouritesListTableComponent } from './favourites-list.component';
+import { MatTableModule } from '@angular/material/table';
+import { GamesListTableComponent } from './games-list-table.component';
 
-describe('FavouritesListComponent', () => {
-  let component: FavouritesListTableComponent;
-  let fixture: ComponentFixture<FavouritesListTableComponent>;
+describe('GamesListComponent', () => {
+  let component: GamesListTableComponent;
+  let fixture: ComponentFixture<GamesListTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FavouritesListTableComponent ],
+      declarations: [GamesListTableComponent ],
       imports: [
         NoopAnimationsModule,
         MatPaginatorModule,
@@ -22,7 +22,7 @@ describe('FavouritesListComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FavouritesListTableComponent);
+    fixture = TestBed.createComponent(GamesListTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

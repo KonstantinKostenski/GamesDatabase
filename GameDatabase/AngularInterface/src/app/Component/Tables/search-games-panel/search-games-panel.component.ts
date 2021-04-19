@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Game, Search } from '../../../Models/Game';
-import { GamesServiceService } from '../../games/services/games-service.service';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { Game, Search } from "../../../Models/Game";
+import { GamesServiceService } from "../../Games/services/games-service.service";
+import { CommonServiceService } from "../../Services/common-service.service";
+
 
 @Component({
   selector: 'app-search-games-panel',
@@ -15,7 +17,7 @@ export class SearchGamesPanelComponent implements OnInit {
   @Output() dataChange: EventEmitter<Game[]> = new EventEmitter<Game[]>()
   @Input() isFavourites: boolean;
 
-  constructor(private formBuilder: FormBuilder, private gamesService: GamesServiceService) { }
+  constructor(private formBuilder: FormBuilder, public gamesService: GamesServiceService, public commonService: CommonServiceService) { }
 
   ngOnInit() {
     this.searchObject = new Search();

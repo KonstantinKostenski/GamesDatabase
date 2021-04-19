@@ -1,13 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Game } from '../../../Models/Game';
-import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SearchDevelopersPopUpComponent } from '../search-developers-pop-up/search-developers-pop-up.component';
-import { SearchPublishersPopUpComponent } from '../search-publishers-pop-up/search-publishers-pop-up.component';
-import { SelectListItem } from '../../../Models/SelectListItem';
-import { CommonServiceService } from '../../Services/common-service.service';
-import { ImageSnippet } from '../../../Models/ImageSnippet';
-import { FileUploadServiceService } from '../../Services/file-upload-service.service';
+import { Component, Inject, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Game } from "../../../Models/Game";
+import { ImageSnippet } from "../../../Models/ImageSnippet";
+import { SelectListItem } from "../../../Models/SelectListItem";
+import { CommonServiceService } from "../../Services/common-service.service";
+import { FileUploadServiceService } from "../../Services/file-upload-service.service";
+import { SearchDevelopersPopUpComponent } from "../search-developers-pop-up/search-developers-pop-up.component";
+import { SearchPublishersPopUpComponent } from "../search-publishers-pop-up/search-publishers-pop-up.component";
+
 
 @Component({
   selector: 'app-add-game-pop-up',
@@ -21,7 +22,7 @@ export class AddGamePopUpComponent implements OnInit {
   genres: SelectListItem[] = [];
     selectedFile: ImageSnippet;
 
-  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddGamePopUpComponent>, public dialog: MatDialog, private commonService: CommonServiceService, private imageService: FileUploadServiceService, @Inject(MAT_DIALOG_DATA) public data: Game) {
+  constructor(private formBuilder: FormBuilder, public dialogRef: MatDialogRef<AddGamePopUpComponent>, public dialog: MatDialog, public commonService: CommonServiceService, private imageService: FileUploadServiceService, @Inject(MAT_DIALOG_DATA) public data: Game) {
     if (this.data) {
       this.game = data;
     }

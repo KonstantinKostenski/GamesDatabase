@@ -5,15 +5,15 @@ import { Developer } from '../../../Models/Developer';
 import { DevelopersServiceService } from '../../Developers/services/developers-service.service';
 import { AddDeveloperPopUpComponent } from '../../PopUps/add-developer-pop-up/add-developer-pop-up.component';
 import { CommonServiceService } from '../../Services/common-service.service';
-import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
-import { DevelopersListDataSource } from './developers-list-datasource';
+import { ConfirmationDialogComponent } from '../../Shared/confirmation-dialog/confirmation-dialog.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator'
+import { DevelopersListDataSource } from './developers-list-table-datasource';
 
 
 @Component({
   selector: 'app-developers-list-table',
-  templateUrl: './developers-list.component.html',
-  styleUrls: ['./developers-list.component.css']
+  templateUrl: './developers-list-table.component.html',
+  styleUrls: ['./developers-list-table.component.css']
 })
 export class DevelopersListTableComponent implements AfterViewInit, OnChanges, OnInit {
 

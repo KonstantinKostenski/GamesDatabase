@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ErrorPopUpComponent } from '../PopUps/error-pop-up/error-pop-up.component';
@@ -29,7 +29,7 @@ export class CommonServiceService {
    
   }
 
-  getErrorMessage(control: FormControl) {
+  getErrorMessage(control: AbstractControl) {
     console.log(control);
     if (control.hasError('required')) {
       return "You must enter a value";
